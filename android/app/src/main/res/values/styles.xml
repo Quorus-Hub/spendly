@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+    <!-- Item selected font. -->
+    <style name="SpinnerItem" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="android:background">@color/GRAY_DARK</item>
+      <item name="android:textColor">@color/BLACK</item>
+    </style>
+
+
+    <!-- Dropdown options font. -->
+    <style name="SpinnerDropDownItem" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/GRAY_DARK</item>
+        <item name="android:textColor">@color/BLACK</item>
+    </style>
+
+</resources>
+

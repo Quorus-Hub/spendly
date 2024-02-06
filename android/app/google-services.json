@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "778646354621",
+    "project_id": "spendlybudget",
+    "storage_bucket": "spendlybudget.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778646354621:android:3078f167bf8cf5ae7d95d4",
+        "android_client_info": {
+          "package_name": "com.spendly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDceZx6HQHElWcFwnjyJtyp21ngWBmg_FI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
