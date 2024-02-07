@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "778646354621",
+    "firebase_url": "https://spendlybudget-default-rtdb.firebaseio.com",
     "project_id": "spendlybudget",
     "storage_bucket": "spendlybudget.appspot.com"
   },
@@ -13,6 +14,30 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "778646354621-9n4e9tpfv11efqqkgd3kfr88loneseih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spendly",
+            "certificate_hash": "05e8c08647cab2397a9cec5393bc58c9d49386d7"
+          }
+        },
+        {
+          "client_id": "778646354621-ccftl06753ihnn3sr5ettb2bbsc5ob9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spendly",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "778646354621-tjo4509donnrvgl13eso40b0q9vi61mf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spendly",
+            "certificate_hash": "417dd5e8c4b4b2c1069f4fd20321a297c881e0b9"
+          }
+        },
         {
           "client_id": "778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com",
           "client_type": 3
