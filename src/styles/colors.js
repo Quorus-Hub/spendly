@@ -14,3 +14,10 @@ export const SUCESS = '#60D97D';
 export const DARK_SUCESS = '#4cae63';
 export const WARNING = '#ffae00';
 export const ALERT = '#cc4b37';
+
+//Categories
+export const PINK = '#e4a8a7';
+export const BLUE = '#5c9fcd';
+export const GREEN = '#b1e7de';
+export const VIOLET = '#a4a6e3';
+export const YELLOW = '#f2e878';

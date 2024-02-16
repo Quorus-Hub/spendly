@@ -94,8 +94,8 @@ const Home = ({ navigation }) => {
                 //     return (
                 //         // Statistics
                 //         <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                //             <BlockHeader title='Statistics' />
-                //             <PieCard incomes={totalIncomes} expenses={totalExpenses} />
+                //             <BlockHeader title='Statistics' theme={theme} />
+                //             <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
                 //         </View>
                 //     )
                 // }}

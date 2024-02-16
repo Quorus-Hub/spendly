@@ -1,97 +1,118 @@
+import { Colors } from '../styles';
+
 export const categories = [
     {
         id: '1',
         name: 'Beauty',
-        icon: 'spa'
+        icon: 'spa',
+        color: Colors.PINK
     },
     {
         id: '2',
         name: 'Bills',
-        icon: 'wallet'
+        icon: 'wallet',
+        color: Colors.BLUE
     },
     {
         id: '3',
         name: 'Car',
-        icon: 'car-alt'
+        icon: 'car-alt',
+        color: Colors.GREEN
     },
     {
         id: '4',
         name: 'Clothes',
-        icon: 'tshirt'
+        icon: 'tshirt',
+        color: Colors.VIOLET
     },
     {
         id: '5',
         name: 'Communication',
-        icon: 'phone'
+        icon: 'phone',
+        color: Colors.YELLOW
     },
     {
         id: '6',
         name: 'Donations',
-        icon: 'donate'
+        icon: 'donate',
+        color: Colors.PINK
     },
     {
         id: '7',
         name: 'Entertainment',
-        icon: 'film'
+        icon: 'film',
+        color: Colors.BLUE
     },
     {
         id: '8',
         name: 'Food',
-        icon: 'hamburger'
+        icon: 'hamburger',
+        color: Colors.GREEN
     },
     {
         id: '9',
         name: 'Gifts',
-        icon: 'gift'
+        icon: 'gift',
+        color: Colors.VIOLET
     },
     {
         id: '10',
         name: 'Health',
-        icon: 'heart'
+        icon: 'heart',
+        color: Colors.YELLOW
     },
     {
         id: '11',
         name: 'House',
-        icon: 'home'
+        icon: 'home',
+        color: Colors.PINK
     },
     {
         id: '12',
         name: 'Personal Hygiene',
-        icon: 'spa'
+        icon: 'spa',
+        color: Colors.BLUE
     },
     {
         id: '13',
         name: 'Pets',
-        icon: 'dog'
+        icon: 'dog',
+        color: Colors.GREEN
     },
     {
         id: '14',
         name: 'Restaurant',
-        icon: 'utensils'
+        icon: 'utensils',
+        color: Colors.VIOLET
     },
     {
         id: '15',
         name: 'Salary',
         icon: 'money-bill',
+        color: Colors.YELLOW
     },
     {
         id: '16',
         name: 'Shopping',
-        icon: 'shopping-cart'
+        icon: 'shopping-cart',
+        color: Colors.PINK
     },
     {
         id: '17',
         name: 'Sports',
-        icon: 'futbol'
+        icon: 'futbol',
+        color: Colors.BLUE
     },
     {
         id: '18',
         name: 'Trip',
-        icon: 'plane'
+        icon: 'plane',
+        color: Colors.GREEN
     },
     {
         id: '19',
         name: 'Work',
-        icon: 'briefcase'
+        icon: 'briefcase',
+        color: Colors.VIOLET
     },
 ]

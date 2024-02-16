@@ -6,10 +6,12 @@ import {
     Text,
     Switch,
     TextInput,
+    Pressable,
     TouchableOpacity
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Colors, Typography } from '../../styles';
 import { insertTransaction, updateTransaction } from '../../dbHelpers/transactionHelper';
@@ -19,9 +21,12 @@ import { categories } from '../../utils/categories';
 
 import BackHeader from '../../components/Headers/BackHeader';
 import Button from '../../components/Button';
+import Bar from '../../components/Bar';
 
 const AddTransaction = ({ navigation, route }) => {
     const [category, setCategory] = useState();
+    const [categorySelected, setCategorySelected] = useState('');
+    const [showCategory, setShowCategory] = useState(false);
     const [income, setIncome] = useState(false);
     const [showDate, setShowDate] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -32,9 +37,9 @@ const AddTransaction = ({ navigation, route }) => {
         await getTheme(setTheme);
         if (route.params?.item) {
             await setCategory({ name: route.params.item.category, icon: route.params.item.icon });
-            await  setDate(new Date(route.params.item.transaction_date));
-            await  setAmount((route.params.item.amount).toString());
-            await   setIncome(route.params.item.type == 'income' ? false : true);
+            await setDate(new Date(route.params.item.transaction_date));
+            await setAmount((route.params.item.amount).toString());
+            await setIncome(route.params.item.type == 'income' ? false : true);
         }
         else {
             await setCategory(categories[0]); // Set the first category as a default category
@@ -87,26 +92,68 @@ const AddTransaction = ({ navigation, route }) => {
         navigation.goBack();
     }
 
+    // Toggle Modal
+    const __toggleCategoryModal = () => {
+        setShowCategory(!showCategory);
+    };
+
+    // Change Category
+    const __changeCategory = (category) => {
+        console.log('category', category);
+        setCategory(category);
+        setCategorySelected(category.name);
+        __toggleCategoryModal();
+    };
+
     return (
         <View style={styles(theme).container}>
             {/* Header */}
             <BackHeader theme={theme} title={route.params?.item ? 'Edit Transaction' : 'New Transaction'} />
-
+            <Modal
+                useNativeDriverForBackdrop
+                swipeDirection={['down']}
+                isVisible={showCategory}
+                onBackButtonPress={() => { __toggleCategoryModal(); }}
+                onBackdropPress={() => { __toggleCategoryModal(); }}
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
+            >
+                <View>
+                    <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
+                        {categories.map((item, index) => (
+                            <View key={index} >
+                                <Pressable style={styles(theme).rowContainer} onPress={() => __changeCategory(item)} >
+                                    <View style={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 20,
+                                        backgroundColor: item.color,
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <Icon name={item.icon} size={15} color={Colors.WHITE} />
+                                    </View>
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.name}</Text>
+                                    {/* <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.icon}</Text> */}
+                                </Pressable>
+                                {/* <Bar padding={0.2} color={Colors.GRAY_DARK} /> */}
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </Modal>
             {/* Body */}
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
                 {/* Category */}
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK}]}>Category</Text>
-                    <Picker
-                        selectedValue={category}
-                        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                        style={styles(theme).input}
-                        dropdownIconColor={theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK} 
-                        itemStyle={[Typography.BODY, { color: theme.darkmode ? Colors.GRAY_THIN : Colors.BLACK, backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN}]}>
-                        {categories.map((category, index) => (
-                            <Picker.Item key={index} label={category.name} value={category} />
-                        ))}
-                    </Picker>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Category</Text>
+                    <TouchableOpacity
+                        onPress={() => setShowCategory(true)}
+                        style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{categorySelected}</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Transaction type */}
@@ -198,6 +245,16 @@ export const styles = (theme) => StyleSheet.create({
     // Footer
     footerContainer: {
         padding: 20,
+    },
+    // Modal 
+    modalContainer: {
+        height: '65%',
+        margin: 0,
+        paddingTop: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
+        borderRadius: 10,
+        backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_MEDIUM
     },
 });
 

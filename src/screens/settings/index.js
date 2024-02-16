@@ -65,12 +65,17 @@ const Settings = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             {/* Currency Modal */}
             <Modal
+                useNativeDriverForBackdrop
+                swipeDirection={['down']}
                 isVisible={currencyModal}
+                onBackButtonPress={() => { __toggleCurrencyModal(); } }
+                onBackdropPress={() => { __toggleCurrencyModal(); } }
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
             >
-                <View style={{
-                    width: 330,
-                    height: 400
-                }}>
+                <View>
                     <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
                         {currencies.map((item, index) => (
                             <View key={index} >
@@ -120,20 +125,20 @@ const Settings = ({ navigation }) => {
                             <Pressable
                                 style={styles(theme).rowContainer}
                                 onPress={() => __toggleCurrencyModal()}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK  }]}>Currency</Text>
-                                <Text style={[Typography.TAGLINE, { color:  theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK  }]}>{currency.name} ({currency.symbol})</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Currency</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{currency.name} ({currency.symbol})</Text>
                             </Pressable>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <TouchableOpacity
                                 activeOpacity={0.8}
                                 style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK  }]}>Language</Text>
-                                <Text style={[Typography.TAGLINE, { color:  theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK  }]}>English</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Language</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>English</Text>
                             </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK  }]}>Darkmode</Text>
-                                <Text style={[Typography.TAGLINE, { color:  theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Darkmode</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>
                                     <Switch
                                         trackColor={{ false: Colors.WHITE, true: Colors.PRIMARY }}
                                         thumbColor={theme.darkmode ? Colors.PRIMARY : Colors.PRIMARY}
@@ -151,7 +156,7 @@ const Settings = ({ navigation }) => {
                         <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>More</Text>
                         <View style={styles(theme).blockContainer}>
                             <Pressable style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color:  theme.darkmode ?  Colors.WHITE : Colors.BLACK }]}>Version</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Version</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{versionApp}</Text>
                             </Pressable>
                             {/* <Bar padding={0.3} color={Colors.GRAY_THIN} />
@@ -194,7 +199,7 @@ export const styles = (theme) => StyleSheet.create({
     },
     blockContainer: {
         borderRadius: 10,
-        backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_MEDIUM 
+        backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_MEDIUM
     },
     rowContainer: {
         padding: 10,
@@ -207,12 +212,13 @@ export const styles = (theme) => StyleSheet.create({
         marginTop: 20,
         borderRadius: 10,
         alignItems: 'center',
-        backgroundColor: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.PRIMARY 
+        backgroundColor: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.PRIMARY
     },
     // Modal 
     modalContainer: {
-        height: 50,
-        margin: 20,
+        height: '65%',
+        margin: 0,
+        paddingTop: 10,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 10,
