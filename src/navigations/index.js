@@ -84,7 +84,7 @@ const RootNavigator = () => {
             screenOptions={{
               headerShown: false,
             }}>
-            {state.isLoading ?
+            {!state || state.isLoading ?
               <Stack.Screen name={routes.Splash} component={Splash} />
             : state.user == null ? 
               <>

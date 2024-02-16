@@ -1,5 +1,5 @@
-export const PRIMARY = '#6495ed';
-export const WHITE = '#fffafa';
+export const PRIMARY = '#4e8fdd';
+export const WHITE = '#fdfdfd';
 export const BLACK = '#252730';
 export const DARK_BLACK = '#1e1f26';
 export const LIGHT_BLACK = '#323445';
@@ -8,6 +8,7 @@ export const GRAY_THIN = '#f5f5f5';
 export const GRAY_LIGHT = '#e7e6e1';
 export const GRAY_MEDIUM = '#f0f0f0';
 export const GRAY_DARK = '#a4a5ab';
+export const GRAY_BLUE = '#5f7f97';
 
 // Success
 export const SUCCESS = '#51c86e';

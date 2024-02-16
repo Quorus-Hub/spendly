@@ -5,6 +5,7 @@ import {
     Text,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -14,7 +15,7 @@ import Button from '../../components/Button';
 const GetStarted = ({ navigation, route }) => {
 
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Body */}
 
             <View style={styles.HeaderContainer} >
@@ -23,6 +24,7 @@ const GetStarted = ({ navigation, route }) => {
 
             </View>
             <View style={styles.bodyContainer} >
+
 
                 <Text style={[Typography.H1, styles.title]}>Welcome !</Text>
                 <Text style={[Typography.BODY, styles.title, { marginTop: 10 }]}>Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.</Text>
@@ -42,14 +44,13 @@ const GetStarted = ({ navigation, route }) => {
                     title='Get Started'
                     onPress={() => navigation.navigate(routes.Register)} />
             </View>
-        </View>
+        </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.BLACK
     },
     // Body
     HeaderContainer: {

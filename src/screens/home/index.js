@@ -58,7 +58,7 @@ const Home = ({ navigation }) => {
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
                 <SwipeableFlatList
-                    data={transactions.slice(0, 3)}
+                    data={transactions.slice(0, 5)}
                     maxSwipeDistance={140}
                     shouldBounceOnMount={true}
                     showsVerticalScrollIndicator={false}
@@ -71,12 +71,7 @@ const Home = ({ navigation }) => {
                                 <View style={{ paddingLeft: 20, paddingTop: 10 }}>
                                     <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
                                 </View>
-                                {/* // Statistics */}
-                                <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                                    <BlockHeader title='Statistics' theme={theme} />
-                                    <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
-                                </View>
-                                <View style={{ paddingLeft: 20 }}>
+                                   <View style={{ paddingLeft: 20 }}>
                                     <BlockHeader
                                         theme={theme}
                                         title='Transactions'
