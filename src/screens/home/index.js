@@ -90,15 +90,15 @@ const Home = ({ navigation }) => {
                     renderItem={({ item, index }) => {
                         return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} />
                     }}
-                // ListFooterComponent={() => {
-                //     return (
-                //         // Statistics
-                //         <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                //             <BlockHeader title='Statistics' theme={theme} />
-                //             <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
-                //         </View>
-                //     )
-                // }}
+                ListFooterComponent={() => {
+                    return (
+                        // Statistics
+                        <View style={{ paddingLeft: 20, marginBottom: 20 }}>
+                            <BlockHeader title='Statistics' theme={theme} />
+                            <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
+                        </View>
+                    )
+                }}
                 />
             </View>
         </View>
@@ -113,6 +113,8 @@ export const styles = (theme) => StyleSheet.create({
     bodyContainer: {
         flex: 1,
         padding: 20,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
         paddingLeft: 0,
         paddingBottom: 0,
         backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN

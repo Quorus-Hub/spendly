@@ -15,7 +15,7 @@ const TransactionCard = (props) => {
 
     return (
         <View style={styles(theme).container}>
-            <View style={styles(theme).iconContainer}>
+            <View style={[styles(theme).iconContainer, {backgroundColor: transaction.color || Colors.BLUE}]}>
                 <Icon name={transaction.icon} color={Colors.WHITE} size={15} />
             </View>
 
@@ -47,7 +47,6 @@ const styles = (theme) => StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_DARK
     },
     detailsContainer: {
         flex: 1, 

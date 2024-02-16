@@ -29,6 +29,6 @@ export const BODY = {
 };
 
 export const TAGLINE = {
-  fontSize: 12,
+  fontSize: 14,
   fontFamily: FONT_FAMILY_REGULAR,
 };

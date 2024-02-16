@@ -218,10 +218,9 @@ export const styles = (theme) => StyleSheet.create({
     modalContainer: {
         height: '65%',
         margin: 0,
-        paddingTop: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        borderRadius: 10,
+        borderRadius: 20,
         backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_MEDIUM
     },
 });

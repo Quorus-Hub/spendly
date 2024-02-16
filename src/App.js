@@ -14,7 +14,7 @@ const App = () => {
   return (
     <AuthProvider>
       <SafeAreaView style={styles.container}>
-        <StatusBar StatusBarStyle='light-content' backgroundColor={Colors.BLACK} />
+        <StatusBar backgroundColor={Colors.BLACK} />
         <RootNavigator />
       </SafeAreaView>
     </AuthProvider>

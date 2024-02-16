@@ -25,7 +25,7 @@ export const createTransactionsTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS ' + tableName +
-            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR(50) NOT NULL, icon VARCHAR(30) NOT NULL, transaction_date TEXT NOT NULL, amount FLOAT NOT NULL, type VARCHAR(20) NOT NULL);',
+            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR(50) NOT NULL, icon VARCHAR(30) NOT NULL, transaction_date TEXT NOT NULL, amount FLOAT NOT NULL, type VARCHAR(20) NOT NULL, color VARCHAR(50));',
             [],
             () => {
                 console.log('created');
@@ -50,13 +50,15 @@ export const getTransactions = (setTransactions) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
+                        console.log('row', row)
                         result.push({
                             id: row.id,
                             category: row.category,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
-                            type: row.type
+                            type: row.type,
+                            color: row.color
                         })
                     }
                 }
@@ -85,13 +87,15 @@ export const getIncomes = (setIncomes) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
+                        console.log('row', row)
                         result.push({
                             id: row.id,
                             category: row.category,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
-                            type: row.type
+                            type: row.type,
+                            color: row.color
                         })
                     }
                 }
@@ -120,13 +124,15 @@ export const getExpenses = (setExpenses) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
+                        console.log('row', row)
                         result.push({
                             id: row.id,
                             category: row.category,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
-                            type: row.type
+                            type: row.type,
+                            color: row.color
                         })
                     }
                 }
@@ -206,8 +212,8 @@ export const insertTransaction = (item) => {
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'INSERT INTO ' + tableName + '(category, icon, transaction_date, amount, type) VALUES(?,?,?,?,?);',
-                [item.category, item.icon, item.date, item.amount, item.type],
+                'INSERT INTO ' + tableName + '(category, icon, transaction_date, amount, type, color) VALUES(?,?,?,?,?,?);',
+                [item.category, item.icon, item.date, item.amount, item.type, item.color],
                 () => {
                     console.log('inserted');
                 },
@@ -227,8 +233,8 @@ export const updateTransaction = (item) => {
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'UPDATE ' + tableName + ' SET category = ?, icon = ?, transaction_date = ?, amount = ?, type = ? WHERE id = ?',
-                [item.category, item.icon, item.date, item.amount, item.type, item.id],
+                'UPDATE ' + tableName + ' SET category = ?, icon = ?, transaction_date = ?, amount = ?, type = ?, color = ? WHERE id = ?',
+                [item.category, item.icon, item.date, item.amount, item.type,  item.color, item.id],
                 () => {
                     console.log('updated');
                 },
