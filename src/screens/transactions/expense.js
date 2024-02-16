@@ -51,7 +51,7 @@ const Expense = ({navigation}) => {
                     maxSwipeDistance={140}
                     shouldBounceOnMount={true}
                     keyExtractor={(item, index) => index.toString()}
-                    renderQuickActions={({index, item}) => QuickActions(item, __update, __delete)}
+                    renderQuickActions={({index, item}) => QuickActions(item, __update, __delete, theme)}
                     renderItem={({item, index}) => {
                         return <TransactionCard currency={currency.symbol} key={index} transaction={item}  theme={theme} />
                     }}

@@ -18,13 +18,13 @@ const MoneyBoxCard = (props) => {
             <Text style={[Typography.TAGLINE, {marginBottom: 20, textAlign: 'left'}]}>
                 <Text style={{color: Colors.GRAY_THIN}}>{currency} {item.collected} / {item.total} </Text>
                 {item.collected == item.total ? 
-                    <Text style={{color: Colors.SUCESS}}>collected</Text>
+                    <Text style={{color: Colors.SUCCESS}}>collected</Text>
                 : null}
             </Text>
 
             {/* Progress Bar */}
-            <View style={[styles.progressBarContainer, item.collected == item.total ? {borderColor: Colors.SUCESS} : {borderColor: Colors.PRIMARY}]}>
-                <View style={[styles.progressBar, {width: progress + '%'}, item.collected == item.total ? {backgroundColor: Colors.SUCESS} : {backgroundColor: Colors.PRIMARY}]}></View>
+            <View style={[styles.progressBarContainer, item.collected == item.total ? {borderColor: Colors.SUCCESS} : {borderColor: Colors.PRIMARY}]}>
+                <View style={[styles.progressBar, {width: progress + '%'}, item.collected == item.total ? {backgroundColor: Colors.SUCCESS} : {backgroundColor: Colors.PRIMARY}]}></View>
             </View>
         </View>
     );

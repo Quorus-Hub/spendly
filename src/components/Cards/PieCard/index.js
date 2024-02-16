@@ -12,44 +12,49 @@ import { Colors, Typography } from '../../../styles';
 const PieCard = (props) => {
     const incomes = props.incomes;
     const expenses = props.expenses;
+    const theme = props.theme;
 
     const payoutPercent = incomes == 0 && expenses == 0 ? 0 : incomes == 0 ? 100 : ((expenses / incomes) * 100).toFixed(2);
     const savedPercent = incomes == 0 && expenses == 0 ? 0 : (100 - payoutPercent).toFixed(2);
 
     return (
-        <View style={styles.container}>
+        <View style={styles(theme).container}>
             <View style={styles.pieContainer}>
                 <CircularProgress percent={payoutPercent} />
             </View>
-            <View style={styles.numbersContainer}>
-                <View style={styles.rowContainer}>
-                    <Icon name="circle" size={15} color={Colors.PRIMARY} />
-                    <Text style={[Typography.BODY, {marginLeft: 5, color: Colors.PRIMARY}]}>Expenses({payoutPercent}%)</Text>
+            <View style={styles(theme).numbersContainer}>
+                <View style={styles(theme).rowContainer}>
+                    <Icon name="circle" size={15} color={Colors.ALERT} />
+                    <Text style={[Typography.BODY, { marginLeft: 5, color: Colors.ALERT }]}>Expenses({payoutPercent}%)</Text>
                 </View>
-                <View style={styles.rowContainer}>
-                    <Icon name="circle" size={15} color={Colors.WHITE} />
-                    <Text style={[Typography.BODY, {marginLeft: 5, color: Colors.WHITE}]}>Balance ({savedPercent}%)</Text>
+                <View style={styles(theme).rowContainer}>
+                    <Icon name="circle" size={15} color={Colors.SUCCESS} />
+                    <Text style={[Typography.BODY, { marginLeft: 5, color: Colors.SUCCESS }]}>Balance ({savedPercent}%)</Text>
                 </View>
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {
         marginTop: 10,
+        paddingHorizontal: 20,
         borderRadius: 16,
         flexDirection: 'row',
-        backgroundColor: Colors.DARK_BLACK
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        backgroundColor: theme.darkmode ? Colors.DARK_BLACK : Colors.GRAY_MEDIUM
     },
     pieContainer: {
         padding: 15
     },
     numbersContainer: {
         flex: 1,
-        padding: 10,
-        paddingLeft: 0,
-        justifyContent: 'center'
+        padding: 0,
+        paddingLeft: 10,
+        justifyContent: 'center',
     },
     rowContainer: {
         marginTop: 5,
@@ -58,6 +63,5 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 });
- 
+
 export default PieCard;
- 

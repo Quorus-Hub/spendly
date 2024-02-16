@@ -10,8 +10,8 @@ export const GRAY_MEDIUM = '#f0f0f0';
 export const GRAY_DARK = '#a4a5ab';
 
 // Success
-export const SUCESS = '#6ccd83';
-export const DARK_SUCESS = '#3caf57';
+export const SUCCESS = '#51c86e';
+export const DARK_SUCCESS = '#3caf57';
 export const WARNING = '#f9d076';
 export const ALERT = '#d86c68';
 

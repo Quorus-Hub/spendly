@@ -16,7 +16,7 @@ const TransactionCard = (props) => {
     return (
         <View style={styles(theme).container}>
             <View style={[styles(theme).iconContainer, {backgroundColor: transaction.color || Colors.BLUE}]}>
-                <Icon name={transaction.icon} color={Colors.WHITE} size={15} />
+                <Icon name={transaction.icon} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} size={15} />
             </View>
 
             <View style={styles(theme).detailsContainer}>
@@ -24,7 +24,7 @@ const TransactionCard = (props) => {
                 <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK}]}>{transaction.transaction_date}</Text>
             </View>
 
-            <Text style={[Typography.H4, transaction.type == 'income' ? {color: Colors.SUCESS} : {color: Colors.ALERT}]}>
+            <Text style={[Typography.H4, transaction.type == 'income' ? {color: Colors.SUCCESS} : {color: Colors.ALERT}]}>
                 {transaction.type == 'income' ? '+' : '-'}{currency} {transaction.amount}
             </Text>
         </View>

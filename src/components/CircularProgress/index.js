@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     height: 140,
     borderWidth: 15,
     borderRadius: 70,
-    borderColor: Colors.WHITE,
+    borderColor: Colors.SUCCESS,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
-    borderRightColor: Colors.PRIMARY,
-    borderTopColor: Colors.PRIMARY,
+    borderRightColor: Colors.ALERT,
+    borderTopColor: Colors.ALERT,
     transform:[{rotateZ: '-135deg'}]
   },
   secondProgressLayer:{
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     borderRadius: 70,
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
-    borderRightColor: Colors.PRIMARY,
-    borderTopColor: Colors.PRIMARY,
+    borderRightColor: Colors.ALERT,
+    borderTopColor: Colors.ALERT,
     transform: [{rotateZ: '45deg'}]
   },
   offsetLayer: {
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     borderRadius: 70,
     borderLeftColor: 'transparent',
     borderBottomColor: 'transparent',
-    borderRightColor: Colors.WHITE,
-    borderTopColor: Colors.WHITE,
+    borderRightColor: Colors.SUCCESS,
+    borderTopColor: Colors.SUCCESS,
     transform:[{rotateZ: '-135deg'}]
   }
 });

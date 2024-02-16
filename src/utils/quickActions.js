@@ -9,17 +9,17 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { Colors } from '../styles';
 
-const QuickActions = (item, updateItem, deleteItem) => {
+const QuickActions = (item, updateItem, deleteItem, theme) => {
     return (
         <View style={styles.container}>
-            <View style={[styles.button, {marginLeft: 10, backgroundColor: Colors.SUCESS}]}>
+            <View style={[styles.button, {marginLeft: 10, backgroundColor: Colors.SUCCESS}]}>
                 <TouchableOpacity onPress={() => updateItem(item)}>
-                    <Icon name="pen" color={Colors.WHITE} size={15} />
+                    <Icon name="pen" color={theme.darkmode ? Colors.BLACK : Colors.WHITE} size={15} />
                 </TouchableOpacity>
             </View>
             <View style={[styles.button, {backgroundColor: Colors.ALERT, marginLeft: 10}]}>
                 <TouchableOpacity onPress={() => deleteItem(item.id)}>
-                    <Icon name="trash" color={Colors.WHITE} size={15} />
+                    <Icon name="trash" color={theme.darkmode ? Colors.BLACK : Colors.WHITE} size={15} />
                 </TouchableOpacity>
             </View>
         </View>
