@@ -208,9 +208,9 @@ export const styles = (theme) => StyleSheet.create({
         justifyContent: 'space-between'
     },
     btnContainer: {
-        padding: 10,
+        padding: 12,
         marginTop: 20,
-        borderRadius: 10,
+        borderRadius: 20,
         alignItems: 'center',
         backgroundColor: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.PRIMARY
     },

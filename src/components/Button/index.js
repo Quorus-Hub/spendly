@@ -13,7 +13,7 @@ const Button = (props) => {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
-            style={props.secondary ? styles.secondary : styles.primary}
+            style={props.secondary ? styles.secondary : props.primary ? styles.primary : styles.tertiary}
             onPress={props.onPress}>
             {props.google ?
                 <Image
@@ -33,22 +33,34 @@ const Button = (props) => {
 
 const styles = StyleSheet.create({
     primary: {
-        padding: 10,
+        padding: 12,
         flexDirection: 'row',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
-        backgroundColor: Colors.PRIMARY
+        borderRadius: 20,
+        backgroundColor: Colors.WHITE
     },
     secondary: {
-        padding: 10,
+        padding: 12,
         flexDirection: 'row',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
-        backgroundColor: Colors.GRAY_LIGHT
+        borderRadius: 20,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: Colors.WHITE,
+        backgroundColor: Colors.TRANSPARENT
+    },
+    tertiary: {
+        padding: 12,
+        flexDirection: 'row',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+        backgroundColor: Colors.PRIMARY
     },
 });
 

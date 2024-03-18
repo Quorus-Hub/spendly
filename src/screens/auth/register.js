@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import routes from '../../config/routes';
 import firestore from '@react-native-firebase/firestore';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {
     GoogleSignin,
@@ -144,7 +145,7 @@ const Login = ({ navigation }) => {
 
 
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>
@@ -211,20 +212,21 @@ const Login = ({ navigation }) => {
                 <View style={{ marginTop: 20 }}>
                     <Button
                         title='Send'
+                        primary
+                        color={Colors.BLACK}
                         onPress={() => __register()} />
                 </View>
 
                 <View style={{ marginTop: 20 }}>
                     <Button
                         title={'Register with Google'}
-                        color={Colors.BLACK}
                         google
                         secondary
                         onPress={() => __RegisterGoogle()} />
                 </View>
             </View>
 
-        </View>
+        </LinearGradient>
     );
 };
 
@@ -246,14 +248,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         width: "85%",
         flexDirection: 'row',
-        borderRadius: 10,
+        borderRadius: 20,
         color: Colors.WHITE,
     },
     gpInput: {
         paddingLeft: 10,
         marginTop: 10,
         flexDirection: 'row',
-        borderRadius: 10,
+        borderRadius: 20,
         color: Colors.WHITE,
         backgroundColor: Colors.LIGHT_BLACK
     },

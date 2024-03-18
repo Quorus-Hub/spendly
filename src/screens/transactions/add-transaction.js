@@ -221,6 +221,7 @@ const AddTransaction = ({ navigation, route }) => {
             <View style={styles(theme).footerContainer}>
                 <Button
                     title='Save'
+                    tertiary
                     onPress={() => __save()} />
             </View>
         </View>
@@ -244,7 +245,7 @@ export const styles = (theme) => StyleSheet.create({
     input: {
         padding: 10,
         marginTop: 10,
-        borderRadius: 10,
+        borderRadius: 20,
         color: theme.darkmode ? Colors.WHITE : Colors.BLACK,
         backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_MEDIUM
     },

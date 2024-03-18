@@ -15,6 +15,7 @@ import {
     GoogleSignin,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
@@ -130,7 +131,7 @@ const Login = ({ navigation }) => {
 
 
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>
@@ -186,20 +187,21 @@ const Login = ({ navigation }) => {
                 <View style={{ marginTop: 20 }}>
                     <Button
                         title='Login'
+                        primary
+                        color={Colors.BLACK}
                         onPress={() => __login()} />
                 </View>
 
                 <View style={{ marginTop: 20 }}>
                     <Button
                         title={'Log in with Google'}
-                        color={Colors.BLACK}
                         google
                         secondary
                         onPress={() => __signInGoogle()} />
                 </View>
             </View>
 
-        </View>
+        </LinearGradient>
     );
 };
 
@@ -218,17 +220,17 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        paddingLeft: 10,
+        paddingLeft: 12,
         width: "85%",
         flexDirection: 'row',
-        borderRadius: 10,
+        borderRadius: 20,
         color: Colors.WHITE,
     },
     gpInput: {
         paddingLeft: 10,
         marginTop: 10,
         flexDirection: 'row',
-        borderRadius: 10,
+        borderRadius: 20,
         color: Colors.WHITE,
         backgroundColor: Colors.LIGHT_BLACK
     },

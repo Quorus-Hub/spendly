@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Modal from "react-native-modal";
+import LinearGradient from 'react-native-linear-gradient';
 
 import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
@@ -49,8 +50,8 @@ const Password = ({ navigation }) => {
     // }
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.container}>
+        // <View style={{ flex: 1 }}>
+        <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
                 {/* Modal Example */}
                 {/* <Modal
                     hasBackdrop={false}
@@ -110,10 +111,12 @@ const Password = ({ navigation }) => {
                 <View style={styles.footerContainer}>
                     <Button
                         title='Send'
+                        primary
+                        color={Colors.BLACK}
                         onPress={() => __send()} />
                 </View>
-            </View>
-        </View>
+            </LinearGradient>
+        // </View>
     );
 };
 
@@ -132,9 +135,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        padding: 10,
+        padding: 12,
         marginTop: 10,
-        borderRadius: 10,
+        borderRadius: 20,
         color: Colors.WHITE,
         backgroundColor: Colors.LIGHT_BLACK
     },

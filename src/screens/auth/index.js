@@ -35,13 +35,14 @@ const GetStarted = ({ navigation, route }) => {
             <View style={styles.footerContainer}>
                 <Button
                     title='Login'
-                    color={Colors.PRIMARY}
                     secondary
                     onPress={() => navigation.navigate(routes.Login)} />
             </View>
             <View style={styles.footerContainer}>
                 <Button
                     title='Get Started'
+                    primary
+                    color={Colors.BLACK}
                     onPress={() => navigation.navigate(routes.Register)} />
             </View>
         </LinearGradient>

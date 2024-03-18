@@ -9,6 +9,7 @@ export const GRAY_LIGHT = '#e7e6e1';
 export const GRAY_MEDIUM = '#f0f0f0';
 export const GRAY_DARK = '#a4a5ab';
 export const GRAY_BLUE = '#5f7f97';
+export const TRANSPARENT = 'transparent';
 
 // Success
 export const SUCCESS = '#51c86e';
