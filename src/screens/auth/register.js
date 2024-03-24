@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
-    Alert,
     View,
     Text,
     TextInput,
@@ -25,6 +24,7 @@ import hidden from './../../assets/images/hidden.png';
 import auth from '@react-native-firebase/auth';
 
 import Button from '../../components/Button';
+import Alert from '../../components/Modal/Alert';
 
 const Login = ({ navigation }) => {
     const { authContext } = React.useContext(AuthContext);
@@ -32,6 +32,9 @@ const Login = ({ navigation }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [msg, setMsg] = useState('');
+    const [error, setError] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const [googleInfo, setGoogleInfo] = useState([]);
     const [data, setData] = useState({
         checkTextInputChange: false,
@@ -61,19 +64,25 @@ const Login = ({ navigation }) => {
             __save(user);
         } catch (error) {
             console.log(error)
+            await setError(true);
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 //user cancelled the login flow
                 console.log("User cancelled the login flow")
+                await setMsg("User cancelled the login flow!");
             } else if (error.code === statusCodes.IN_PROGRESS) {
                 // operation (e.g. sign in) is in progress already
                 console.log("Operation is in progress already")
+                await setMsg("Operation is in progress already!");
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 // play services not available or outdated
                 console.log("Play services not available or outdated")
+                await setMsg("Play services not available or outdated!");
             } else {
                 // some other error happened
                 console.log("Some other error happened")
+                await setMsg("Some other error happened!");
             }
+            await setIsVisible(true);
         }
     };
 
@@ -86,30 +95,34 @@ const Login = ({ navigation }) => {
     }
 
     // Register
-    const __register = () => {
+    const __register = async () => {
         if (email != '' && password != '' && name != '') {
             handleSignIn();
         }
         else {
-            Alert.alert('Sorry !', 'Please, enter valid informations.');
+            await setError(true);
+            await setMsg('Please, enter valid informations.');
+            await setIsVisible(true);
         }
     }
 
-    const __save = (user) => {
+    const __save = async (user) => {
         firestore()
             .collection('Users')
             .add(user)
             .then(() => {
                 console.log('User added!');
                 authContext.signIn(user);
-            }).catch(error => {
+            }).catch( async error => {
                 console.log('Error added!');
-                Alert.alert('Sorry !', 'Error registering user');
+                await setError(true);
+                await setMsg('Error registering user!');
+                await setIsVisible(true);
             })
     }
 
 
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
         //criar user
         auth()
             .createUserWithEmailAndPassword(email, password)
@@ -124,28 +137,35 @@ const Login = ({ navigation }) => {
                 }
                 __save(user);
             })
-            .catch(error => {
+            .catch(async error => {
+                await setError(true);
                 if (error.code === 'auth/email-already-in-use') {
                     console.log('That email address is already in use!');
-                    Alert.alert('Sorry !', 'That email address is already in use!');
+                    await setMsg('That email address is already in use!');
                 }
 
                 if (error.code === 'auth/invalid-email') {
                     console.log('That email address is invalid!');
-                    Alert.alert('Sorry !', 'That email address is invalid!');
+                    await setMsg('That email address is invalid!');
                 }
 
                 if (error.code === 'auth/wrong-password') {
                     console.log('That email address is invalid!');
-                    Alert.alert('Sorry !', 'That email address is invalid!');
+                    await setMsg('That email address is invalid!');
                 }
                 console.error(error);
+                await setIsVisible(true);
             });
     }
 
+    const __close = () => {
+        setIsVisible(false);
+    }
 
     return (
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
+            {/* Modal */}
+            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__close} />
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
-    Alert,
     View,
     Text,
     TextInput,
@@ -24,11 +23,15 @@ import hidden from './../../assets/images/hidden.png';
 import auth from '@react-native-firebase/auth';
 
 import Button from '../../components/Button';
+import Alert from '../../components/Modal/Alert';
 
 const Login = ({ navigation }) => {
     const { authContext } = React.useContext(AuthContext);
 
     const [email, setEmail] = useState('');
+    const [msg, setMsg] = useState('');
+    const [isVisible, setIsVisible] = useState('');
+    const [error, setError] = useState(false);
     const [password, setPassword] = useState('');
     const [googleInfo, setGoogleInfo] = useState([]);
     const [data, setData] = useState({
@@ -59,19 +62,25 @@ const Login = ({ navigation }) => {
             authContext.signIn(user);
         } catch (error) {
             console.log(error)
+            await setError(true);
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 //user cancelled the login flow
                 console.log("User cancelled the login flow")
+                await setMsg("User cancelled the login flow!");
             } else if (error.code === statusCodes.IN_PROGRESS) {
                 // operation (e.g. sign in) is in progress already
                 console.log("Operation is in progress already")
+                await setMsg("Operation is in progress already!");
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 // play services not available or outdated
                 console.log("Play services not available or outdated")
+                await setMsg("Play services not available or outdated!");
             } else {
                 // some other error happened
                 console.log("Some other error happened")
+                await setMsg("Some other error happened!");
             }
+            await setIsVisible(true);
         }
     };
 
@@ -84,18 +93,19 @@ const Login = ({ navigation }) => {
     }
 
     // Login
-    const __login = () => {
+    const __login = async () => {
         if (email != '' && password != '') {
             handleSignIn();
-
         }
         else {
-            Alert.alert('Sorry !', 'Please, enter valid informations.');
+            await setError(true);
+            await setMsg('Please, enter valid informations.');
+            await setIsVisible(true);
         }
     }
 
 
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
         auth()
             .signInWithEmailAndPassword(email, password)
             .then(userCredentials => {
@@ -110,28 +120,35 @@ const Login = ({ navigation }) => {
                 }
                 authContext.signIn(user);
             })
-            .catch(error => {
+            .catch(async error => {
+                await setError(true);
                 if (error.code === 'auth/email-already-in-use') {
                     console.log('That email address is already in use!');
-                    Alert.alert('Sorry !', 'That email address is already in use!');
+                    await setMsg('That email address is already in use!');
                 }
 
                 if (error.code === 'auth/invalid-email') {
                     console.log('That email address is invalid!');
-                    Alert.alert('Sorry !', 'That email address is invalid!');
+                    await setMsg('That email address is invalid!');
                 }
 
                 if (error.code === 'auth/wrong-password') {
                     console.log('That email address is invalid!');
-                    Alert.alert('Sorry !', 'That email address is invalid!');
+                    await setMsg('That email address is invalid!');
                 }
                 console.error(error);
+                await setIsVisible(true);
             });
     }
 
+    const __close = () => {
+        setIsVisible(false);
+    }
 
     return (
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
+            {/* Modal */}
+            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__close} />
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>
@@ -181,7 +198,7 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <View style={{ marginTop: 10, alignItems: 'center' }}>
-                    <Text  onPress={() => navigation.navigate(routes.Password)} style={[Typography.TAGLINE, { color: Colors.GRAY_LIGHT }]}>Forgot your password?</Text>
+                    <Text onPress={() => navigation.navigate(routes.Password)} style={[Typography.TAGLINE, { color: Colors.GRAY_LIGHT }]}>Forgot your password?</Text>
                 </View>
 
                 <View style={{ marginTop: 20 }}>

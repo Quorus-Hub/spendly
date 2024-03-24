@@ -13,6 +13,7 @@ import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
 import routes from '../../config/routes';
 import auth from '@react-native-firebase/auth';
+
 import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 
@@ -57,7 +58,7 @@ const Password = ({ navigation }) => {
     return (
         // <View style={{ flex: 1 }}>
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
-            {/* Modal Example */}
+            {/* Modal */}
             <Alert isVisible={isVisible} msg={msg} error={error} onClick={__login} />
             {/* Body */}
             <View style={styles.bodyContainer} >
