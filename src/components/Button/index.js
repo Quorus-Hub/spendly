@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 20,
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.GRAY_THIN
     },
     secondary: {
         padding: 12,

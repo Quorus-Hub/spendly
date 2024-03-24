@@ -20,7 +20,11 @@ const GetStarted = ({ navigation, route }) => {
 
             <View style={styles.HeaderContainer} >
 
-                <Lottie source={require('../../assets/JSON/budgeting.json')} autoPlay loop />
+                <Lottie
+                    source={require('../../assets/JSON/financeApp.json')}
+                    autoPlay
+                   style={{ width: "95%", height: "auto" }}
+                    loop />
 
             </View>
             <View style={styles.bodyContainer} >
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     // Body
     HeaderContainer: {
         flex: 0.6,
-        padding: 20,
+        paddingTop: 60,
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingBotton: 30
