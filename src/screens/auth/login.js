@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [msg, setMsg] = useState('');
-    const [isVisible, setIsVisible] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
     const [error, setError] = useState(false);
     const [password, setPassword] = useState('');
     const [googleInfo, setGoogleInfo] = useState([]);
