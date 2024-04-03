@@ -10,7 +10,7 @@ import {
     Switch
 } from 'react-native';
 import Modal from "react-native-modal";
-import DeviceInfo from 'react-native-device-info';
+import Question from "../../components/Modal/Question";
 
 import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
@@ -18,6 +18,8 @@ import AuthContext from '../../context/AuthContext';
 import Bar from '../../components/Bar';
 import { currencies, getCurrency, storeCurrency } from '../../utils/currency';
 import { getTheme, storeTheme } from '../../utils/theme';
+import DeviceInfo from 'react-native-device-info';
+import Lottie from 'lottie-react-native';
 
 const Settings = ({ navigation }) => {
     const { state, authContext } = React.useContext(AuthContext);
@@ -29,6 +31,9 @@ const Settings = ({ navigation }) => {
     const [currency, setCurrency] = useState({});
     const [currencyModal, setCurrencyModal] = useState(false);
     const [theme, setTheme] = useState({});
+    const [msg, setMsg] = useState('');
+    const [isVisible, setIsVisible] = useState(false);
+    const [error, setError] = useState(false);
     const versionApp = DeviceInfo.getVersion();
 
     useEffect(() => {
@@ -61,15 +66,32 @@ const Settings = ({ navigation }) => {
         authContext.signOut();
     }
 
+    const __openDelete = async () => {
+        await setMsg('Are you sure you want to reset your account?')
+        await setError(true);
+        await setIsVisible(true);
+    }
+
+    const __deleteData = async () => {
+        await setIsVisible(false);
+        await authContext.deleteData();
+    }
+
+    const __close = () => {
+        setIsVisible(false);
+    }
+
     return (
         <View style={{ flex: 1 }}>
+            {/* Modal */}
+            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} />
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
                 swipeDirection={['down']}
                 isVisible={currencyModal}
-                onBackButtonPress={() => { __toggleCurrencyModal(); } }
-                onBackdropPress={() => { __toggleCurrencyModal(); } }
+                onBackButtonPress={() => { __toggleCurrencyModal(); }}
+                onBackdropPress={() => { __toggleCurrencyModal(); }}
                 style={{
                     justifyContent: 'flex-end',
                     margin: 0,
@@ -151,7 +173,7 @@ const Settings = ({ navigation }) => {
                         </View>
                     </View>
 
-                    {/* Privacy */}
+                    {/* More */}
                     <View style={{ marginTop: 20 }}>
                         <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>More</Text>
                         <View style={styles(theme).blockContainer}>
@@ -166,6 +188,20 @@ const Settings = ({ navigation }) => {
                             </Pressable> */}
                         </View>
                     </View>
+
+                    {/* Privacy */}
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>Privacy</Text>
+                        <TouchableOpacity
+                            onPress={() => __openDelete()} >
+                            <View style={styles(theme).blockContainer}>
+                                <View style={styles(theme).rowContainer}>
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.ALERT }]}>Restart your account</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
 
                     {/* Sign out */}
                     <TouchableOpacity

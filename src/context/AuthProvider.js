@@ -7,7 +7,7 @@ import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
 
-function AuthProvider({children}) {
+function AuthProvider({ children }) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -46,48 +46,53 @@ function AuthProvider({children}) {
       } catch (e) {
         console.log(e)
       }
-      dispatch({type: 'RESTORE_USER', user: JSON.parse(jsonUser)});
+      dispatch({ type: 'RESTORE_USER', user: JSON.parse(jsonUser) });
     };
     bootstrapAsync();
   }, []);
 
   const authContext = React.useMemo(() => ({
-      // Sign In
-      signIn: async (user) => {
-        // Store User
-        const jsonUser = JSON.stringify(user);
-        await AsyncStorage.setItem('user', jsonUser);
-        //Darkmode false default
-        storeTheme({
-          darkmode: false,
-        })
-         // Store default currency (Dollar $)
-        storeCurrency({
-          id: '1',
-          name: 'Dollar',
-          symbol: '$'
-        });
-        // Create MoneyBox & Transactions Tables
-        createMoneyBoxTable();
-        createTransactionsTable();
-        dispatch({type: 'SIGN_IN', user: jsonUser});
-      },
-      // Sign Out
-      signOut: async () => {
-        // Delete User
-        await AsyncStorage.removeItem('user');
-        // await AsyncStorage.removeItem('theme');
-        // Delete Database
-        // deleteMoneyBoxTable();
-        // deleteTransactionsTable();
-        dispatch({type: 'SIGN_OUT'});
-      },
-    }),
+    // Sign In
+    signIn: async (user) => {
+      // Store User
+      const jsonUser = JSON.stringify(user);
+      await AsyncStorage.setItem('user', jsonUser);
+      //Darkmode false default
+      storeTheme({
+        darkmode: false,
+      })
+      // Store default currency (Dollar $)
+      storeCurrency({
+        id: '1',
+        name: 'Dollar',
+        symbol: '$'
+      });
+      // Create MoneyBox & Transactions Tables
+      createMoneyBoxTable();
+      createTransactionsTable();
+      dispatch({ type: 'SIGN_IN', user: jsonUser });
+    },
+    // Sign Out
+    signOut: async () => {
+      await AsyncStorage.removeItem('user');
+      dispatch({ type: 'SIGN_OUT' });
+    },
+    //Delete Data
+    deleteData: async () => {
+      // Delete User
+      await AsyncStorage.removeItem('user');
+      await AsyncStorage.removeItem('theme');
+      // Delete Database
+      deleteMoneyBoxTable();
+      deleteTransactionsTable();
+      dispatch({ type: 'SIGN_OUT' });
+    },
+  }),
     [],
   );
 
   return (
-    <AuthContext.Provider value={{authContext, state}}>
+    <AuthContext.Provider value={{ authContext, state }}>
       {children}
     </AuthContext.Provider>
   );

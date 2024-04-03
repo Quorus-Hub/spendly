@@ -56,7 +56,6 @@ const Password = ({ navigation }) => {
     }
 
     return (
-        // <View style={{ flex: 1 }}>
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Modal */}
             <Alert isVisible={isVisible} msg={msg} error={error} onClick={__login} />
@@ -94,7 +93,6 @@ const Password = ({ navigation }) => {
                     onPress={() => __send()} />
             </View>
         </LinearGradient>
-        // </View>
     );
 };
 
