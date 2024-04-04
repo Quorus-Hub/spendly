@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -9,16 +9,19 @@ import {
 
 import { Colors, Typography } from '../../styles';
 import { insertMoneyBox, updateMoneyBox } from '../../dbHelpers/moneyboxHelper';
+import { getTheme } from '../../utils/theme';
 
 import Button from '../../components/Button';
 import BackHeader from '../../components/Headers/BackHeader';
 
-const AddMoneyBox = ({navigation, route}) => {
+const AddMoneyBox = ({ navigation, route }) => {
     const [name, setName] = useState('');
     const [total, setTotal] = useState('');
     const [collected, setCollected] = useState('');
+    const [theme, setTheme] = useState({});
 
     useEffect(() => {
+        getTheme(setTheme);
         if (route.params?.item) {
             setName(route.params.item.name);
             setTotal((route.params.item.total).toString());
@@ -57,49 +60,53 @@ const AddMoneyBox = ({navigation, route}) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles(theme).container}>
             {/* Header */}
-            <BackHeader title={route.params?.item ? 'Edit MoneyBox' : 'New MoneyBox'} />
+            <BackHeader theme={theme} title={route.params?.item ? 'Edit MoneyBox' : 'New MoneyBox'} />
 
             {/* Body */}
-            <ScrollView style={styles.bodyContainer} showsVerticalScrollIndicator={false}>
-                <View style={styles.inputContainer}>
-                    <Text style={[Typography.TAGLINE, {color: Colors.GRAY_DARK}]}>Title</Text>
+            <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
+                <View style={styles(theme).inputContainer}>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Title</Text>
                     <TextInput
+                        theme={theme}
                         value={name}
-                        placeholder='Exp: Car'
+                        placeholder=''
                         keyboardType='default'
                         onChangeText={(text) => setName(text)}
-                        style={[styles.input, Typography.BODY]}
-                        placeholderTextColor={Colors.GRAY_MEDIUM} />
+                        style={[styles(theme).input, Typography.BODY]}
+                        placeholderTextColor={theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK} />
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <Text style={[Typography.TAGLINE, {color: Colors.GRAY_DARK}]}>Total</Text>
+                <View style={styles(theme).inputContainer}>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Total</Text>
                     <TextInput
+                        theme={theme}
                         value={total}
-                        placeholder='Exp: 1000'
+                        placeholder=''
                         keyboardType='numeric'
                         onChangeText={(text) => setTotal(text)}
-                        style={[styles.input, Typography.BODY]}
-                        placeholderTextColor={Colors.GRAY_MEDIUM} />
+                        style={[styles(theme).input, Typography.BODY]}
+                        placeholderTextColor={theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK} />
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <Text style={[Typography.TAGLINE, {color: Colors.GRAY_DARK}]}>Collected</Text>
+                <View style={styles(theme).inputContainer}>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Collected</Text>
                     <TextInput
+                        theme={theme}
                         value={collected}
-                        placeholder='Exp: 20'
+                        placeholder=''
                         keyboardType='numeric'
                         onChangeText={(text) => setCollected(text)}
-                        style={[styles.input, Typography.BODY]}
-                        placeholderTextColor={Colors.GRAY_MEDIUM} />
+                        style={[styles(theme).input, Typography.BODY]}
+                        placeholderTextColor={theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK} />
                 </View>
             </ScrollView>
 
             {/* Footer */}
-            <View style={styles.footerContainer}>
-                <Button 
+            <View style={styles(theme).footerContainer}>
+                <Button
+                    theme={theme}
                     title='Save'
                     onPress={() => __save()} />
             </View>
@@ -107,10 +114,10 @@ const AddMoneyBox = ({navigation, route}) => {
     );
 };
 
-const styles = StyleSheet.create({
+export const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.BLACK
+        backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN
     },
     // Body
     bodyContainer: {
@@ -125,14 +132,13 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 10,
         borderRadius: 10,
-        color: Colors.WHITE,
-        backgroundColor: Colors.LIGHT_BLACK
+        color: theme.darkmode ? Colors.WHITE : Colors.BLACK,
+        backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_MEDIUM
     },
     // Footer
     footerContainer: {
         padding: 20,
     },
 });
- 
+
 export default AddMoneyBox;
- 

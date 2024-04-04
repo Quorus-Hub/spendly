@@ -4,6 +4,7 @@ import {
     View,
     Text
 } from 'react-native';
+import Lottie from 'lottie-react-native';
 import { getTheme } from '../../utils/theme';
 
 import { Colors, Typography } from '../../styles';
@@ -21,10 +22,11 @@ const Notifications = ({ navigation }) => {
     return (
         <View style={styles(theme).container}>
             {/* Header */}
-            <BackHeader title='Notifications' theme={theme}/>
+            <BackHeader title='Notifications' theme={theme} />
 
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
+                <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
                 <Text style={[Typography.BODY, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>You don't have received any notification !</Text>
             </View>
         </View>

@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import SwipeableFlatList from 'react-native-swipeable-list';
+import Lottie from 'lottie-react-native';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -43,7 +44,8 @@ const Income = ({navigation, route}) => {
         <View style={styles(theme).container}>
             {incomes.length == 0 ?
                 <View style={styles(theme).emptyContainer}>
-                    <Text style={[Typography.BODY, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center'}]}>You don't have any income !</Text>
+                    <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
+                    <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center'}]}>You don't have any income !</Text>
                 </View>
             :
                 <SwipeableFlatList

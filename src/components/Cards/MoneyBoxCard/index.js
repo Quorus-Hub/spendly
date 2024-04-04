@@ -10,34 +10,36 @@ import { Colors, Typography } from '../../../styles';
 const MoneyBoxCard = (props) => {
     const item = props.item;
     const currency = props.currency;
-    const progress = (item.collected / item.total) * 100;
+    const calc = (item.collected / item.total) * 100;
+    const progress = calc >= 100 ? 100 : calc;
+    const theme = props.theme;
 
     return (
-        <View style={styles.container}>
-            <Text style={[Typography.H1, {color: Colors.WHITE, marginBottom: 5}]}>{item.name}</Text>
-            <Text style={[Typography.TAGLINE, {marginBottom: 20, textAlign: 'left'}]}>
-                <Text style={{color: Colors.GRAY_THIN}}>{currency} {item.collected} / {item.total} </Text>
-                {item.collected == item.total ? 
-                    <Text style={{color: Colors.SUCCESS}}>collected</Text>
-                : null}
+        <View style={styles(theme).container}>
+            <Text style={[Typography.H3, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 5 }]}>{item.name}</Text>
+            <Text style={[Typography.TAGLINE, { marginBottom: 20, textAlign: 'left' }]}>
+                <Text style={{ color: theme.darkmode ? Colors.GRAY_THIN : Colors.BLACK }}>{currency} {item.collected} / {item.total} </Text>
+                {item.collected == item.total ?
+                    <Text style={{ color: Colors.SUCCESS }}>collected</Text>
+                    : null}
             </Text>
 
             {/* Progress Bar */}
-            <View style={[styles.progressBarContainer, item.collected == item.total ? {borderColor: Colors.SUCCESS} : {borderColor: Colors.PRIMARY}]}>
-                <View style={[styles.progressBar, {width: progress + '%'}, item.collected == item.total ? {backgroundColor: Colors.SUCCESS} : {backgroundColor: Colors.PRIMARY}]}></View>
+            <View style={[styles(theme).progressBarContainer, item.collected == item.total ? { borderColor: Colors.SUCCESS } : { borderColor: Colors.PRIMARY }]}>
+                <View style={[styles(theme).progressBar, { width: progress + '%' }, item.collected == item.total ? { backgroundColor: Colors.SUCCESS } : { backgroundColor: Colors.PRIMARY }]}></View>
             </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
     container: {
         padding: 20,
         marginBottom: 10,
         marginLeft: 20,
         marginRight: 0,
         borderRadius: 15,
-        backgroundColor: Colors.LIGHT_BLACK
+        backgroundColor: theme.darkmode ? Colors.DARK_BLACK : Colors.GRAY_MEDIUM
     },
     progressBarContainer: {
         borderWidth: 1,
@@ -48,6 +50,5 @@ const styles = StyleSheet.create({
         borderRadius: 3
     }
 });
- 
+
 export default MoneyBoxCard;
- 

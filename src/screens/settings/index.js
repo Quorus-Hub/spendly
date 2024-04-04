@@ -84,7 +84,7 @@ const Settings = ({ navigation }) => {
     return (
         <View style={{ flex: 1 }}>
             {/* Modal */}
-            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} />
+            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme}/>
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
@@ -196,7 +196,7 @@ const Settings = ({ navigation }) => {
                             onPress={() => __openDelete()} >
                             <View style={styles(theme).blockContainer}>
                                 <View style={styles(theme).rowContainer}>
-                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.ALERT }]}>Restart your account</Text>
+                                    <Text style={[Typography.BODY, { color: Colors.ALERT }]}>Restart your account</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

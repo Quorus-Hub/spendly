@@ -53,7 +53,7 @@ function MyTabs() {
                       <Icon name="repeat" color={color} size={23} />
                     ),
                 }} />
-                {/* <Tab.Screen 
+                <Tab.Screen 
                     name={routes.MoneyBox} 
                     component={MoneyBox}
                     options={{
@@ -61,7 +61,7 @@ function MyTabs() {
                         tabBarIcon: ({ color }) => (
                           <Icon name="gift" color={color} size={23} />
                         ),
-                    }} /> */}
+                    }} />
             <Tab.Screen 
                 name={routes.Settings} 
                 component={Settings}
@@ -98,7 +98,7 @@ const RootNavigator = () => {
                 <Stack.Screen name='MyTabs' component={MyTabs} />
                 <Stack.Screen name={routes.Notifications} component={Notifications} />
                 <Stack.Screen name={routes.AddTransaction} component={AddTransaction} />
-                {/* <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} /> */}
+                <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} />
               </>
             }
           </Stack.Navigator>

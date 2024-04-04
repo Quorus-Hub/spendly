@@ -10,6 +10,8 @@ import Button from '../../Button';
 
 const Question = (props) => {
 
+    const theme = props.theme;
+
     return (
         <Modal
             useNativeDriverForBackdrop
@@ -23,15 +25,15 @@ const Question = (props) => {
             }}
         >
             <View style={{
-                backgroundColor: Colors.WHITE,
+                backgroundColor: theme.darkmode ? Colors.DARK_BLACK : Colors.WHITE,
                 borderRadius: 20,
-                height: "60%",
+                height: "70%",
             }}>
-                <View style={{ alignItems: 'center', paddingVertical: 30 }}>
-                    <Lottie style={{ width: 200 }} source={require('../../../assets/JSON/question.json')} autoPlay />
+                <View style={{ alignItems: 'center', paddingVertical: 50 }}>
+                    <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/question.json')} autoPlay />
                 </View>
                 <View style={{ marginBottom: 10, paddingVertical: 20 }}>
-                    <Text style={[Typography.H4, { textAlign: 'center', color: Colors.DARK_BLACK }]}>{props.msg}</Text>
+                    <Text style={[Typography.H4, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.DARK_BLACK }]}>{props.msg}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -40,7 +42,7 @@ const Question = (props) => {
                     padding: 20
                 }}>
                     <View style={{
-                        width: "50%"
+                        width: "48%"
                     }}>
                         <Button
                             title={'No'}
@@ -50,7 +52,7 @@ const Question = (props) => {
                             onPress={() => props.onClose()} />
                     </View>
                     <View style={{
-                        width: "50%"
+                        width: "48%"
                     }}>
                         <Button
                             title={"Yes"}

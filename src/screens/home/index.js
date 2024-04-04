@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import SwipeableFlatList from 'react-native-swipeable-list';
+import Lottie from 'lottie-react-native';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -83,6 +84,7 @@ const Home = ({ navigation }) => {
                     ListEmptyComponent={() => {
                         return (
                             <View style={styles(theme).emptyContainer}>
+                                <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any transactions !</Text>
                             </View>
                         )
@@ -120,6 +122,7 @@ export const styles = (theme) => StyleSheet.create({
         backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN
     },
     emptyContainer: {
+        alignItems: "center",
         padding: 20
     },
 });
