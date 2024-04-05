@@ -23,7 +23,7 @@ const GetStarted = ({ navigation, route }) => {
                 <Lottie
                     source={require('../../assets/JSON/financeApp.json')}
                     autoPlay
-                   style={{ width: "95%", height: "auto" }}
+                    style={{ width: "95%", height: "auto" }}
                     loop />
 
             </View>

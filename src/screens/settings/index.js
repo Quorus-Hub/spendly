@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Modal from "react-native-modal";
 import Question from "../../components/Modal/Question";
+import Pricing from "../../components/Modal/Pricing";
 
 import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
@@ -19,6 +20,7 @@ import Bar from '../../components/Bar';
 import { currencies, getCurrency, storeCurrency } from '../../utils/currency';
 import { getTheme, storeTheme } from '../../utils/theme';
 import DeviceInfo from 'react-native-device-info';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Lottie from 'lottie-react-native';
 
 const Settings = ({ navigation }) => {
@@ -33,6 +35,7 @@ const Settings = ({ navigation }) => {
     const [theme, setTheme] = useState({});
     const [msg, setMsg] = useState('');
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleUp, setIsVisibleUp] = useState(false);
     const [error, setError] = useState(false);
     const versionApp = DeviceInfo.getVersion();
 
@@ -81,10 +84,17 @@ const Settings = ({ navigation }) => {
         setIsVisible(false);
     }
 
+    const __closeUp = () => {
+        setIsVisibleUp(false);
+    }
+
+
     return (
         <View style={{ flex: 1 }}>
             {/* Modal */}
-            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme}/>
+            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} />
+             {/* Update */}
+             <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} />
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
@@ -131,12 +141,17 @@ const Settings = ({ navigation }) => {
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{user.name}</Text>
                             </View>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
-                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Joined at */}
                             <View style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Joined</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{date.toDateString()}</Text>
                             </View>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
+                            {/* Update */}
+                            <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                                <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>Update now!</Text>
+                                <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
+                            </Pressable>
                         </View>
                     </View>
 

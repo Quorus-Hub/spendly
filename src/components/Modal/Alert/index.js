@@ -32,9 +32,9 @@ const Alert = (props) => {
             }}>
                 <View style={{ alignItems: 'center', padding: 30 }}>
                     {props.error ?
-                        <Lottie style={{ width: 220 }} source={require('../../../assets/JSON/error.json')} autoPlay loop />
+                        <Lottie style={{ width: 220 }} source={require('../../../assets/JSON/error.json')} autoPlay loop={false} />
                         :
-                        <Lottie style={{ width: 240 }} source={require('../../../assets/JSON/right.json')} autoPlay loop />
+                        <Lottie style={{ width: 240 }} source={require('../../../assets/JSON/right.json')} autoPlay loop={false} />
                     }
                 </View>
                 <View style={{ marginBottom: 10, padding: 20 }}>

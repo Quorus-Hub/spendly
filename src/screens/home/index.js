@@ -20,6 +20,7 @@ import TransactionCard from '../../components/Cards/TransactionCard';
 import BlockHeader from '../../components/Headers/BlockHeader';
 import PieCard from '../../components/Cards/PieCard';
 import { getTheme } from '../../utils/theme';
+import Pricing from '../../components/Modal/Pricing';
 
 const Home = ({ navigation }) => {
     const focused = useIsFocused();
@@ -28,6 +29,7 @@ const Home = ({ navigation }) => {
     const [totalIncomes, setTotalIncomes] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [transactions, setTransactions] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
@@ -51,11 +53,16 @@ const Home = ({ navigation }) => {
         navigation.navigate(routes.AddTransaction, { item: item });
     }
 
+    const __close = () => {
+        setIsVisible(false);
+    }
+
     return (
         <View style={styles(theme).container}>
             {/* Header */}
             <HomeHeader theme={theme} />
-
+            {/* Modal */}
+            <Pricing isVisible={isVisible} onClick={console.log("teste")} onClose={__close} theme={theme} />
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
                 <SwipeableFlatList
@@ -72,7 +79,7 @@ const Home = ({ navigation }) => {
                                 <View style={{ paddingLeft: 20, paddingTop: 10 }}>
                                     <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
                                 </View>
-                                   <View style={{ paddingLeft: 20 }}>
+                                <View style={{ paddingLeft: 20 }}>
                                     <BlockHeader
                                         theme={theme}
                                         title='Transactions'
