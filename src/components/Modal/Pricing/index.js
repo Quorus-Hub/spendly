@@ -36,12 +36,12 @@ const Pricing = (props) => {
                         flexDirection: 'row',
                         alignItems: 'flex-end',
                         justifyContent: 'flex-end',
-                        padding: 20
+                        padding: 10
                     }}
                     onPress={() => props.onClose()}>
                         <Icon name="close-outline" color={Colors.GRAY_DARK} size={30} />
                     </TouchableOpacity>
-                    <View style={{ paddingTop: 50, marginBottom: -80 }}>
+                    <View style={{ marginBottom: -80 }}>
                         <Text style={[Typography.H4, { textAlign: 'center', color: Colors.WHITE }]}>{"Choose your plan"}</Text>
                     </View>
                     <View style={{ alignItems: 'center', paddingVertical: 50 }}>
