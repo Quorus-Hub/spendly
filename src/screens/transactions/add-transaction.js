@@ -20,6 +20,7 @@ import { getTheme } from '../../utils/theme';
 import { categories } from '../../utils/categories';
 
 import BackHeader from '../../components/Headers/BackHeader';
+import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 
 const AddTransaction = ({ navigation, route }) => {
@@ -28,6 +29,7 @@ const AddTransaction = ({ navigation, route }) => {
     const [showCategory, setShowCategory] = useState(false);
     const [income, setIncome] = useState(false);
     const [showDate, setShowDate] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const [date, setDate] = useState();
     const [amount, setAmount] = useState();
     const [theme, setTheme] = useState({});
@@ -59,48 +61,67 @@ const AddTransaction = ({ navigation, route }) => {
 
     // Insert Transaction
     const __insert = () => {
-        console.log('category', category)
-        const stringDate = date.toLocaleDateString();
-        insertTransaction({
-            category: category.name,
-            icon: category.icon,
-            date: stringDate,
-            amount: parseFloat(amount),
-            type: income ? 'expense' : 'income',
-            color: category.color,
-        });
+        console.log('category', category);
+        if (date && category && amount.length > 0) {
+            const stringDate = date.toLocaleDateString();
+            return insertTransaction({
+                category: category.name,
+                icon: category.icon,
+                date: stringDate,
+                amount: parseFloat(amount),
+                type: income ? 'expense' : 'income',
+                color: category.color,
+            })
+        } else {
+            setIsVisible(true);
+            return true;
+        }
     }
 
     // Update Transaction
     const __update = () => {
-        const stringDate = date.toLocaleDateString();
-        updateTransaction({
-            id: route.params.item.id,
-            category: category.name,
-            icon: category.icon,
-            date: stringDate,
-            amount: parseFloat(amount),
-            type: income ? 'expense' : 'income',
-            color: category.color,
-        });
+        if (date && category && amount.length > 0) {
+            const stringDate = date.toLocaleDateString();
+            return updateTransaction({
+                id: route.params.item.id,
+                category: category.name,
+                icon: category.icon,
+                date: stringDate,
+                amount: parseFloat(amount),
+                type: income ? 'expense' : 'income',
+                color: category.color,
+            })
+        } else {
+            setIsVisible(true);
+            return true
+        }
     }
 
     // Save Transaction
     const __save = () => {
         if (route.params?.item) {
-            __update();
+            if (__update()) {
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+                navigation.goBack();
+            }
         }
         else {
-            __insert();
+            if (__insert()) {
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+                navigation.goBack();
+            }
         }
-        navigation.goBack();
     }
 
-        // Toggle Modal Date
-        const __toggleDateModal = () => {
-            setDate(new Date);
-            setShowDate(!showDate);
-        };
+    // Toggle Modal Date
+    const __toggleDateModal = () => {
+        setDate(new Date);
+        setShowDate(!showDate);
+    };
 
     // Toggle Modal
     const __toggleCategoryModal = () => {
@@ -115,10 +136,16 @@ const AddTransaction = ({ navigation, route }) => {
         __toggleCategoryModal();
     };
 
+    const __close = () => {
+        setIsVisible(false);
+    }
+
     return (
         <View style={styles(theme).container}>
             {/* Header */}
             <BackHeader theme={theme} title={route.params?.item ? 'Edit Transaction' : 'New Transaction'} />
+            {/* Modal */}
+            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme} />
             <Modal
                 useNativeDriverForBackdrop
                 swipeDirection={['down']}

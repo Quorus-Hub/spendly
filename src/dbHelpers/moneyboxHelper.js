@@ -57,7 +57,7 @@ export const getMoneyBox = (setMoneyBox) => {
 // Insert MoneyBox
 export const insertMoneyBox = (item) => {
     if (item.name.length == 0 || item.total <= 0 || item.collected < 0) {
-        Alert.alert('Oups !', 'Please, write correct data.')
+       return true
     }
     else {
         db.transaction((tx) => {
@@ -72,13 +72,14 @@ export const insertMoneyBox = (item) => {
                 }
             );
         });
+        return false
     }
 }
 
 // Update MoneyBox
 export const updateMoneyBox = (item) => {
     if (item.name.length == 0 || item.total <= 0 || item.collected < 0) {
-        Alert.alert('Oups !', 'Please, write correct data.')
+        return true
     }
     else {
         db.transaction((tx) => {
@@ -93,6 +94,7 @@ export const updateMoneyBox = (item) => {
                 }
             );
         });
+        return false
     }
 }
 

@@ -11,6 +11,7 @@ import Button from '../../Button';
 const Alert = (props) => {
 
     const theme = props.theme;
+    console.log('theme', theme)
 
     return (
         <Modal

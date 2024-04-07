@@ -207,7 +207,7 @@ export const getTotalExpenses = (setTotalExpenses) => {
 // Insert Transactions
 export const insertTransaction = (item) => {
     if (item.amount == 0) {
-        Alert.alert('Oups !', 'Please, write correct data.')
+        return true
     }
     else {
         db.transaction((tx) => {
@@ -222,13 +222,14 @@ export const insertTransaction = (item) => {
                 }
             );
         });
+        return false
     }
 }
 
 // Update Transactions
 export const updateTransaction = (item) => {
     if (item.amount == 0) {
-        Alert.alert('Oups !', 'Please, write correct data.')
+        return true
     }
     else {
         db.transaction((tx) => {
@@ -243,6 +244,7 @@ export const updateTransaction = (item) => {
                 }
             );
         });
+        return false
     }
 }
 

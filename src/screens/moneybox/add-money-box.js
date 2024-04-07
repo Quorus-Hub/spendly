@@ -11,13 +11,15 @@ import { Colors, Typography } from '../../styles';
 import { insertMoneyBox, updateMoneyBox } from '../../dbHelpers/moneyboxHelper';
 import { getTheme } from '../../utils/theme';
 
+import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 import BackHeader from '../../components/Headers/BackHeader';
 
 const AddMoneyBox = ({ navigation, route }) => {
     const [name, setName] = useState('');
-    const [total, setTotal] = useState('');
-    const [collected, setCollected] = useState('');
+    const [total, setTotal] = useState(0);
+    const [collected, setCollected] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
@@ -31,39 +33,53 @@ const AddMoneyBox = ({ navigation, route }) => {
 
     // Insert MoneyBox
     const __insert = () => {
-        insertMoneyBox({
+        return insertMoneyBox({
             name: name,
-            total: parseFloat(total),
-            collected: parseFloat(collected)
+            total: total.length > 0 ? parseFloat(total) : 0,
+            collected: collected.length > 0 ? parseFloat(collected) : 0
         });
     }
 
     // Update MoneyBox
     const __update = () => {
-        updateMoneyBox({
+       return updateMoneyBox({
             id: route.params.item.id,
             name: name,
-            total: parseFloat(total),
-            collected: parseFloat(collected)
+            total: total.length > 0 ? parseFloat(total) : 0,
+            collected: collected.length > 0 ? parseFloat(collected) : 0
         });
     }
 
     // Save MoneyBox
     const __save = () => {
         if (route.params?.item) {
-            __update();
+            if(__update()){
+                setIsVisible(true);
+            }else{
+                setIsVisible(false); 
+                navigation.goBack();
+            }
         }
         else {
-            __insert();
+            if(__insert()){
+                setIsVisible(true);
+            }else{
+                setIsVisible(false); 
+                navigation.goBack();
+            }
         }
-        navigation.goBack();
+    }
+
+    const __close = () => {
+        setIsVisible(false);
     }
 
     return (
         <View style={styles(theme).container}>
             {/* Header */}
             <BackHeader theme={theme} title={route.params?.item ? 'Edit MoneyBox' : 'New MoneyBox'} />
-
+            {/* Modal */}
+            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme}/>
             {/* Body */}
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles(theme).inputContainer}>
