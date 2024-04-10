@@ -9,6 +9,8 @@ import { useIsFocused } from '@react-navigation/native';
 import Lottie from 'lottie-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import SwipeableFlatList from 'react-native-swipeable-list';
+import LinearGradient from 'react-native-linear-gradient';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -19,10 +21,12 @@ import QuickActions from '../../utils/quickActions';
 import MoneyBoxCard from '../../components/Cards/MoneyBoxCard';
 import { getTheme } from '../../utils/theme';
 
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+
 const MoneyBox = ({ navigation }) => {
     const focused = useIsFocused();
 
-    const [moneybox, setMoneyBox] = useState([]);
+    const [moneybox, setMoneyBox] = useState(null);
     const [currency, setCurrency] = useState({});
     const [theme, setTheme] = useState({});
 
@@ -44,6 +48,8 @@ const MoneyBox = ({ navigation }) => {
     }
     console.log('moneybox', moneybox)
 
+    const arrayColor = theme.darkmode ? [Colors.DARK_BLACK, Colors.BLACK, Colors.DARK_BLACK] : [Colors.GRAY_LIGHT, Colors.GRAY_THIN, Colors.GRAY_LIGHT];
+
     return (
         <View style={styles(theme).container}>
             {/* Header */}
@@ -60,22 +66,42 @@ const MoneyBox = ({ navigation }) => {
 
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
-                {moneybox.length == 0 ?
-                    <View style={styles(theme).emptyContainer}>
-                        <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any moneybox !</Text>
+                {!moneybox ?
+                    <View style={styles(theme).gpLoading}>
+                        <ShimmerPlaceHolder
+                            key={1}
+                            LinearGradient={LinearGradient}
+                            shimmerColors={arrayColor}
+                            autoRun={true}
+                            shimmerStyle={styles(theme).loading}
+                        >
+                        </ShimmerPlaceHolder>
+                        <ShimmerPlaceHolder
+                            key={2}
+                            LinearGradient={LinearGradient}
+                            shimmerColors={arrayColor}
+                            autoRun={true}
+                            shimmerStyle={styles(theme).loading}
+                        >
+                        </ShimmerPlaceHolder>
                     </View>
                     :
-                    <SwipeableFlatList
-                        data={moneybox}
-                        maxSwipeDistance={140}
-                        shouldBounceOnMount={true}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
-                        renderItem={({ item, index }) => {
-                            return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme}/>
-                        }}
-                    />
+                    moneybox.length == 0 ?
+                        <View style={styles(theme).emptyContainer}>
+                            <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
+                            <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any moneybox !</Text>
+                        </View>
+                        :
+                        <SwipeableFlatList
+                            data={moneybox}
+                            maxSwipeDistance={140}
+                            shouldBounceOnMount={true}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
+                            renderItem={({ item, index }) => {
+                                return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme} />
+                            }}
+                        />
                 }
             </View>
         </View>
@@ -85,7 +111,7 @@ const MoneyBox = ({ navigation }) => {
 export const styles = (theme) => StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN 
+        backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_THIN
     },
     // Header
     headerContainer: {
@@ -101,18 +127,32 @@ export const styles = (theme) => StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.PRIMARY 
+        backgroundColor: Colors.PRIMARY
     },
     // Body
     bodyContainer: {
         flex: 1,
         paddingRight: 20,
+        paddingTop: 10,
     },
     emptyContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
+    loading: {
+        alignSelf: 'center',
+        width: '90%',
+        borderRadius: 15,
+        height: 120,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    gpLoading: {
+        width: "100%",
+        marginLeft: 10,
+    }
 });
 
 export default MoneyBox;

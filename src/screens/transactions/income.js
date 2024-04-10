@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -7,6 +7,8 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import SwipeableFlatList from 'react-native-swipeable-list';
 import Lottie from 'lottie-react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -16,13 +18,15 @@ import { getTheme } from '../../utils/theme';
 import QuickActions from '../../utils/quickActions';
 import TransactionCard from '../../components/Cards/TransactionCard';
 
-const Income = ({navigation, route}) => {
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+
+const Income = ({ navigation, route }) => {
     const focused = useIsFocused();
 
     const [currency, setCurrency] = useState({});
-    const [incomes, setIncomes] = useState([]);
+    const [incomes, setIncomes] = useState(null);
     const [theme, setTheme] = useState({});
-    
+
     useEffect(() => {
         getTheme(setTheme)
         getCurrency(setCurrency);
@@ -37,27 +41,65 @@ const Income = ({navigation, route}) => {
 
     // Update Item
     const __update = (item) => {
-        navigation.navigate(routes.AddTransaction, {item: item});
+        navigation.navigate(routes.AddTransaction, { item: item });
     }
+
+    const arrayColor = theme.darkmode ? [Colors.DARK_BLACK, Colors.BLACK, Colors.DARK_BLACK] : [Colors.GRAY_LIGHT, Colors.GRAY_THIN, Colors.GRAY_LIGHT];
 
     return (
         <View style={styles(theme).container}>
-            {incomes.length == 0 ?
-                <View style={styles(theme).emptyContainer}>
-                    <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                    <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center'}]}>You don't have any income !</Text>
+            {!incomes ?
+                <View style={styles(theme).gpLoading}>
+                    <ShimmerPlaceHolder
+                        key={1}
+                        LinearGradient={LinearGradient}
+                        shimmerColors={arrayColor}
+                        autoRun={true}
+                        shimmerStyle={styles(theme).loadingLine}
+                    >
+                    </ShimmerPlaceHolder>
+                    <ShimmerPlaceHolder
+                        key={2}
+                        LinearGradient={LinearGradient}
+                        shimmerColors={arrayColor}
+                        autoRun={true}
+                        shimmerStyle={styles(theme).loadingLine}
+                    >
+                    </ShimmerPlaceHolder>
+                    <ShimmerPlaceHolder
+                        key={3}
+                        LinearGradient={LinearGradient}
+                        shimmerColors={arrayColor}
+                        autoRun={true}
+                        shimmerStyle={styles(theme).loadingLine}
+                    >
+                    </ShimmerPlaceHolder>
+                    <ShimmerPlaceHolder
+                        key={4}
+                        LinearGradient={LinearGradient}
+                        shimmerColors={arrayColor}
+                        autoRun={true}
+                        shimmerStyle={styles(theme).loadingLine}
+                    >
+                    </ShimmerPlaceHolder>
                 </View>
-            :
-                <SwipeableFlatList
-                    data={incomes}
-                    maxSwipeDistance={140}
-                    shouldBounceOnMount={true}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderQuickActions={({index, item}) => QuickActions(item, __update, __delete, theme)}
-                    renderItem={({item, index}) => {
-                        return <TransactionCard currency={currency.symbol} key={index} theme={theme} transaction={item}/>
-                    }}
-                />
+                :
+                incomes.length == 0 ?
+                    <View style={styles(theme).emptyContainer}>
+                        <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any income !</Text>
+                    </View>
+                    :
+                    <SwipeableFlatList
+                        data={incomes}
+                        maxSwipeDistance={140}
+                        shouldBounceOnMount={true}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
+                        renderItem={({ item, index }) => {
+                            return <TransactionCard currency={currency.symbol} key={index} theme={theme} transaction={item} />
+                        }}
+                    />
             }
         </View>
     );
@@ -74,7 +116,19 @@ export const styles = (theme) => StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    loadingLine: {
+        alignSelf: 'center',
+        width: '90%',
+        borderRadius: 15,
+        height: 50,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    gpLoading: {
+        width: "100%",
+        marginLeft: 10,
+    }
 });
- 
+
 export default Income;
- 

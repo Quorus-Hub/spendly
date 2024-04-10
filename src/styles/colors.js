@@ -4,8 +4,9 @@ export const BLACK = '#252730';
 export const DARK_BLACK = '#1e1f26';
 export const LIGHT_BLACK = '#323445';
 
+export const GRAY = '#F2F2F2';
 export const GRAY_THIN = '#f5f5f5';
-export const GRAY_LIGHT = '#e7e6e1';
+export const GRAY_LIGHT = '#ebeae6';
 export const GRAY_MEDIUM = '#f0f0f0';
 export const GRAY_DARK = '#a4a5ab';
 export const GRAY_BLUE = '#5f7f97';
