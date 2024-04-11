@@ -93,8 +93,8 @@ const Settings = ({ navigation }) => {
         <View style={{ flex: 1 }}>
             {/* Modal */}
             <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} />
-             {/* Update */}
-             <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} />
+            {/* Update */}
+            <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} />
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
@@ -146,12 +146,12 @@ const Settings = ({ navigation }) => {
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Joined</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{date.toDateString()}</Text>
                             </View>
-                            {/* <Bar padding={0.3} color={Colors.GRAY_THIN} /> */}
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Update */}
-                            {/* <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                            <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                                 <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>Update now!</Text>
                                 <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
-                            </Pressable> */}
+                            </Pressable>
                         </View>
                     </View>
 

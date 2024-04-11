@@ -2,12 +2,17 @@ import React from 'react';
 import {
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Pressable,
+    StyleSheet
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 import Modal from "react-native-modal";
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Colors, Typography } from "./../../../styles";
 import Button from '../../Button';
 
@@ -38,51 +43,108 @@ const Pricing = (props) => {
                         justifyContent: 'flex-end',
                         padding: 10
                     }}
-                    onPress={() => props.onClose()}>
+                        onPress={() => props.onClose()}>
                         <Icon name="close-outline" color={Colors.GRAY_DARK} size={30} />
                     </TouchableOpacity>
-                    <View style={{ marginBottom: -80 }}>
+                    <View style={{ marginBottom: -320, alignItems: 'center' }}>
                         <Text style={[Typography.H4, { textAlign: 'center', color: Colors.WHITE }]}>{"Choose your plan"}</Text>
+                        <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/confetti.json')} autoPlay />
                     </View>
-                    <View style={{ alignItems: 'center', paddingVertical: 50 }}>
+                    <View style={{ alignItems: 'center', paddingVertical: 30 }}>
                         <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/pig1.json')} autoPlay />
                     </View>
-                    <View style={{ marginTop: -30 }}>
+                    <View style={{ marginTop: -30, flexDirection: 'row', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={[Typography.H1, { textAlign: 'center', color: Colors.WHITE }]}>{"Spendly Plus"}</Text>
+                        <MaterialIcons name="verified" color={Colors.PRIMARY} size={16} style={{ paddingLeft: 5 }} />
                     </View>
-                    {/* <View style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: 20
-                    }}>
-                        <View style={{
-                            width: "48%"
-                        }}>
-                            <Button
-                                title={'No'}
-                                primary
-                                borderColor={Colors.BLACK}
-                                color={Colors.BLACK}
-                                onPress={() => props.onClose()} />
+                    <View style={{ marginTop: 10, marginHorizontal: 20, marginBottom: 20 }}>
+                        <Text style={[Typography.TAGLINE, { textAlign: 'center', color: Colors.WHITE }]}>{"Experience the freedom of being in full control of your financial future."}</Text>
+                    </View>
+                    <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                        <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlock everything in the app</Text>
+                    </Pressable>
+                    <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                        <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited wallets and budgets</Text>
+                    </Pressable>
+                    <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                        <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited tags</Text>
+                    </Pressable>
+                    <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                        <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Reports on your expenses</Text>
+                    </Pressable>
+                    <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                        <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Sync with multiple devices</Text>
+                    </Pressable>
+                    <View style={styles(theme).container}>
+                        <View style={styles(theme).gpPricing}>
+                            <Text style={[Typography.BODY, { color: Colors.BLACK }]}>U$ 1,99/month</Text>
+                            <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>With 7 days free trial</Text>
                         </View>
-                        <View style={{
-                            width: "48%"
-                        }}>
-                            <Button
-                                title={"Yes"}
-                                tertiary
-                                borderColor={Colors.BLACK}
-                                color={Colors.WHITE}
-                                onPress={() => props.onClick()} />
-
+                        <View style={styles(theme).gpPricing}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flexDirection: 'column' }}>
+                                    <Text style={[Typography.BODY, { color: Colors.BLACK }]}>U$ 17,90/year</Text>
+                                    <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>With 7 days free trial</Text>
+                                </View>
+                                <View style={{
+                                    width: 45,
+                                    height: 40,
+                                    backgroundColor: Colors.YELLOW,
+                                    marginLeft: 60,
+                                    marginTop: -10,
+                                    paddingTop: 5,
+                                    borderBottomEndRadius: 100,
+                                    borderBottomStartRadius: 100
+                                }}>
+                                    <Text style={[Typography.H4, { color: Colors.BLACK, textAlign: 'center' }]}>25%</Text>
+                                </View>
+                            </View>
                         </View>
-                    </View> */}
-
+                        <View style={{ paddingHorizontal: 30, alignItems: 'center', paddingTop: 20 }}>
+                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center' }]}>{'By purchasing a Spendly subscription, you accept our '}</Text>
+                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center', textDecorationLine: "underline" }]}>{'Terms of Use and Privacy Policy'}</Text>
+                        </View>
+                    </View>
                 </View>
             </LinearGradient>
         </Modal>
     )
 }
+
+export const styles = (theme) => StyleSheet.create({
+    container: {
+        marginTop: 20,
+    },
+    rowPricing: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        elevation: 10,
+        shadowColor: Colors.BLACK,
+    },
+    rowContainer: {
+        width: '60%',
+        paddingTop: 15,
+        flexDirection: 'row',
+        alignSelf: 'center',
+        justifyContent: 'flex-start'
+    },
+    gpPricing: {
+        alignItems: 'flex-start',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        width: "80%",
+        height: 50,
+        alignSelf: 'center',
+        margin: 10,
+        borderRadius: 25,
+        backgroundColor: Colors.WHITE
+    }
+});
+
 
 export default Pricing;

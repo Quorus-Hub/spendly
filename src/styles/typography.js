@@ -32,3 +32,9 @@ export const TAGLINE = {
   fontSize: 14,
   fontFamily: FONT_FAMILY_REGULAR,
 };
+
+export const SMALL = {
+  fontSize: 12,
+  fontFamily: FONT_FAMILY_REGULAR,
+};
+
