@@ -31,7 +31,7 @@ const Home = ({ navigation }) => {
     const [currency, setCurrency] = useState({});
     const [totalIncomes, setTotalIncomes] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState(null);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const Home = ({ navigation }) => {
             <HomeHeader theme={theme} />
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
-                {transactions.length > 0 ?
+                {transactions ?
                     <SwipeableFlatList
                         data={transactions.slice(0, 5)}
                         maxSwipeDistance={140}
