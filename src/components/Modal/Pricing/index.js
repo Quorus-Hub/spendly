@@ -70,7 +70,7 @@ const Pricing = (props) => {
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited tags</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited tags and categories</Text>
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
