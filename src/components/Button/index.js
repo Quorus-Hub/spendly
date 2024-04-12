@@ -6,6 +6,7 @@ import {
     Image
 } from 'react-native';
 import Google from './../../assets/images/google.png'
+import Apple from './../../assets/images/apple.png'
 
 import { Colors, Typography } from '../../styles';
 
@@ -25,7 +26,19 @@ const Button = (props) => {
                         marginRight: 10,
                     }}
                 />
-                : <></>}
+                : 
+                props.apple ?
+                <Image
+                    source={Apple}
+                    style={{
+                        alignSelf: "flex-start",
+                        height: 24,
+                        width: 20,
+                        marginRight: 10,
+                    }}
+                />
+                :
+                <></>}
             <Text style={[Typography.H3, { color: props.color ? props.color : Colors.WHITE }]}>{props.title}</Text>
         </TouchableOpacity>
     );

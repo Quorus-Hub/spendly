@@ -18,6 +18,7 @@ import AuthContext from '../../context/AuthContext';
 
 import Bar from '../../components/Bar';
 import { currencies, getCurrency, storeCurrency } from '../../utils/currency';
+import { languages, getLanguage, storeLanguage } from '../../utils/language';
 import { getTheme, storeTheme } from '../../utils/theme';
 import DeviceInfo from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
@@ -31,7 +32,9 @@ const Settings = ({ navigation }) => {
     const date = new Date(user.joined);
 
     const [currency, setCurrency] = useState({});
+    const [language, setLanguage] = useState({});
     const [currencyModal, setCurrencyModal] = useState(false);
+    const [languageModal, setLanguageModal] = useState(false);
     const [theme, setTheme] = useState({});
     const [msg, setMsg] = useState('');
     const [isVisible, setIsVisible] = useState(false);
@@ -41,6 +44,7 @@ const Settings = ({ navigation }) => {
 
     useEffect(() => {
         getCurrency(setCurrency);
+        getLanguage(setLanguage);
         getTheme(setTheme)
     }, []);
 
@@ -48,6 +52,12 @@ const Settings = ({ navigation }) => {
     const __toggleCurrencyModal = () => {
         setCurrencyModal(!currencyModal);
     };
+
+    // Toggle Language Modal
+    const __toggleLanguageModal = () => {
+        setLanguageModal(!languageModal);
+    };
+
 
     // Toggle Darkmode / Expense Switch
     const toggleDarkmodeSwitch = (event) => {
@@ -63,6 +73,13 @@ const Settings = ({ navigation }) => {
         setCurrency(currency);
         storeCurrency(currency);
         __toggleCurrencyModal();
+    };
+
+    // Change Language
+    const __changeLanguage = (currency) => {
+        setLanguage(currency);
+        storeLanguage(currency);
+        __toggleLanguageModal();
     };
 
     const __signOut = () => {
@@ -121,7 +138,32 @@ const Settings = ({ navigation }) => {
                     </ScrollView>
                 </View>
             </Modal>
-
+            {/* Language Modal */}
+            <Modal
+                useNativeDriverForBackdrop
+                swipeDirection={['down']}
+                isVisible={languageModal}
+                onBackButtonPress={() => { __toggleLanguageModal(); }}
+                onBackdropPress={() => { __toggleLanguageModal(); }}
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
+            >
+                <View>
+                    <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
+                        {languages.map((item, index) => (
+                            <View key={index} >
+                                <Pressable style={styles(theme).rowContainer} onPress={() => __changeLanguage(item)} >
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.name}</Text>
+                                    {/* <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.symbol}</Text> */}
+                                </Pressable>
+                                <Bar padding={0.2} color={Colors.GRAY_DARK} />
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </Modal>
             {/* Setting Screen */}
             <ScrollView showsVerticalScrollIndicator={false} style={styles(theme).container}>
                 {/* Header */}
@@ -167,6 +209,7 @@ const Settings = ({ navigation }) => {
                             </Pressable>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <TouchableOpacity
+                                onPress={() => __toggleLanguageModal()}
                                 activeOpacity={0.8}
                                 style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Language</Text>
