@@ -209,13 +209,13 @@ const Login = ({ navigation }) => {
                         onPress={() => __login()} />
                 </View>
 
-                <View style={{ marginTop: 20 }}>
+                {/* <View style={{ marginTop: 20 }}>
                     <Button
                         title={'Log in with Apple'}
                         apple
                         secondary
                         onPress={() => __signInGoogle()} />
-                </View>
+                </View> */}
                 <View style={{ marginTop: 20 }}>
                     <Button
                         title={'Log in with Google'}
