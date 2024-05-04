@@ -14,6 +14,8 @@ import Button from '../../components/Button';
 
 const GetStarted = ({ navigation, route }) => {
 
+    const { t } = route.params;
+
     return (
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Body */}
@@ -30,7 +32,7 @@ const GetStarted = ({ navigation, route }) => {
             <View style={styles.bodyContainer} >
 
 
-                <Text style={[Typography.H1, styles.title]}>Welcome !</Text>
+                <Text style={[Typography.H1, styles.title]}>{t("Welcome!")}</Text>
                 <Text style={[Typography.BODY, styles.title, { marginTop: 10 }]}>Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.</Text>
 
             </View>

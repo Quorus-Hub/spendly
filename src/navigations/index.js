@@ -31,79 +31,81 @@ const Tab = createMaterialBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-        initialRouteName={routes.Home}
-        activeColor={Colors.WHITE}
-        inactiveColor={Colors.GRAY_DARK}
-        barStyle={[Typography.BODY, { backgroundColor: Colors.LIGHT_BLACK, borderTopWidth: 0.3, borderColor: Colors.DARK_BLACK }]}>
-            <Tab.Screen 
-                name={routes.Home} 
-                component={Home}
-                options={{
-                    tabBarLabel: <Text style={[Typography.TAGLINE, {color: Colors.WHITE}]}>{routes.Home}</Text>,
-                    tabBarIcon: ({ color }) => (
-                    <Icon name="home" color={color} size={23} />
-                    ),
-                }} />
-            <Tab.Screen 
-                name={routes.Transactions} 
-                component={Transactions}
-                options={{
-                    tabBarLabel: <Text style={[Typography.TAGLINE, {color: Colors.WHITE}]}>{routes.Transactions}</Text>,
-                    tabBarIcon: ({ color }) => (
-                      <Icon name="repeat" color={color} size={23} />
-                    ),
-                }} />
-                <Tab.Screen 
-                    name={routes.MoneyBox} 
-                    component={MoneyBox}
-                    options={{
-                        tabBarLabel: <Text style={[Typography.TAGLINE, {color: Colors.WHITE}]}>{routes.MoneyBox}</Text>,
-                        tabBarIcon: ({ color }) => (
-                          <Icon name="gift" color={color} size={23} />
-                        ),
-                    }} />
-            <Tab.Screen 
-                name={routes.Settings} 
-                component={Settings}
-                options={{
-                    tabBarLabel: <Text style={[Typography.TAGLINE, {color: Colors.WHITE}]}>{routes.Settings}</Text>,
-                    tabBarIcon: ({ color }) => (
-                    <Icon name="settings" color={color} size={23} />
-                    ),
-                }} />
+      initialRouteName={routes.Home}
+      activeColor={Colors.WHITE}
+      inactiveColor={Colors.GRAY_DARK}
+      barStyle={[Typography.BODY, { backgroundColor: Colors.LIGHT_BLACK, borderTopWidth: 0.3, borderColor: Colors.DARK_BLACK }]}>
+      <Tab.Screen
+        name={routes.Home}
+        component={Home}
+        options={{
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Home}</Text>,
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={23} />
+          ),
+        }} />
+      <Tab.Screen
+        name={routes.Transactions}
+        component={Transactions}
+        options={{
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Transactions}</Text>,
+          tabBarIcon: ({ color }) => (
+            <Icon name="repeat" color={color} size={23} />
+          ),
+        }} />
+      <Tab.Screen
+        name={routes.MoneyBox}
+        component={MoneyBox}
+        options={{
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.MoneyBox}</Text>,
+          tabBarIcon: ({ color }) => (
+            <Icon name="gift" color={color} size={23} />
+          ),
+        }} />
+      <Tab.Screen
+        name={routes.Settings}
+        component={Settings}
+        options={{
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Settings}</Text>,
+          tabBarIcon: ({ color }) => (
+            <Icon name="settings" color={color} size={23} />
+          ),
+        }} />
     </Tab.Navigator>
   );
 }
 
-const RootNavigator = () => {
-  const {state} = React.useContext(AuthContext);
+const RootNavigator = (props) => {
+  const { state } = React.useContext(AuthContext);
+
+  const { t, i18n } = props;
 
   return (
-      <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}>
-            {!state || state.isLoading ?
-              <Stack.Screen name={routes.Splash} component={Splash} />
-            : state.user == null ? 
-              <>
-                <Stack.Screen name={routes.GetStarted} component={GetStarted} />
-                <Stack.Screen name={routes.Login} component={Login} />
-                <Stack.Screen name={routes.Register} component={Register} />
-                <Stack.Screen name={routes.Password} component={Password} />
-              </>
-            : 
-              <>
-                <Stack.Screen name='MyTabs' component={MyTabs} />
-                <Stack.Screen name={routes.Notifications} component={Notifications} />
-                <Stack.Screen name={routes.AddTransaction} component={AddTransaction} />
-                <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} />
-              </>
-            }
-          </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {!state || state.isLoading ?
+          <Stack.Screen name={routes.Splash} component={Splash} />
+          : state.user == null ?
+            <>
+              <Stack.Screen name={routes.GetStarted} component={GetStarted} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.Login} component={Login} />
+              <Stack.Screen name={routes.Register} component={Register} />
+              <Stack.Screen name={routes.Password} component={Password}  />
+            </>
+            :
+            <>
+              <Stack.Screen name='MyTabs' component={MyTabs}  />
+              <Stack.Screen name={routes.Notifications} component={Notifications} />
+              <Stack.Screen name={routes.AddTransaction} component={AddTransaction}  />
+              <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox}  />
+            </>
+        }
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-  
+
 export default RootNavigator;
