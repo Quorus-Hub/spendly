@@ -91,16 +91,16 @@ const RootNavigator = (props) => {
           : state.user == null ?
             <>
               <Stack.Screen name={routes.GetStarted} component={GetStarted} initialParams={{ t: t, i18n: i18n }} />
-              <Stack.Screen name={routes.Login} component={Login} />
-              <Stack.Screen name={routes.Register} component={Register} />
-              <Stack.Screen name={routes.Password} component={Password}  />
+              <Stack.Screen name={routes.Login} component={Login} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.Register} component={Register} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.Password} component={Password} initialParams={{ t: t, i18n: i18n }} />
             </>
             :
             <>
-              <Stack.Screen name='MyTabs' component={MyTabs}  />
-              <Stack.Screen name={routes.Notifications} component={Notifications} />
-              <Stack.Screen name={routes.AddTransaction} component={AddTransaction}  />
-              <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox}  />
+              <Stack.Screen name='MyTabs' component={MyTabs} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.Notifications} component={Notifications} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.AddTransaction} component={AddTransaction} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} initialParams={{ t: t, i18n: i18n }} />
             </>
         }
       </Stack.Navigator>

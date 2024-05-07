@@ -17,7 +17,10 @@ import auth from '@react-native-firebase/auth';
 import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 
-const Password = ({ navigation }) => {
+const Password = ({ navigation, route }) => {
+
+    const { t } = route.params;
+
     const { authContext } = React.useContext(AuthContext);
 
     const [email, setEmail] = useState('');
@@ -30,19 +33,19 @@ const Password = ({ navigation }) => {
         if (email != '') {
             let firebaseAuth = auth();
             firebaseAuth.sendPasswordResetEmail(email).then(async function () {
-                console.log("E-mail enviado!");
-                await setMsg('Email successfully sent!')
+                console.log('E-mail successfully sent!');
+                await setMsg(t('E-mail successfully sent!'))
                 await setError(false);
                 await setIsVisible(true);
             }).catch(async function (error) {
-                console.log("Erro ao enviar e-mail!", error);
-                await setMsg('Error sending the e-mail. Try again later!')
+                console.log('Error sending the e-mail. Try again later!', error);
+                await setMsg(t('Error sending the e-mail. Try again later!'))
                 await setError(true);
                 await setIsVisible(true);
             });
         }
         else {
-            await setMsg('Please, enter valid informations!')
+            await setMsg(t('Please, enter valid informations!'))
             await setError(true);
             await setIsVisible(true);
         }
@@ -58,7 +61,7 @@ const Password = ({ navigation }) => {
     return (
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Modal */}
-            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__login} />
+            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__login} t={t} />
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>
@@ -67,12 +70,12 @@ const Password = ({ navigation }) => {
                         onPress={() => navigation.goBack()} >
                         <Icon name="arrow-left" color={Colors.WHITE} size={25} />
                     </TouchableOpacity>
-                    <Text style={[Typography.H1, { marginLeft: 10, color: Colors.WHITE }]}>Password request</Text>
+                    <Text style={[Typography.H1, { marginLeft: 10, color: Colors.WHITE }]}>{t("Password request")}</Text>
                 </View>
 
                 {/* Lastname */}
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>E-mail</Text>
+                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>{t("E-mail")}</Text>
                     <TextInput
                         value={email}
                         autoCapitalize={'none'}
@@ -87,7 +90,7 @@ const Password = ({ navigation }) => {
             {/* Footer */}
             <View style={styles.footerContainer}>
                 <Button
-                    title='Send'
+                    title={t('Send')}
                     primary
                     color={Colors.BLACK}
                     onPress={() => __send()} />

@@ -25,7 +25,10 @@ import auth from '@react-native-firebase/auth';
 import Button from '../../components/Button';
 import Alert from '../../components/Modal/Alert';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
+
+    const { t } = route.params;
+
     const { authContext } = React.useContext(AuthContext);
 
     const [email, setEmail] = useState('');
@@ -66,19 +69,19 @@ const Login = ({ navigation }) => {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
                 //user cancelled the login flow
                 console.log("User cancelled the login flow")
-                await setMsg("User cancelled the login flow!");
+                await setMsg(t("User cancelled the login flow!"));
             } else if (error.code === statusCodes.IN_PROGRESS) {
                 // operation (e.g. sign in) is in progress already
                 console.log("Operation is in progress already")
-                await setMsg("Operation is in progress already!");
+                await setMsg(t("Operation is in progress already!"));
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
                 // play services not available or outdated
                 console.log("Play services not available or outdated")
-                await setMsg("Play services not available or outdated!");
+                await setMsg(t("Play services not available or outdated!"));
             } else {
                 // some other error happened
                 console.log("Some other error happened")
-                await setMsg("Some other error happened!");
+                await setMsg(t("Some other error happened!"));
             }
             await setIsVisible(true);
         }
@@ -99,7 +102,7 @@ const Login = ({ navigation }) => {
         }
         else {
             await setError(true);
-            await setMsg('Please, enter valid informations.');
+            await setMsg(t('Please, enter valid informations.'));
             await setIsVisible(true);
         }
     }
@@ -124,17 +127,17 @@ const Login = ({ navigation }) => {
                 await setError(true);
                 if (error.code === 'auth/email-already-in-use') {
                     console.log('That email address is already in use!');
-                    await setMsg('That email address is already in use!');
+                    await setMsg(t('That email address is already in use!'));
                 }
 
                 if (error.code === 'auth/invalid-email') {
                     console.log('That email address is invalid!');
-                    await setMsg('That email address is invalid!');
+                    await setMsg(t('That email address is invalid!'));
                 }
 
                 if (error.code === 'auth/wrong-password') {
                     console.log('That email address is invalid!');
-                    await setMsg('That email address is invalid!');
+                    await setMsg(t('That email address is invalid!'));
                 }
                 console.error(error);
                 await setIsVisible(true);
@@ -148,7 +151,7 @@ const Login = ({ navigation }) => {
     return (
         <LinearGradient colors={[Colors.DARK_BLACK, Colors.BLACK, Colors.GRAY_BLUE]} style={styles.container}>
             {/* Modal */}
-            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__close} />
+            <Alert isVisible={isVisible} msg={msg} error={error} onClick={__close} t={t} />
             {/* Body */}
             <View style={styles.bodyContainer} >
                 <View style={styles.rowContainer}>
@@ -157,12 +160,12 @@ const Login = ({ navigation }) => {
                         onPress={() => navigation.goBack()} >
                         <Icon name="arrow-left" color={Colors.WHITE} size={25} />
                     </TouchableOpacity>
-                    <Text style={[Typography.H1, { marginLeft: 10, color: Colors.WHITE }]}>Login</Text>
+                    <Text style={[Typography.H1, { marginLeft: 10, color: Colors.WHITE }]}>{t("Login")}</Text>
                 </View>
 
                 {/* E-mail */}
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>E-mail</Text>
+                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>{t("E-mail")}</Text>
                     <View style={[styles.gpInput]}>
                         <TextInput
                             value={email}
@@ -177,7 +180,7 @@ const Login = ({ navigation }) => {
 
                 {/* Password */}
                 <View style={{ marginTop: 20 }}>
-                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>Password</Text>
+                    <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>{t("Password")}</Text>
                     <View style={[styles.gpInput]}>
                         <TextInput
                             value={password}
@@ -198,12 +201,12 @@ const Login = ({ navigation }) => {
                 </View>
 
                 <View style={{ marginTop: 10, alignItems: 'center' }}>
-                    <Text onPress={() => navigation.navigate(routes.Password)} style={[Typography.TAGLINE, { color: Colors.GRAY_LIGHT }]}>Forgot your password?</Text>
+                    <Text onPress={() => navigation.navigate(routes.Password)} style={[Typography.TAGLINE, { color: Colors.GRAY_LIGHT }]}>{t("Forgot your password?")}</Text>
                 </View>
 
                 <View style={{ marginTop: 20 }}>
                     <Button
-                        title='Login'
+                        title={t('Login')}
                         primary
                         color={Colors.BLACK}
                         onPress={() => __login()} />
@@ -218,7 +221,7 @@ const Login = ({ navigation }) => {
                 </View> */}
                 <View style={{ marginTop: 20 }}>
                     <Button
-                        title={'Log in with Google'}
+                        title={t('Log in with Google')}
                         google
                         secondary
                         onPress={() => __signInGoogle()} />

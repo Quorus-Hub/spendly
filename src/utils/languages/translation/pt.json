@@ -1,0 +1,29 @@
+{
+    "translation": {
+        "Welcome!": "Bem-vindo!",
+        "Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.": "Gerencie seu dinheiro com facilidade e confiança usando o Spendly - o aplicativo de planejamento e rastreamento financeiro.",
+        "Login": "Login",
+        "Get Started": "Faça o seu cadastro",
+        "Register": "Cadastro",
+        "Name": "Nome",
+        "E-mail": "E-mail",
+        "Password": "Senha",
+        "Send": "Enviar",
+        "Register with Google": "Cadastro com o Google",
+        "That email address is already in use!": "Esse endereço de email já esta em uso!",
+        "That email address is invalid!": "Esse endereço de e-mail é inválido!",
+        "Error registering user!": "Erro ao cadastrar usuário!",
+        "Please, enter valid informations!": "Por favor, insira informações válidas!",
+        "User cancelled the login flow!": "Fluxo de login cancelado!",
+        "Operation is in progress already!": "A operação já está em andamento!",
+        "Play services not available or outdated!": "Serviços de jogo não disponíveis ou desatualizados!",
+        "Some other error happened!": "Ocorreu um erro!",
+        "Close": "Fechar",
+        "Got it!": "Entendi!",
+        "Forgot your password?": "Esqueceu sua senha?",
+        "Log in with Google": "Login com o Google",
+        "Password request": "Recuperação de senha",
+        "Error sending the e-mail. Try again later!": "Erro ao enviar o e-mail. Tente mais tarde!",
+        "E-mail successfully sent!": "E-mail enviado com sucesso!"
+    }
+}

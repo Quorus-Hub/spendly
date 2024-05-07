@@ -11,6 +11,7 @@ import Button from '../../Button';
 const Alert = (props) => {
 
     const theme = props.theme;
+    const t = props.t;
     console.log('theme', theme)
 
     return (
@@ -43,7 +44,7 @@ const Alert = (props) => {
                 </View>
                 <View style={{ marginBottom: 10, padding: 20 }}>
                     <Button
-                        title={props.error ? 'Close' : 'Got it!'}
+                        title={props.error ? t('Close') : t('Got it!')}
                         primary
                         borderColor={Colors.BLACK}
                         color={Colors.BLACK}

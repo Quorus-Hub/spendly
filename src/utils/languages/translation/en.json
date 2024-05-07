@@ -1,0 +1,29 @@
+{
+    "translation": {
+        "Welcome!": "Welcome!",
+        "Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.": "Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.",
+        "Login": "Login",
+        "Get Started": "Get Started",
+        "Register": "Register",
+        "Name": "Name",
+        "E-mail": "E-mail",
+        "Password": "Password",
+        "Send": "Send",
+        "Register with Google": "Register with Google",
+        "That email address is already in use!": "That email address is already in use!",
+        "That email address is invalid!": "That email address is invalid!",
+        "Error registering user!": "Error registering user!",
+        "Please, enter valid informations!": "Please, enter valid informations!",
+        "User cancelled the login flow!": "User cancelled the login flow!",
+        "Operation is in progress already!": "Operation is in progress already!",
+        "Play services not available or outdated!": "Play services not available or outdated!",
+        "Some other error happened!": "Some other error happened!",
+        "Close": "Close",
+        "Got it!": "Got it!",
+        "Forgot your password?": "Forgot your password?",
+        "Log in with Google": "Log in with Google",
+        "Password request": "Password request",
+        "Error sending the e-mail. Try again later!": "Error sending the e-mail. Try again later!",
+        "E-mail successfully sent!": "E-mail successfully sent!"
+    }
+}

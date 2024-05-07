@@ -33,20 +33,20 @@ const GetStarted = ({ navigation, route }) => {
 
 
                 <Text style={[Typography.H1, styles.title]}>{t("Welcome!")}</Text>
-                <Text style={[Typography.BODY, styles.title, { marginTop: 10 }]}>Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.</Text>
+                <Text style={[Typography.BODY, styles.title, { marginTop: 10 }]}>{t("Manage your money with ease and confidence using Spendly - the ultimate financial planning and tracking app.")}</Text>
 
             </View>
 
             {/* Footer */}
             <View style={styles.footerContainer}>
                 <Button
-                    title='Login'
+                    title={t('Login')}
                     secondary
                     onPress={() => navigation.navigate(routes.Login)} />
             </View>
             <View style={styles.footerContainer}>
                 <Button
-                    title='Get Started'
+                    title={t('Get Started')}
                     primary
                     color={Colors.BLACK}
                     onPress={() => navigation.navigate(routes.Register)} />
