@@ -12,6 +12,7 @@ import { Colors, Typography } from '../../../styles';
 const BlockHeader = (props) => {
 
     const theme = props.theme;
+    const t = props.t;
 
     return (
         <View style={styles(theme).container}>
@@ -21,7 +22,7 @@ const BlockHeader = (props) => {
                 <Pressable 
                     style={styles(theme).rowContainer}
                     onPress={props.onPress}>
-                        <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginRight: 5}]}>All</Text>
+                        <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginRight: 5}]}>{t("All")}</Text>
                         <Icon name="chevron-right" color={theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK} size={10} />
                 </Pressable>
             : null}

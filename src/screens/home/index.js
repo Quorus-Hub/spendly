@@ -25,7 +25,10 @@ import { getTheme } from '../../utils/theme';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+
+    const { t } = route.params;
+
     const focused = useIsFocused();
 
     const [currency, setCurrency] = useState({});
@@ -60,7 +63,7 @@ const Home = ({ navigation }) => {
     return (
         <View style={styles(theme).container}>
             {/* Header */}
-            <HomeHeader theme={theme} />
+            <HomeHeader theme={theme} t={t} />
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
                 {transactions ?
@@ -76,12 +79,13 @@ const Home = ({ navigation }) => {
                                 <View>
                                     {/* // Balance */}
                                     <View style={{ paddingLeft: 20, paddingTop: 10 }}>
-                                        <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
+                                        <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t}/>
                                     </View>
                                     <View style={{ paddingLeft: 20 }}>
                                         <BlockHeader
+                                            t={t}
                                             theme={theme}
-                                            title='Transactions'
+                                            title={t('Transactions')}
                                             onPress={() => navigation.navigate(routes.Transactions)} />
                                     </View>
                                 </View>
@@ -91,7 +95,7 @@ const Home = ({ navigation }) => {
                             return (
                                 <View style={styles(theme).emptyContainer}>
                                     <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any transactions !</Text>
+                                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any transactions!")}</Text>
                                 </View>
                             )
                         }}

@@ -102,7 +102,7 @@ const Login = ({ navigation, route }) => {
         }
         else {
             await setError(true);
-            await setMsg(t('Please, enter valid informations.'));
+            await setMsg(t('Please, enter valid informations!'));
             await setIsVisible(true);
         }
     }

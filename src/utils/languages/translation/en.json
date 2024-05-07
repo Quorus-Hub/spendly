@@ -24,6 +24,11 @@
         "Log in with Google": "Log in with Google",
         "Password request": "Password request",
         "Error sending the e-mail. Try again later!": "Error sending the e-mail. Try again later!",
-        "E-mail successfully sent!": "E-mail successfully sent!"
+        "E-mail successfully sent!": "E-mail successfully sent!",
+        "Transactions": "Transactions",
+        "Welcome back,": "Welcome back,",
+        "You don't have any transactions!": "You don't have any transactions!",
+        "My Balance": "My Balance",
+        "All": "All"
     }
 }

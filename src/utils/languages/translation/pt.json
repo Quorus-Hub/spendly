@@ -24,6 +24,11 @@
         "Log in with Google": "Login com o Google",
         "Password request": "Recuperação de senha",
         "Error sending the e-mail. Try again later!": "Erro ao enviar o e-mail. Tente mais tarde!",
-        "E-mail successfully sent!": "E-mail enviado com sucesso!"
+        "E-mail successfully sent!": "E-mail enviado com sucesso!",
+        "Transactions": "Lançamentos",
+        "Welcome back,": "Bem vindo,",
+        "You don't have any transactions!": "Você não possui lançamentos!",
+        "My Balance": "Meu saldo",
+        "All": "Todos"
     }
 }

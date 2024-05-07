@@ -28,7 +28,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 // Bottom Tab Bar Navigator
 
-function MyTabs() {
+function MyTabs({ navigation, route }) {
+
+  const { t, i18n } = route.params;
+
   return (
     <Tab.Navigator
       initialRouteName={routes.Home}
@@ -38,6 +41,7 @@ function MyTabs() {
       <Tab.Screen
         name={routes.Home}
         component={Home}
+        initialParams={{ t: t, i18n: i18n }} 
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Home}</Text>,
           tabBarIcon: ({ color }) => (
@@ -45,8 +49,9 @@ function MyTabs() {
           ),
         }} />
       <Tab.Screen
-        name={routes.Transactions}
+        name={t(routes.Transactions)}
         component={Transactions}
+        initialParams={{ t: t, i18n: i18n }} 
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Transactions}</Text>,
           tabBarIcon: ({ color }) => (
@@ -56,6 +61,7 @@ function MyTabs() {
       <Tab.Screen
         name={routes.MoneyBox}
         component={MoneyBox}
+        initialParams={{ t: t, i18n: i18n }} 
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.MoneyBox}</Text>,
           tabBarIcon: ({ color }) => (
@@ -63,8 +69,9 @@ function MyTabs() {
           ),
         }} />
       <Tab.Screen
-        name={routes.Settings}
+        name={t(routes.Settings)}
         component={Settings}
+        initialParams={{ t: t, i18n: i18n }} 
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Settings}</Text>,
           tabBarIcon: ({ color }) => (

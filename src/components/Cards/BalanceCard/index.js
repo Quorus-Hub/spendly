@@ -8,6 +8,7 @@ import {
 import { Colors, Typography } from '../../../styles';
 
 const BalanceCard = (props) => {
+    const t = props.t;
     const incomes = props.incomes;
     const expenses = props.expenses;
     const theme = props.theme;
@@ -17,7 +18,7 @@ const BalanceCard = (props) => {
         <View style={styles(theme).container}>
             <View style={styles(theme).tagContainer}></View>
             <View style={styles(theme).blockContainer}>
-                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_THIN : Colors.BLACK, marginBottom: 10 }]}>My Balance</Text>
+                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_THIN : Colors.BLACK, marginBottom: 10 }]}>{t("My Balance")}</Text>
                 <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{props.currency} {balance}</Text>
             </View>
 

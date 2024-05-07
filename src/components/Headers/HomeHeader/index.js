@@ -16,6 +16,7 @@ import TextAvatar from 'react-native-text-avatar';
 const HomeHeader = (props) => {
     const navigation = useNavigation();
     const theme = props.theme;
+    const t = props.t;
 
     const { state } = React.useContext(AuthContext);
 
@@ -38,7 +39,7 @@ const HomeHeader = (props) => {
                 </TextAvatar>
             </View>
             <View style={{ flex: 1 }}>
-                <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>Welcome back,</Text>
+                <Text style={[Typography.TAGLINE, { color: Colors.GRAY_DARK }]}>{t("Welcome back,")}</Text>
                 <Text style={[Typography.H2, { color: Colors.WHITE }]}>{user.name}</Text>
             </View>
             <TouchableOpacity
