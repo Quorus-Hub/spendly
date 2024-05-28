@@ -24,8 +24,10 @@ import DeviceInfo from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Lottie from 'lottie-react-native';
 
-const Settings = ({ navigation }) => {
+const Settings = ({ navigation, route }) => {
     const { state, authContext } = React.useContext(AuthContext);
+
+    const { t } = route.params;
 
     // Get User
     const user = state.user != null ? state.user.length > 0 ? JSON.parse(state.user) : state.user : { name: '', joined: Date.now() };
@@ -87,7 +89,7 @@ const Settings = ({ navigation }) => {
     }
 
     const __openDelete = async () => {
-        await setMsg('Are you sure you want to reset your account?')
+        await setMsg(t('Are you sure you want to reset your account?'))
         await setError(true);
         await setIsVisible(true);
     }
@@ -109,9 +111,9 @@ const Settings = ({ navigation }) => {
     return (
         <View style={{ flex: 1 }}>
             {/* Modal */}
-            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} />
+            <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} t={t} />
             {/* Update */}
-            <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} />
+            <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} t={t} />
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
@@ -155,7 +157,7 @@ const Settings = ({ navigation }) => {
                         {languages.map((item, index) => (
                             <View key={index} >
                                 <Pressable style={styles(theme).rowContainer} onPress={() => __changeLanguage(item)} >
-                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.name}</Text>
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t(item.name)}</Text>
                                     {/* <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{item.symbol}</Text> */}
                                 </Pressable>
                                 <Bar padding={0.2} color={Colors.GRAY_DARK} />
@@ -168,30 +170,30 @@ const Settings = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={styles(theme).container}>
                 {/* Header */}
                 <View style={styles(theme).headerContainer}>
-                    <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>Settings</Text>
+                    <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("Settings")}</Text>
                 </View>
 
                 {/* Body */}
                 <View style={styles(theme).bodyContainer}>
                     {/* Account */}
                     <View>
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>Account</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("Account")}</Text>
                         <View style={styles(theme).blockContainer}>
                             {/* Name */}
                             <View style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Name</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Name")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{user.name}</Text>
                             </View>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Joined at */}
-                            <View style={styles(theme).rowContainer}>
+                            {/* <View style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Joined</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{date.toDateString()}</Text>
-                            </View>
+                            </View> */}
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Update */}
                             <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
-                                <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>Update now!</Text>
+                                <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>{t("Update now!")}</Text>
                                 <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
                             </Pressable>
                         </View>
@@ -199,12 +201,12 @@ const Settings = ({ navigation }) => {
 
                     {/* App setting */}
                     <View style={{ marginTop: 20 }}>
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>App Settings</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("App Settings")}</Text>
                         <View style={styles(theme).blockContainer}>
                             <Pressable
                                 style={styles(theme).rowContainer}
                                 onPress={() => __toggleCurrencyModal()}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Currency</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Currency")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{currency.name} ({currency.symbol})</Text>
                             </Pressable>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
@@ -212,12 +214,12 @@ const Settings = ({ navigation }) => {
                                 onPress={() => __toggleLanguageModal()}
                                 activeOpacity={0.8}
                                 style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Language</Text>
-                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>English</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Language")}</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t("English")}</Text>
                             </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Darkmode</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Darkmode")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>
                                     <Switch
                                         trackColor={{ false: Colors.WHITE, true: Colors.PRIMARY }}
@@ -233,10 +235,10 @@ const Settings = ({ navigation }) => {
 
                     {/* More */}
                     <View style={{ marginTop: 20 }}>
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>More</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("More")}</Text>
                         <View style={styles(theme).blockContainer}>
                             <Pressable style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Version</Text>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Version")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{versionApp}</Text>
                             </Pressable>
                             {/* <Bar padding={0.3} color={Colors.GRAY_THIN} />
@@ -249,12 +251,12 @@ const Settings = ({ navigation }) => {
 
                     {/* Privacy */}
                     <View style={{ marginTop: 20 }}>
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>Privacy</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("Privacy")}</Text>
                         <TouchableOpacity
                             onPress={() => __openDelete()} >
                             <View style={styles(theme).blockContainer}>
                                 <View style={styles(theme).rowContainer}>
-                                    <Text style={[Typography.BODY, { color: Colors.ALERT }]}>Restart your account</Text>
+                                    <Text style={[Typography.BODY, { color: Colors.ALERT }]}>{t("Restart your account")}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -266,7 +268,7 @@ const Settings = ({ navigation }) => {
                         activeOpacity={0.5}
                         style={styles(theme).btnContainer}
                         onPress={() => __signOut()} >
-                        <Text style={[Typography.H3, { color: theme.darkmode ? Colors.PRIMARY : Colors.WHITE }]}>Sign out</Text>
+                        <Text style={[Typography.H3, { color: theme.darkmode ? Colors.PRIMARY : Colors.WHITE }]}>{t("Sign out")}</Text>
                     </TouchableOpacity>
 
                 </View>

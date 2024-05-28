@@ -11,7 +11,9 @@ import { Colors, Typography } from '../../styles';
 
 import BackHeader from '../../components/Headers/BackHeader';
 
-const Notifications = ({ navigation }) => {
+const Notifications = ({ navigation, route }) => {
+
+    const { t } = route.params;
 
     const [theme, setTheme] = useState({});
 
@@ -22,12 +24,12 @@ const Notifications = ({ navigation }) => {
     return (
         <View style={styles(theme).container}>
             {/* Header */}
-            <BackHeader title='Notifications' theme={theme} />
+            <BackHeader title={t('Notifications')} theme={theme} />
 
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
                 <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                <Text style={[Typography.BODY, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>You don't have received any notification !</Text>
+                <Text style={[Typography.BODY, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("You don't have received any notification!")}</Text>
             </View>
         </View>
     );

@@ -12,6 +12,8 @@ const Question = (props) => {
 
     const theme = props.theme;
 
+    const t = props.t;
+
     return (
         <Modal
             useNativeDriverForBackdrop
@@ -33,7 +35,7 @@ const Question = (props) => {
                     <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/question.json')} autoPlay loop={false}/>
                 </View>
                 <View style={{ marginBottom: 10, paddingVertical: 20 }}>
-                    <Text style={[Typography.H4, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.DARK_BLACK }]}>{props.msg}</Text>
+                    <Text style={[Typography.H4, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.DARK_BLACK }]}>{t(props.msg)}</Text>
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -45,7 +47,7 @@ const Question = (props) => {
                         width: "48%"
                     }}>
                         <Button
-                            title={'No'}
+                            title={t('No')}
                             primary
                             borderColor={Colors.BLACK}
                             color={Colors.BLACK}
@@ -55,7 +57,7 @@ const Question = (props) => {
                         width: "48%"
                     }}>
                         <Button
-                            title={"Yes"}
+                            title={t("Yes")}
                             tertiary
                             borderColor={Colors.BLACK}
                             color={Colors.WHITE}

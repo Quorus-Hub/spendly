@@ -20,6 +20,8 @@ const Pricing = (props) => {
 
     const theme = props.theme;
 
+    const t = props.t;
+
     return (
         <Modal
             useNativeDriverForBackdrop
@@ -47,7 +49,7 @@ const Pricing = (props) => {
                         <Icon name="close-outline" color={Colors.GRAY_DARK} size={30} />
                     </TouchableOpacity>
                     <View style={{ marginBottom: -320, alignItems: 'center' }}>
-                        <Text style={[Typography.H4, { textAlign: 'center', color: Colors.WHITE }]}>{"Choose your plan"}</Text>
+                        <Text style={[Typography.H4, { textAlign: 'center', color: Colors.WHITE }]}>{t("Choose your plan")}</Text>
                         <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/confetti.json')} autoPlay />
                     </View>
                     <View style={{ alignItems: 'center', paddingVertical: 30 }}>
@@ -58,56 +60,56 @@ const Pricing = (props) => {
                         <MaterialIcons name="verified" color={Colors.PRIMARY} size={16} style={{ paddingLeft: 5 }} />
                     </View>
                     <View style={{ marginTop: 10, marginHorizontal: 20, marginBottom: 20 }}>
-                        <Text style={[Typography.TAGLINE, { textAlign: 'center', color: Colors.WHITE }]}>{"Experience the freedom of being in full control of your financial future."}</Text>
+                        <Text style={[Typography.TAGLINE, { textAlign: 'center', color: Colors.WHITE }]}>{t("Experience the freedom of being in full control of your financial future.")}</Text>
                     </View>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlock everything in the app</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>{t("Unlock everything in the app")}</Text>
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited wallets and budgets</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>{t("Unlimited wallets and budgets")}</Text>
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Unlimited tags and categories</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>{t("Unlimited tags and categories")}</Text>
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Reports on your expenses</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>{t("Reports on your expenses")}</Text>
                     </Pressable>
                     <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                         <Octicons name="check-circle-fill" color={Colors.PRIMARY} size={16} style={{ paddingRight: 10 }} />
-                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>Sync with multiple devices</Text>
+                        <Text style={[Typography.BODY, { color: Colors.WHITE }]}>{t("Sync with multiple devices")}</Text>
                     </Pressable>
                     <View style={styles(theme).container}>
                         <View style={styles(theme).gpPricing}>
-                            <Text style={[Typography.BODY, { color: Colors.BLACK }]}>U$ 1,99/month</Text>
-                            <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>With 7 days free trial</Text>
+                            <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 1,99"+"/"+t("month")}</Text>
+                            <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>{t("With 7 days free trial")}</Text>
                         </View>
                         <View style={styles(theme).gpPricing}>
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={{ flexDirection: 'column' }}>
-                                    <Text style={[Typography.BODY, { color: Colors.BLACK }]}>U$ 17,90/year</Text>
-                                    <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>With 7 days free trial</Text>
+                                    <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 14,90"+"/"+t("year")}</Text>
+                                    <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>{t("With 7 days free trial")}</Text>
                                 </View>
                                 <View style={{
                                     width: 45,
                                     height: 40,
                                     backgroundColor: Colors.YELLOW,
-                                    marginLeft: 60,
+                                    marginLeft: 30,
                                     marginTop: -10,
                                     paddingTop: 5,
                                     borderBottomEndRadius: 100,
                                     borderBottomStartRadius: 100
                                 }}>
-                                    <Text style={[Typography.H4, { color: Colors.BLACK, textAlign: 'center' }]}>25%</Text>
+                                    <Text style={[Typography.H4, { color: Colors.BLACK, textAlign: 'center' }]}>38%</Text>
                                 </View>
                             </View>
                         </View>
                         <View style={{ paddingHorizontal: 30, alignItems: 'center', paddingTop: 20 }}>
-                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center' }]}>{'By purchasing a Spendly subscription, you accept our '}</Text>
-                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center', textDecorationLine: "underline" }]}>{'Terms of Use and Privacy Policy'}</Text>
+                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center' }]}>{t('By purchasing a Spendly subscription, you accept our')}</Text>
+                            <Text style={[Typography.SMALL, { color: Colors.WHITE, textAlign: 'center', textDecorationLine: "underline" }]}>{t('Terms of Use and Privacy Policy')}</Text>
                         </View>
                     </View>
                 </View>
