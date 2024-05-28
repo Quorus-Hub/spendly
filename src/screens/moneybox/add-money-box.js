@@ -16,6 +16,9 @@ import Button from '../../components/Button';
 import BackHeader from '../../components/Headers/BackHeader';
 
 const AddMoneyBox = ({ navigation, route }) => {
+
+    const { t } = route.params;
+
     const [name, setName] = useState('');
     const [total, setTotal] = useState(0);
     const [collected, setCollected] = useState(0);
@@ -77,13 +80,13 @@ const AddMoneyBox = ({ navigation, route }) => {
     return (
         <View style={styles(theme).container}>
             {/* Header */}
-            <BackHeader theme={theme} title={route.params?.item ? 'Edit MoneyBox' : 'New MoneyBox'} />
+            <BackHeader theme={theme} title={route.params?.item ? t('Edit MoneyBox') : t('New MoneyBox')} />
             {/* Modal */}
-            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme}/>
+            <Alert isVisible={isVisible} msg={t('Please, write correct data.')} error={true} onClick={__close} theme={theme} t={t}/>
             {/* Body */}
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Title</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Title")}</Text>
                     <TextInput
                         theme={theme}
                         value={name}
@@ -95,7 +98,7 @@ const AddMoneyBox = ({ navigation, route }) => {
                 </View>
 
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Total</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Total")}</Text>
                     <TextInput
                         theme={theme}
                         value={total}
@@ -107,7 +110,7 @@ const AddMoneyBox = ({ navigation, route }) => {
                 </View>
 
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Collected</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Collected")}</Text>
                     <TextInput
                         theme={theme}
                         value={collected}
@@ -123,7 +126,7 @@ const AddMoneyBox = ({ navigation, route }) => {
             <View style={styles(theme).footerContainer}>
                 <Button
                     theme={theme}
-                    title='Save'
+                    title={t('Save')}
                     onPress={() => __save()} />
             </View>
         </View>

@@ -60,6 +60,16 @@
         "month": "mês",
         "year": "ano",
         "By purchasing a Spendly subscription, you accept our": "Ao adquirir uma assinatura Spendly, você aceita nossos",
-        "Terms of Use and Privacy Policy": "Termos de uso e politica de privacidade"
+        "Terms of Use and Privacy Policy": "Termos de uso e politica de privacidade",
+        "MoneyBox": "Caixinhas",
+        "You don't have any moneybox!": "Você não tem nenhuma caixinha!",
+        "collected": "valor coletado",
+        "Edit MoneyBox": "Editar Caixinha",
+        "New MoneyBox": "Nova Caixinha",
+        "Please, write correct data.": "Por favor, escreva os dados corretos.",
+        "Title": "Nome",
+        "Total": "Meta",
+        "Collected": "Valor coletado",
+        "Save": "Salvar"
     }
 }

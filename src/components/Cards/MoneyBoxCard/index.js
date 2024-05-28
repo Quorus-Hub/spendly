@@ -8,6 +8,7 @@ import {
 import { Colors, Typography } from '../../../styles';
 
 const MoneyBoxCard = (props) => {
+    const t = props.t;
     const item = props.item;
     const currency = props.currency;
     const calc = (item.collected / item.total) * 100;
@@ -20,7 +21,7 @@ const MoneyBoxCard = (props) => {
             <Text style={[Typography.TAGLINE, { marginBottom: 20, textAlign: 'left' }]}>
                 <Text style={{ color: theme.darkmode ? Colors.GRAY_THIN : Colors.BLACK }}>{currency} {item.collected} / {item.total} </Text>
                 {item.collected == item.total ?
-                    <Text style={{ color: Colors.SUCCESS }}>collected</Text>
+                    <Text style={{ color: Colors.SUCCESS }}>{t("collected")}</Text>
                     : null}
             </Text>
 

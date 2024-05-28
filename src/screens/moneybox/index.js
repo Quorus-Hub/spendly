@@ -23,7 +23,10 @@ import { getTheme } from '../../utils/theme';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-const MoneyBox = ({ navigation }) => {
+const MoneyBox = ({ navigation, route }) => {
+
+    const { t } = route.params;
+
     const focused = useIsFocused();
 
     const [moneybox, setMoneyBox] = useState(null);
@@ -54,7 +57,7 @@ const MoneyBox = ({ navigation }) => {
         <View style={styles(theme).container}>
             {/* Header */}
             <View style={styles(theme).headerContainer}>
-                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>MoneyBox</Text>
+                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("MoneyBox")}</Text>
 
                 <TouchableOpacity
                     activeOpacity={0.7}
@@ -89,7 +92,7 @@ const MoneyBox = ({ navigation }) => {
                     moneybox.length == 0 ?
                         <View style={styles(theme).emptyContainer}>
                             <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                            <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any moneybox !</Text>
+                            <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any moneybox!")}</Text>
                         </View>
                         :
                         <SwipeableFlatList
@@ -99,7 +102,7 @@ const MoneyBox = ({ navigation }) => {
                             keyExtractor={(item, index) => index.toString()}
                             renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                             renderItem={({ item, index }) => {
-                                return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme} />
+                                return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme} t={t}/>
                             }}
                         />
                 }

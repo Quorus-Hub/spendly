@@ -60,6 +60,16 @@
         "month": "month",
         "year": "year",
         "By purchasing a Spendly subscription, you accept our": "By purchasing a Spendly subscription, you accept our",
-        "Terms of Use and Privacy Policy": "Terms of Use and Privacy Policy"
+        "Terms of Use and Privacy Policy": "Terms of Use and Privacy Policy",
+        "MoneyBox": "MoneyBox",
+        "You don't have any moneybox!": "You don't have any moneybox!",
+        "collected": "collected",
+        "Edit MoneyBox": "Edit MoneyBox",
+        "New MoneyBox": "New MoneyBox",
+        "Please, write correct data.": "Please, write correct data.",
+        "Title": "Title",
+        "Total": "Total",
+        "Collected": "Collected",
+        "Save": "Save"
     }
 }
