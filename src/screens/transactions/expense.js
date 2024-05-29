@@ -20,8 +20,9 @@ import TransactionCard from '../../components/Cards/TransactionCard';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-const Expense = ({ navigation }) => {
+const Expense = ({ navigation, route }) => {
     const focused = useIsFocused();
+    const { t } = route.params;
 
     const [currency, setCurrency] = useState({});
     const [expenses, setExpenses] = useState(null);
@@ -87,7 +88,7 @@ const Expense = ({ navigation }) => {
                 expenses.length == 0 ?
                     <View style={styles(theme).emptyContainer}>
                         <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any expense !</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any expense!")}</Text>
                     </View>
                     :
                     <SwipeableFlatList
@@ -97,7 +98,7 @@ const Expense = ({ navigation }) => {
                         keyExtractor={(item, index) => index.toString()}
                         renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                         renderItem={({ item, index }) => {
-                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} />
+                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t}/>
                         }}
                     />
             }

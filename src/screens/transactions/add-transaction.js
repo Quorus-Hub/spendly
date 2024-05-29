@@ -24,6 +24,7 @@ import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 
 const AddTransaction = ({ navigation, route }) => {
+    const { t } = route.params;
     const [category, setCategory] = useState();
     const [categorySelected, setCategorySelected] = useState();
     const [showCategory, setShowCategory] = useState(false);
@@ -143,9 +144,9 @@ const AddTransaction = ({ navigation, route }) => {
     return (
         <View style={styles(theme).container}>
             {/* Header */}
-            <BackHeader theme={theme} title={route.params?.item ? 'Edit Transaction' : 'New Transaction'} />
+            <BackHeader theme={theme} title={route.params?.item ? t('Edit Transaction') : t('New Transaction')} />
             {/* Modal */}
-            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme} />
+            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme} t={t} />
             <Modal
                 useNativeDriverForBackdrop
                 swipeDirection={['down']}
@@ -175,7 +176,7 @@ const AddTransaction = ({ navigation, route }) => {
                                     <View style={{
                                         paddingLeft: 10,
                                     }}>
-                                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{item.name}</Text>
+                                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t(item.name)}</Text>
                                     </View>
                                 </Pressable>
                             </View>
@@ -187,19 +188,19 @@ const AddTransaction = ({ navigation, route }) => {
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
                 {/* Category */}
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Category</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Category")}</Text>
                     <TouchableOpacity
                         onPress={() => setShowCategory(true)}
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
-                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{categorySelected}</Text>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(categorySelected)}</Text>
                     </TouchableOpacity>
                 </View>
 
                 {/* Transaction type */}
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Transaction type</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Transaction type")}</Text>
                     <View style={styles(theme).rowContainer}>
-                        <Text style={[Typography.BODY, !income ? { color: Colors.PRIMARY } : { color: Colors.GRAY_DARK }]}>Income</Text>
+                        <Text style={[Typography.BODY, !income ? { color: Colors.PRIMARY } : { color: Colors.GRAY_DARK }]}>{t("Income")}</Text>
                         <Switch
                             trackColor={{ false: Colors.GRAY_LIGHT, true: Colors.GRAY_LIGHT }}
                             thumbColor={income ? Colors.PRIMARY : Colors.PRIMARY}
@@ -207,13 +208,13 @@ const AddTransaction = ({ navigation, route }) => {
                             onValueChange={toggleIncomeSwitch}
                             value={income}
                         />
-                        <Text style={[Typography.BODY, income ? { color: Colors.PRIMARY } : { color: Colors.GRAY_DARK }]}>Expense</Text>
+                        <Text style={[Typography.BODY, income ? { color: Colors.PRIMARY } : { color: Colors.GRAY_DARK }]}>{t("Expence")}</Text>
                     </View>
                 </View>
 
                 {/* Date */}
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Date</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Date")}</Text>
                     <TouchableOpacity
                         onPress={() => __toggleDateModal()}
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
@@ -233,7 +234,7 @@ const AddTransaction = ({ navigation, route }) => {
 
                 {/* Amount */}
                 <View style={styles(theme).inputContainer}>
-                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>Amount</Text>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Amount")}</Text>
                     <TextInput
                         value={amount}
                         placeholder=''
@@ -247,7 +248,7 @@ const AddTransaction = ({ navigation, route }) => {
             {/* Footer */}
             <View style={styles(theme).footerContainer}>
                 <Button
-                    title='Save'
+                    title={t('Save')}
                     tertiary
                     onPress={() => __save()} />
             </View>

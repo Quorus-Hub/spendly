@@ -22,6 +22,8 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 const Income = ({ navigation, route }) => {
     const focused = useIsFocused();
+    console.log('route', route)
+    const { t } = route.params;
 
     const [currency, setCurrency] = useState({});
     const [incomes, setIncomes] = useState(null);
@@ -87,7 +89,7 @@ const Income = ({ navigation, route }) => {
                 incomes.length == 0 ?
                     <View style={styles(theme).emptyContainer}>
                         <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>You don't have any income !</Text>
+                        <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any income!")}</Text>
                     </View>
                     :
                     <SwipeableFlatList
@@ -97,7 +99,7 @@ const Income = ({ navigation, route }) => {
                         keyExtractor={(item, index) => index.toString()}
                         renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                         renderItem={({ item, index }) => {
-                            return <TransactionCard currency={currency.symbol} key={index} theme={theme} transaction={item} />
+                            return <TransactionCard currency={currency.symbol} key={index} theme={theme} transaction={item} t={t}/>
                         }}
                     />
             }

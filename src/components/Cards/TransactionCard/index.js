@@ -12,6 +12,7 @@ const TransactionCard = (props) => {
     const transaction = props.transaction;
     const currency = props.currency;
     const theme = props.theme;
+    const t = props.t;
 
     return (
         <View style={styles(theme).container}>
@@ -20,7 +21,7 @@ const TransactionCard = (props) => {
             </View>
 
             <View style={styles(theme).detailsContainer}>
-                <Text style={[Typography.BODY, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK}]}>{transaction.category}</Text>
+                <Text style={[Typography.BODY, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK}]}>{t(transaction.category)}</Text>
                 <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK}]}>{transaction.transaction_date}</Text>
             </View>
 

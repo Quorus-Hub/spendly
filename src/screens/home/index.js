@@ -31,6 +31,8 @@ const Home = ({ navigation, route }) => {
 
     const focused = useIsFocused();
 
+    console.log('routes.Transactions', routes)
+
     const [currency, setCurrency] = useState({});
     const [totalIncomes, setTotalIncomes] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
@@ -100,7 +102,7 @@ const Home = ({ navigation, route }) => {
                             )
                         }}
                         renderItem={({ item, index }) => {
-                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} />
+                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} />
                         }}
                     // ListFooterComponent={() => {
                     //     return (

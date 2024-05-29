@@ -43,17 +43,17 @@ function MyTabs({ navigation, route }) {
         component={Home}
         initialParams={{ t: t, i18n: i18n }} 
         options={{
-          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Home}</Text>,
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Home)}</Text>,
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={23} />
           ),
         }} />
       <Tab.Screen
-        name={t(routes.Transactions)}
+        name={routes.Transactions}
         component={Transactions}
         initialParams={{ t: t, i18n: i18n }} 
         options={{
-          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Transactions}</Text>,
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Transactions)}</Text>,
           tabBarIcon: ({ color }) => (
             <Icon name="repeat" color={color} size={23} />
           ),
@@ -63,17 +63,17 @@ function MyTabs({ navigation, route }) {
         component={MoneyBox}
         initialParams={{ t: t, i18n: i18n }} 
         options={{
-          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.MoneyBox}</Text>,
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.MoneyBox)}</Text>,
           tabBarIcon: ({ color }) => (
             <Icon name="gift" color={color} size={23} />
           ),
         }} />
       <Tab.Screen
-        name={t(routes.Settings)}
+        name={routes.Settings}
         component={Settings}
         initialParams={{ t: t, i18n: i18n }} 
         options={{
-          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{routes.Settings}</Text>,
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Settings)}</Text>,
           tabBarIcon: ({ color }) => (
             <Icon name="settings" color={color} size={23} />
           ),

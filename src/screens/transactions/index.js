@@ -23,6 +23,7 @@ const Tab = createMaterialTopTabNavigator();
 function TopTabs(props) {
 
     const theme = props.theme;
+    const t = props.t;
 
     return (
         <Tab.Navigator
@@ -39,15 +40,17 @@ function TopTabs(props) {
                 swipeEnabled: false,
                 animationEnabled: true,
             }}>
-            <Tab.Screen name={routes.Income} options={{ tabBarLabel: 'Income' }} component={Income} />
-            <Tab.Screen name={routes.Expense} options={{ tabBarLabel: 'Expence' }} component={Expense} />
+            <Tab.Screen name={routes.Income} options={{ tabBarLabel: t('Income') }} component={Income} initialParams={{ t: t }}/>
+            <Tab.Screen name={routes.Expense} options={{ tabBarLabel: t('Expence') }} component={Expense} initialParams={{ t: t }} />
         </Tab.Navigator>
     );
 }
 
-const Transactions = ({ navigation }) => {
+const Transactions = ({ navigation, route }) => {
 
     const [theme, setTheme] = useState({});
+
+    const { t } = route.params;
 
     useEffect(() => {
         getTheme(setTheme)
@@ -57,7 +60,7 @@ const Transactions = ({ navigation }) => {
         <View style={styles(theme).container}>
             {/* Header */}
             <View style={styles(theme).headerContainer}>
-                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>Transactions</Text>
+                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("Transactions")}</Text>
 
                 <TouchableOpacity
                     activeOpacity={0.7}
@@ -69,7 +72,7 @@ const Transactions = ({ navigation }) => {
 
             {/* Body */}
             <View style={{ flex: 1 }}>
-                <TopTabs theme={theme} />
+                <TopTabs theme={theme} t={t} />
             </View>
         </View>
     );
