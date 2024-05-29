@@ -38,4 +38,25 @@ export const languages = [
         name: 'Portuguese',
         symbol: 'pt'
     },
+    {
+        id: '3',
+        name: 'Spanish',
+        symbol: 'es'
+    },
+    {
+        id: '4',
+        name: 'Italian',
+        symbol: 'it'
+    },
+    {
+        id: '5',
+        name: 'French',
+        symbol: 'fr'
+    },
+    {
+        id: '6',
+        name: 'German',
+        symbol: 'ge'
+    }
 ]
+
