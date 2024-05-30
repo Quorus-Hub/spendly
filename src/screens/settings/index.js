@@ -27,7 +27,7 @@ import Lottie from 'lottie-react-native';
 const Settings = ({ navigation, route }) => {
     const { state, authContext } = React.useContext(AuthContext);
 
-    const { t } = route.params;
+    const { t, i18n } = route.params;
 
     // Get User
     const user = state.user != null ? state.user.length > 0 ? JSON.parse(state.user) : state.user : { name: '', joined: Date.now() };
@@ -47,7 +47,7 @@ const Settings = ({ navigation, route }) => {
     useEffect(() => {
         getCurrency(setCurrency);
         getLanguage(setLanguage);
-        getTheme(setTheme)
+        getTheme(setTheme);
     }, []);
 
     // Toggle Currency Modal
@@ -78,10 +78,11 @@ const Settings = ({ navigation, route }) => {
     };
 
     // Change Language
-    const __changeLanguage = (currency) => {
-        setLanguage(currency);
-        storeLanguage(currency);
+    const __changeLanguage = (language) => {
+        setLanguage(language);
+        storeLanguage(language);
         __toggleLanguageModal();
+        i18n.changeLanguage(language.symbol);
     };
 
     const __signOut = () => {
@@ -215,7 +216,7 @@ const Settings = ({ navigation, route }) => {
                                 activeOpacity={0.8}
                                 style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Language")}</Text>
-                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t("English")}</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(language.name)}</Text>
                             </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable style={styles(theme).rowContainer}>
