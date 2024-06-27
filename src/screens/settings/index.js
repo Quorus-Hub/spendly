@@ -39,7 +39,9 @@ const Settings = ({ navigation, route }) => {
     const [languageModal, setLanguageModal] = useState(false);
     const [theme, setTheme] = useState({});
     const [msg, setMsg] = useState('');
+    const [msgQuit, setMsgQuit] = useState('');
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleQuit, setIsVisibleQuit] = useState(false);
     const [isVisibleUp, setIsVisibleUp] = useState(false);
     const [error, setError] = useState(false);
     const versionApp = DeviceInfo.getVersion();
@@ -85,8 +87,10 @@ const Settings = ({ navigation, route }) => {
         i18n.changeLanguage(language.symbol);
     };
 
-    const __signOut = () => {
-        authContext.signOut();
+    const __signOut = async () => {
+        await setMsgQuit(t('Are you sure you want to quit?'))
+        await setError(false);
+        await setIsVisibleQuit(true);
     }
 
     const __openDelete = async () => {
@@ -100,8 +104,14 @@ const Settings = ({ navigation, route }) => {
         await authContext.deleteData();
     }
 
+    const __quit = () => {
+        authContext.signOut();
+    }
+
+
     const __close = () => {
         setIsVisible(false);
+        setIsVisibleQuit(false);
     }
 
     const __closeUp = () => {
@@ -111,6 +121,8 @@ const Settings = ({ navigation, route }) => {
 
     return (
         <View style={{ flex: 1 }}>
+            {/* Modal Quit */}
+            <Question isVisible={isVisibleQuit} msg={msgQuit} onClick={__quit} onClose={__close} theme={theme} t={t} />
             {/* Modal */}
             <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} t={t} />
             {/* Update */}
@@ -193,10 +205,10 @@ const Settings = ({ navigation, route }) => {
                             </View> */}
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Update */}
-                            <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                            {/* <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                                 <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>{t("Update now!")}</Text>
                                 <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
-                            </Pressable>
+                            </Pressable> */}
                         </View>
                     </View>
 
@@ -242,6 +254,7 @@ const Settings = ({ navigation, route }) => {
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Version")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{versionApp}</Text>
                             </Pressable>
+                            {/* TODO: Depois incluir site da empresa */}
                             {/* <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable style={styles(theme).rowContainer} onPress={() => Linking.openURL('https://www.github.com')}>
                                 <Text style={[Typography.BODY, {color: Colors.WHITE}]}>Developer</Text>
