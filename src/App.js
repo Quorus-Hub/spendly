@@ -11,15 +11,21 @@ import RootNavigator from './navigations';
 import AuthProvider from './context/AuthProvider';
 import './utils/languages/i18n.js';
 import { useTranslation } from 'react-i18next';
-import { getLanguage, storeLanguage } from './utils/language.js';
+import { getLanguage, storeLanguage, languages } from './utils/language.js';
+import { getLocales } from "react-native-localize";
 
 const App = () => {
 
   const { t, i18n } = useTranslation();
+  const locale = getLocales();
+  let arr = [];
+  languages.map((item) => {
+    arr.push(item.symbol);
+  })
   const [language, setLanguage] = useState({
-    id: '1',
-    name: 'English',
-    symbol: 'en'
+    id:  arr.indexOf(locale[0].languageCode) > 0 ? languages[arr.indexOf(locale[0].languageCode)].id : '1',
+    name: arr.indexOf(locale[0].languageCode) > 0 ? languages[arr.indexOf(locale[0].languageCode)].name : 'English',
+    symbol: arr.indexOf(locale[0].languageCode) > 0 ? locale[0].languageCode : 'en'
   });
 
 
