@@ -31,10 +31,10 @@ const Question = (props) => {
                 borderRadius: 20,
                 height: "70%",
             }}>
-                <View style={{ alignItems: 'center', paddingVertical: 50 }}>
+                <View style={{ alignItems: 'center', paddingVertical: 30 }}>
                     <Lottie style={{ width: 250 }} source={require('../../../assets/JSON/question.json')} autoPlay loop={false}/>
                 </View>
-                <View style={{ marginBottom: 10, paddingVertical: 20 }}>
+                <View style={{ marginBottom: 10, paddingVertical: 20, paddingHorizontal: 20 }}>
                     <Text style={[Typography.H4, { textAlign: 'center', color: theme.darkmode ? Colors.WHITE : Colors.DARK_BLACK }]}>{t(props.msg)}</Text>
                 </View>
                 <View style={{

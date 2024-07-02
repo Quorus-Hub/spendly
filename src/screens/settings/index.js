@@ -39,8 +39,10 @@ const Settings = ({ navigation, route }) => {
     const [languageModal, setLanguageModal] = useState(false);
     const [theme, setTheme] = useState({});
     const [msg, setMsg] = useState('');
+    const [msgDelete, setMsgDelete] = useState('');
     const [msgQuit, setMsgQuit] = useState('');
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleAccount, setIsVisibleAccount] = useState(false);
     const [isVisibleQuit, setIsVisibleQuit] = useState(false);
     const [isVisibleUp, setIsVisibleUp] = useState(false);
     const [error, setError] = useState(false);
@@ -99,19 +101,37 @@ const Settings = ({ navigation, route }) => {
         await setIsVisible(true);
     }
 
+    const __openDeleteAccount = async () => {
+        await setMsgDelete(t('Are you sure you want to delete your account?'))
+        await setError(true);
+        await setIsVisibleAccount(true);
+    }
+
     const __deleteData = async () => {
         await setIsVisible(false);
         await authContext.deleteData();
+    }
+
+    const __deleteAccountData = async () => {
+        await setIsVisibleAccount(false);
+        await authContext.deleteAccount();
     }
 
     const __quit = () => {
         authContext.signOut();
     }
 
-
     const __close = () => {
         setIsVisible(false);
+    }
+
+
+    const __closeQuit = () => {
         setIsVisibleQuit(false);
+    }
+
+    const __closeDelete = () => {
+        setIsVisibleAccount(false);
     }
 
     const __closeUp = () => {
@@ -122,7 +142,9 @@ const Settings = ({ navigation, route }) => {
     return (
         <View style={{ flex: 1 }}>
             {/* Modal Quit */}
-            <Question isVisible={isVisibleQuit} msg={msgQuit} onClick={__quit} onClose={__close} theme={theme} t={t} />
+            <Question isVisible={isVisibleQuit} msg={msgQuit} onClick={__quit} onClose={__closeQuit} theme={theme} t={t} />
+            {/* Modal Delete Account*/}
+            <Question isVisible={isVisibleAccount} msg={msgDelete} onClick={__deleteAccountData} onClose={__closeDelete} theme={theme} t={t} />
             {/* Modal */}
             <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} t={t} />
             {/* Update */}
@@ -270,7 +292,7 @@ const Settings = ({ navigation, route }) => {
                             onPress={() => __openDelete()} >
                             <View style={styles(theme).blockContainer}>
                                 <View style={styles(theme).rowContainer}>
-                                    <Text style={[Typography.BODY, { color: Colors.ALERT }]}>{t("Restart your account")}</Text>
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK  }]}>{t("Restart your account")}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -285,6 +307,15 @@ const Settings = ({ navigation, route }) => {
                         <Text style={[Typography.H3, { color: theme.darkmode ? Colors.PRIMARY : Colors.WHITE }]}>{t("Sign out")}</Text>
                     </TouchableOpacity>
 
+                    {/* Sign out */}
+                    <TouchableOpacity
+                        onPress={() => __openDeleteAccount()} >
+                        <View style={styles(theme).blockContainerDelete}>
+                            <View style={styles(theme).rowContainerDelete}>
+                                <Text style={[Typography.BODY, { color: Colors.ALERT }]}>{t("Account deletion")}</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
@@ -311,11 +342,22 @@ export const styles = (theme) => StyleSheet.create({
         borderRadius: 10,
         backgroundColor: theme.darkmode ? Colors.LIGHT_BLACK : Colors.GRAY_MEDIUM
     },
+    blockContainerDelete: {
+        borderRadius: 10,
+        backgroundColor: 'transparent'
+    },
     rowContainer: {
         padding: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
+    },
+    rowContainerDelete: {
+        padding: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
     },
     btnContainer: {
         padding: 12,

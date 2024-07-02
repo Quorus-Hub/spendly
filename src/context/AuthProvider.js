@@ -3,8 +3,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AuthContext from './AuthContext';
 import { storeCurrency } from '../utils/currency';
+import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
+import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
 
 function AuthProvider({ children }) {
@@ -83,6 +85,50 @@ function AuthProvider({ children }) {
       await AsyncStorage.removeItem('user');
       await AsyncStorage.removeItem('theme');
       // Delete Database
+      deleteMoneyBoxTable();
+      deleteTransactionsTable();
+      dispatch({ type: 'SIGN_OUT' });
+    },
+    //Delete Account
+    deleteAccount: async () => {
+      let data = await AsyncStorage.getItem('user').then(result => {
+        return JSON.parse(result);
+      });
+
+      let user = auth().currentUser;
+
+      const id = await firestore()
+        .collection('Users')
+        // Filter results
+        .where('email', '==', data.email)
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot._docs[0]._ref._documentPath._parts[1]) {
+            return querySnapshot._docs[0]._ref._documentPath._parts[1]
+          }else{
+             return undefined
+          }
+        });
+
+      if (user) {
+        user
+          .delete()
+          .then(() => console.log("User deleted"))
+          .catch((error) => console.log(error));
+
+      }
+
+      if (id) {
+        firestore()
+          .collection("Users")
+          .doc(id)
+          .delete()
+      }
+
+      //Delete User
+      await AsyncStorage.removeItem('user');
+      await AsyncStorage.removeItem('theme');
+      //Delete Database
       deleteMoneyBoxTable();
       deleteTransactionsTable();
       dispatch({ type: 'SIGN_OUT' });
