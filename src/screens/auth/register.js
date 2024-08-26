@@ -25,6 +25,7 @@ import auth from '@react-native-firebase/auth';
 
 import Button from '../../components/Button';
 import Alert from '../../components/Modal/Alert';
+import { getLocales } from "react-native-localize";
 
 const Login = ({ navigation, route }) => {
 
@@ -44,6 +45,8 @@ const Login = ({ navigation, route }) => {
         secureTextEntry: true,
     });
 
+    const locale = getLocales();
+
     useEffect(() => {
         GoogleSignin.configure({
             webClientId: '778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -62,9 +65,24 @@ const Login = ({ navigation, route }) => {
                 photo: userInfo.user.photo,
                 free: true,
                 active: true,
+                countryCode: locale[0].countryCode,
                 joined: new Date()
             }
-            __save(user);
+            const doc = await firestore()
+            .collection('Users')
+            // Filter results
+            .where('email', '==', userInfo.user.email)
+            .get()
+            .then(querySnapshot => {
+                return querySnapshot._docs
+            });
+
+
+            if(doc.length > 0){
+                authContext.signIn(user);
+            }else{
+                __save(user);
+            }
         } catch (error) {
             console.log(error)
             await setError(true);
@@ -129,15 +147,17 @@ const Login = ({ navigation, route }) => {
         //criar user
         auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(response => {
+            .then(async response => {
                 const user = {
                     name: name,
                     email: email,
                     photo: "",
                     free: true,
                     active: true,
+                    countryCode: locale[0].countryCode,
                     joined: new Date()
                 }
+
                 __save(user);
             })
             .catch(async error => {

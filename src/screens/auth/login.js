@@ -8,6 +8,7 @@ import {
     Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import firestore from '@react-native-firebase/firestore';
 import routes from '../../config/routes';
 
 import {
@@ -24,6 +25,7 @@ import auth from '@react-native-firebase/auth';
 
 import Button from '../../components/Button';
 import Alert from '../../components/Modal/Alert';
+import { getLocales } from "react-native-localize";
 
 const Login = ({ navigation, route }) => {
 
@@ -42,6 +44,10 @@ const Login = ({ navigation, route }) => {
         secureTextEntry: true,
     });
 
+    const locale = getLocales();
+
+    console.log('locale', locale)
+
     useEffect(() => {
         GoogleSignin.configure({
             webClientId: '778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -54,15 +60,36 @@ const Login = ({ navigation, route }) => {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
             setGoogleInfo(userInfo);
+
             const user = {
                 name: userInfo.user.name,
                 email: userInfo.user.email,
                 photo: userInfo.user.photo,
                 free: true,
                 active: true,
+                countryCode: locale[0].countryCode,
                 joined: new Date()
             }
-            authContext.signIn(user);
+
+        
+
+            const doc = await firestore()
+            .collection('Users')
+            // Filter results
+            .where('email', '==', userInfo.user.email)
+            .get()
+            .then(querySnapshot => {
+                return querySnapshot._docs
+            });
+
+
+            if(doc.length > 0){
+                authContext.signIn(user);
+            }else{
+                __save(user);
+            }
+    
+
         } catch (error) {
             console.log(error)
             await setError(true);
@@ -107,6 +134,21 @@ const Login = ({ navigation, route }) => {
         }
     }
 
+    const __save = async (user) => {
+        firestore()
+            .collection('Users')
+            .add(user)
+            .then(() => {
+                console.log('User added!');
+                authContext.signIn(user);
+            }).catch(async error => {
+                console.log('Error added!');
+                await setError(true);
+                await setMsg(t('Error registering user!'));
+                await setIsVisible(true);
+            })
+    }
+
 
     const handleSignIn = async () => {
         auth()
@@ -119,6 +161,7 @@ const Login = ({ navigation, route }) => {
                     photo: userInfo.photoURL,
                     free: true,
                     active: true,
+                    countryCode: locale[0].countryCode,
                     joined: new Date()
                 }
                 authContext.signIn(user);
