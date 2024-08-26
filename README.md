@@ -11,7 +11,7 @@
 
 Clone the repo
 ```bash
-  git clone https://github.com/slesbel/spendly
+  git clone https://github.com/belsalm/spendly
 ```
 
 Install spendly with npm
@@ -107,6 +107,7 @@ Spendly
     │   └── auth-provider.js
     ├── dbHelpers
     │   ├── moneyboxHelper.js
+    │   ├── categoryHelper.js
     │   ├── openDB.js
     │   └── TransactionHelper.js
     ├── navigations
@@ -119,6 +120,9 @@ Spendly
     │   ├── home
     │   │   ├── index.js
     │   │   └── notifications.js
+    │   ├── category
+    │   │   ├── add-category.js
+    │   │   └── index.js
     │   ├── moneybox
     │   │   ├── add-moneybox.js
     │   │   └── index.js

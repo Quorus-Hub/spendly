@@ -2,17 +2,17 @@ import { Alert } from 'react-native';
 import db from './openDB';
 
 // Table Name
-const tableName = 'money_box';
+const tableName = 'category';
 
 // Create Table
-export const createMoneyBoxTable = () => {
+export const createCategoryTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS ' + tableName +
-            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50) NOT NULL, total FLOAT NOT NULL, collected FLOAT NOT NULL);',
+            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50) NOT NULL, icon VARCHAR(50) NOT NULL, color VARCHAR(50) NOT NULL);',
             [],
             () => {
-                console.log('createdMoneyBox');
+                console.log('createdCategory');
             },
             error => {
                 console.log(error);
@@ -21,8 +21,8 @@ export const createMoneyBoxTable = () => {
     });
 }
 
-// Get MoneyBox
-export const getMoneyBox = (setMoneyBox) => {
+// Get Category
+export const getCategory = (setCategory) => {
     db.transaction((tx) => {
         tx.executeSql(
             'SELECT * FROM ' + tableName,
@@ -37,15 +37,15 @@ export const getMoneyBox = (setMoneyBox) => {
                         result.push({
                             id: row.id,
                             name: row.name,
-                            total: row.total,
-                            collected: row.collected
+                            icon: row.icon,
+                            color: row.color
                         })
                     }
                 }
                 else {
                     console.log('empty');
                 }
-                setMoneyBox(result);
+                setCategory(result);
             },
             error => {
                 console.log(error);
@@ -54,16 +54,15 @@ export const getMoneyBox = (setMoneyBox) => {
     });
 }
 
-// Insert MoneyBox
-export const insertMoneyBox = (item) => {
-    if (item.name.length == 0 || item.total <= 0 || item.collected < 0) {
-       return true
-    }
-    else {
+// Insert Category
+export const insertCategory = (item) => {
+    if (item.name.length == 0 || item.icon == 0 || item.color == 0) {
+        return true
+    } else {
         db.transaction((tx) => {
             tx.executeSql(
-                'INSERT INTO ' + tableName + '(name, total, collected) VALUES(?,?,?);',
-                [item.name, item.total, item.collected],
+                'INSERT INTO ' + tableName + '(name, icon, color) VALUES(?,?,?);',
+                [item.name, item.icon, item.color],
                 () => {
                     console.log('inserted');
                 },
@@ -76,16 +75,16 @@ export const insertMoneyBox = (item) => {
     }
 }
 
-// Update MoneyBox
-export const updateMoneyBox = (item) => {
-    if (item.name.length == 0 || item.total <= 0 || item.collected < 0) {
+// Update Category
+export const updateCategory = (item) => {
+    if (item.name.length == 0 || item.icon == 0 || item.color == 0) {
         return true
     }
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'UPDATE ' + tableName + ' SET name = ?, total = ?, collected = ? WHERE id = ?',
-                [item.name, item.total, item.collected, item.id],
+                'UPDATE ' + tableName + ' SET name = ?, icon = ?, color = ? WHERE id = ?',
+                [item.name, item.icon, item.color, item.id],
                 () => {
                     console.log('updated');
                 },
@@ -98,8 +97,8 @@ export const updateMoneyBox = (item) => {
     }
 }
 
-// Delete MoneyBox
-export const deleteMoneyBox = (id) => {
+// Delete Category
+export const deleteCategory = (id) => {
     db.transaction((tx) => {
         tx.executeSql(
             'DELETE FROM ' + tableName + ' WHERE id = ?',
@@ -115,7 +114,7 @@ export const deleteMoneyBox = (id) => {
 }
 
 // Drop Table
-export const deleteMoneyBoxTable = () => {
+export const deleteCategoryTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             `drop table ${tableName}`,

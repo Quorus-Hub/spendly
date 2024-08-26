@@ -66,12 +66,15 @@ const Settings = ({ navigation, route }) => {
 
 
     // Toggle Darkmode / Expense Switch
-    const toggleDarkmodeSwitch = (event) => {
+    const __toggleDarkmodeSwitch = (event) => {
         console.log(event)
         setTheme({ darkmode: event });
         storeTheme({ darkmode: event })
     }
 
+    const __redirectCategory = () => {
+        navigation.navigate('Category', { navigation, route })
+    }
 
 
     // Change Currency
@@ -252,6 +255,12 @@ const Settings = ({ navigation, route }) => {
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Language")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(language.name)}</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => __redirectCategory()}
+                                activeOpacity={0.8}
+                                style={styles(theme).rowContainer}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Categories")}</Text>
+                            </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Darkmode")}</Text>
@@ -260,7 +269,7 @@ const Settings = ({ navigation, route }) => {
                                         trackColor={{ false: Colors.WHITE, true: Colors.PRIMARY }}
                                         thumbColor={theme.darkmode ? Colors.PRIMARY : Colors.PRIMARY}
                                         ios_backgroundColor="#3e3e3e"
-                                        onValueChange={toggleDarkmodeSwitch}
+                                        onValueChange={__toggleDarkmodeSwitch}
                                         value={theme.darkmode ? theme.darkmode : false}
                                     />
                                 </Text>
@@ -292,7 +301,7 @@ const Settings = ({ navigation, route }) => {
                             onPress={() => __openDelete()} >
                             <View style={styles(theme).blockContainer}>
                                 <View style={styles(theme).rowContainer}>
-                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK  }]}>{t("Restart your account")}</Text>
+                                    <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t("Restart your account")}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

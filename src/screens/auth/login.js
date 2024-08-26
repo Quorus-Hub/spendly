@@ -46,8 +46,6 @@ const Login = ({ navigation, route }) => {
 
     const locale = getLocales();
 
-    console.log('locale', locale)
-
     useEffect(() => {
         GoogleSignin.configure({
             webClientId: '778646354621-id4p3dgc714mdefma79ebtks1e999s1q.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)

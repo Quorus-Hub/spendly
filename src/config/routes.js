@@ -17,7 +17,10 @@ const routes = {
   MoneyBox: 'MoneyBox',
   AddMoneyBox: 'AddMoneyBox',
   // Settings
-  Settings: 'Settings'
+  Settings: 'Settings',
+  // Category
+  Category: 'Category',
+  AddCategory: 'AddCategory',
 };
 
 export default routes;

@@ -31,8 +31,6 @@ const Home = ({ navigation, route }) => {
 
     const focused = useIsFocused();
 
-    console.log('routes.Transactions', routes)
-
     const [currency, setCurrency] = useState({});
     const [totalIncomes, setTotalIncomes] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);

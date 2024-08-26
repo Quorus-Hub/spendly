@@ -22,7 +22,6 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 const Income = ({ navigation, route }) => {
     const focused = useIsFocused();
-    console.log('route', route)
     const { t } = route.params;
 
     const [currency, setCurrency] = useState({});

@@ -28,7 +28,7 @@ export const createTransactionsTable = () => {
             ' (id INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR(50) NOT NULL, icon VARCHAR(30) NOT NULL, transaction_date TEXT NOT NULL, amount FLOAT NOT NULL, type VARCHAR(20) NOT NULL, color VARCHAR(50));',
             [],
             () => {
-                console.log('created');
+                console.log('createdTransaction');
             },
             error => {
                 console.log(error);
@@ -50,7 +50,6 @@ export const getTransactions = (setTransactions) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
-                        console.log('row', row)
                         result.push({
                             id: row.id,
                             category: row.category,
@@ -124,7 +123,6 @@ export const getExpenses = (setExpenses) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
-                        console.log('row', row)
                         result.push({
                             id: row.id,
                             category: row.category,

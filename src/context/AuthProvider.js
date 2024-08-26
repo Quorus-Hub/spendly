@@ -3,9 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AuthContext from './AuthContext';
 import { storeCurrency } from '../utils/currency';
+import { categories } from '../utils/categories';
 import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
+import { createCategoryTable, deleteCategoryTable, insertCategory } from '../dbHelpers/categoryHelper';
 import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
 
@@ -69,9 +71,13 @@ function AuthProvider({ children }) {
         name: 'Dollar',
         symbol: '$'
       });
-      // Create MoneyBox & Transactions Tables
+      // Create MoneyBox & Transactions & Category Tables
       createMoneyBoxTable();
+      createCategoryTable();
       createTransactionsTable();
+      categories.map((item) => {
+        insertCategory(item);
+      })
       dispatch({ type: 'SIGN_IN', user: jsonUser });
     },
     // Sign Out
@@ -86,6 +92,7 @@ function AuthProvider({ children }) {
       await AsyncStorage.removeItem('theme');
       // Delete Database
       deleteMoneyBoxTable();
+      deleteCategoryTable();
       deleteTransactionsTable();
       dispatch({ type: 'SIGN_OUT' });
     },
@@ -130,6 +137,7 @@ function AuthProvider({ children }) {
       await AsyncStorage.removeItem('theme');
       //Delete Database
       deleteMoneyBoxTable();
+      deleteCategoryTable();
       deleteTransactionsTable();
       dispatch({ type: 'SIGN_OUT' });
     },
