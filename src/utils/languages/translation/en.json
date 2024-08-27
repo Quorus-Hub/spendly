@@ -108,6 +108,10 @@
         "Are you sure you want to quit?": "Are you sure you want to quit?",
         "Account deletion": "Account deletion",
         "Are you sure you want to delete your account?": "Are you sure you want to delete your account?",
-        "Categories": "Categories"
+        "Categories": "Categories",
+        "Edit Category": "Edit Category",
+        "New Category": "New Category",
+        "Color": "Color",
+        "Icon": "Icon"
     }
 }

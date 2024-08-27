@@ -54,6 +54,13 @@ const Category = ({ navigation, route }) => {
         <View style={styles(theme).container}>
             {/* Header */}
             <View style={styles(theme).headerContainer}>
+
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={{ padding: 5, alignItems: 'flex-start' }}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="chevron-left" color={theme.darkmode ? Colors.WHITE : Colors.BLACK} size={20} />
+                </TouchableOpacity>
                 <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("Categories")}</Text>
 
                 <TouchableOpacity
@@ -84,6 +91,22 @@ const Category = ({ navigation, route }) => {
                             shimmerStyle={styles(theme).loading}
                         >
                         </ShimmerPlaceHolder>
+                        <ShimmerPlaceHolder
+                            key={3}
+                            LinearGradient={LinearGradient}
+                            shimmerColors={arrayColor}
+                            autoRun={true}
+                            shimmerStyle={styles(theme).loading}
+                        >
+                        </ShimmerPlaceHolder>
+                        <ShimmerPlaceHolder
+                            key={4}
+                            LinearGradient={LinearGradient}
+                            shimmerColors={arrayColor}
+                            autoRun={true}
+                            shimmerStyle={styles(theme).loading}
+                        >
+                        </ShimmerPlaceHolder>
                     </View>
                     :
                     category.length == 0 ?
@@ -99,7 +122,7 @@ const Category = ({ navigation, route }) => {
                             keyExtractor={(item, index) => index.toString()}
                             renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                             renderItem={({ item, index }) => {
-                                return <CategoryCard key={index} item={item} category={item} theme={theme} t={t}/>
+                                return <CategoryCard key={index} item={item} category={item} theme={theme} t={t} />
                             }}
                         />
                 }
@@ -144,7 +167,7 @@ export const styles = (theme) => StyleSheet.create({
         alignSelf: 'center',
         width: '90%',
         borderRadius: 15,
-        height: 120,
+        height: 60,
         marginHorizontal: 20,
         textAlign: 'center',
         marginTop: 20,
