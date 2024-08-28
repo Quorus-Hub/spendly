@@ -23,7 +23,7 @@ import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
 
 const AddTransaction = ({ navigation, route }) => {
-    const { t } = route.params;
+    const { t, i18n } = route.params;
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState([]);
     const [categorySelected, setCategorySelected] = useState();
@@ -63,7 +63,6 @@ const AddTransaction = ({ navigation, route }) => {
 
     // Insert Transaction
     const __insert = () => {
-        console.log('category', category);
         if (date && category && amount.length > 0) {
             const stringDate = date.toLocaleDateString();
             return insertTransaction({
@@ -228,6 +227,7 @@ const AddTransaction = ({ navigation, route }) => {
                         testID="dateTimePicker"
                         value={date}
                         mode='date'
+                        locale={i18n.symbol}
                         display='calendar'
                         onChange={onChangeDate}
                     />
