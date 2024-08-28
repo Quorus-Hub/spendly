@@ -255,6 +255,7 @@ const Settings = ({ navigation, route }) => {
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Language")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(language.name)}</Text>
                             </TouchableOpacity>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <TouchableOpacity
                                 onPress={() => __redirectCategory()}
                                 activeOpacity={0.8}

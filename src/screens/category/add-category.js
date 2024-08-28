@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 
 import { Colors, Typography } from '../../styles';
-import { insertMoneyBox, updateMoneyBox } from '../../dbHelpers/moneyboxHelper';
+import { insertCategory, updateCategory } from '../../dbHelpers/categoryHelper';
 import { getTheme } from '../../utils/theme';
 import { colors } from '../../utils/colors';
+import { icons } from '../../utils/icons';
 import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
@@ -27,31 +29,40 @@ const AddCategory = ({ navigation, route }) => {
     const [color, setColor] = useState('');
     const [colorSelected, setColorSelected] = useState('');
     const [icon, setIcon] = useState('');
+    const [iconSelected, setIconSelected] = useState('');
     const [isVisible, setIsVisible] = useState(false);
     const [showColor, setShowColor] = useState(false);
+    const [showIcon, setShowIcon] = useState(false);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
         getTheme(setTheme);
         if (route.params?.item) {
+            console.log('teste', route.params?.item)
             setName(route.params.item.name);
             setColor((route.params.item.color).toString());
             setIcon((route.params.item.icon).toString());
+            setColorSelected(colors.filter((item) => {
+                return item.color == route.params.item.color
+            })[0]);
+            setIconSelected(icons.filter((item) => {
+                return item.icon == route.params.item.icon
+            })[0]);
         }
     }, []);
 
-    // Insert MoneyBox
+    // Insert Category
     const __insert = () => {
-        return insertMoneyBox({
+        return insertCategory({
             name: name,
             color: color,
             icon: icon
         });
     }
 
-    // Update MoneyBox
+    // Update Category
     const __update = () => {
-        return updateMoneyBox({
+        return updateCategory({
             id: route.params.item.id,
             name: name,
             color: color,
@@ -59,7 +70,7 @@ const AddCategory = ({ navigation, route }) => {
         });
     }
 
-    // Save MoneyBox
+    // Save Category
     const __save = () => {
         if (route.params?.item) {
             if (__update()) {
@@ -83,6 +94,10 @@ const AddCategory = ({ navigation, route }) => {
         setIsVisible(false);
     }
 
+    // Toggle Modal
+    const __toggleIconModal = () => {
+        setShowIcon(!showIcon);
+    };
 
     // Toggle Modal
     const __toggleColorModal = () => {
@@ -91,10 +106,16 @@ const AddCategory = ({ navigation, route }) => {
 
     // Change Color
     const __changeColor = (color) => {
-        console.log('color', color);
-        setColor(color);
+        setColor(color.color);
         setColorSelected(color);
         __toggleColorModal();
+    };
+
+    // Change Icon
+    const __changeIcon = (icon) => {
+        setIcon(icon.icon);
+        setIconSelected(icon);
+        __toggleIconModal();
     };
 
 
@@ -140,6 +161,36 @@ const AddCategory = ({ navigation, route }) => {
                     </ScrollView>
                 </View>
             </Modal>
+            {/* Icon */}
+            <Modal
+                useNativeDriverForBackdrop
+                swipeDirection={['down']}
+                isVisible={showIcon}
+                onBackButtonPress={() => { __toggleIconModal(); }}
+                onBackdropPress={() => { __toggleIconModal(); }}
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
+            >
+                <View>
+                    <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
+                        <View style={{
+                            justifyContent: 'flex-start',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap'
+                        }}>
+                            {icons.map((item) => (
+                                <Pressable style={styles(theme).rowIcons} onPress={() => __changeIcon(item)} >
+                                    <View style={[styles(theme).iconContainer, { backgroundColor: theme.darkmode ? Colors.GRAY_DARK : Colors.GRAY_MEDIUM}]}>
+                                        <Icon name={item.icon} color={theme.darkmode ? Colors.BLACK : Colors.BLACK} size={25} />
+                                    </View>
+                                </Pressable>
+                            ))}
+                        </View>
+                    </ScrollView>
+                </View>
+            </Modal>
             {/* Body */}
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
                 <View style={styles(theme).inputContainer}>
@@ -160,11 +211,11 @@ const AddCategory = ({ navigation, route }) => {
                         onPress={() => setShowColor(true)}
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
                         <View style={{
-                                flexDirection: "row"
-                            }}>
+                            flexDirection: "row"
+                        }}>
                             <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(colorSelected.name)}</Text>
                             <View style={{
-                                marginLeft: 10, 
+                                marginLeft: 10,
                                 width: 20,
                                 height: 20,
                                 borderRadius: 10,
@@ -176,14 +227,16 @@ const AddCategory = ({ navigation, route }) => {
 
                 <View style={styles(theme).inputContainer}>
                     <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Icon")}</Text>
-                    <TextInput
-                        theme={theme}
-                        value={icon}
-                        placeholder=''
-                        keyboardType='numeric'
-                        onChangeText={(text) => setCollected(text)}
-                        style={[styles(theme).input, Typography.BODY]}
-                        placeholderTextColor={theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK} />
+                    <TouchableOpacity
+                        onPress={() => setShowIcon(true)}
+                        style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
+                        <View style={{
+                            flexDirection: "row"
+                        }}>
+                            <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK, paddingRight: 10 }]}>{t(iconSelected.name)}</Text>
+                                <Icon name={iconSelected.icon} color={theme.darkmode ? Colors.WHITE : Colors.BLACK} size={15} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
 
@@ -219,6 +272,13 @@ export const styles = (theme) => StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    rowIcons: {
+        margin: 10,
+        flexDirection: 'column',
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     input: {
         padding: 10,
         marginTop: 10,
@@ -232,13 +292,20 @@ export const styles = (theme) => StyleSheet.create({
     },
     // Modal 
     modalContainer: {
-        height: '50%',
+        height: '60%',
         width: "100%",
         margin: 0,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 20,
         backgroundColor: theme.darkmode ? Colors.BLACK : Colors.GRAY_MEDIUM,
+    },
+    iconContainer: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 

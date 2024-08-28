@@ -16,8 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Colors, Typography } from '../../styles';
 import { insertTransaction, updateTransaction } from '../../dbHelpers/transactionHelper';
 import { getTheme } from '../../utils/theme';
-
-import { categories } from '../../utils/categories';
+import { getCategory } from '../../dbHelpers/categoryHelper';
 
 import BackHeader from '../../components/Headers/BackHeader';
 import Alert from '../../components/Modal/Alert';
@@ -26,6 +25,7 @@ import Button from '../../components/Button';
 const AddTransaction = ({ navigation, route }) => {
     const { t } = route.params;
     const [category, setCategory] = useState();
+    const [categories, setCategories] = useState([]);
     const [categorySelected, setCategorySelected] = useState();
     const [showCategory, setShowCategory] = useState(false);
     const [income, setIncome] = useState(false);
@@ -37,6 +37,7 @@ const AddTransaction = ({ navigation, route }) => {
 
     useEffect(async () => {
         await getTheme(setTheme);
+        await getCategory(setCategories);
         if (route.params?.item) {
             console.log('item', route.params?.item)
             await setCategorySelected(route.params.item.category);

@@ -45,7 +45,7 @@ export const getCategory = (setCategory) => {
                 else {
                     console.log('empty');
                 }
-                setCategory(result);
+                setCategory(result.sort((a, b) => (a.name > b.name ? 1 : -1)));
             },
             error => {
                 console.log(error);

@@ -112,6 +112,24 @@
         "Edit Category": "Edit Category",
         "New Category": "New Category",
         "Color": "Color",
-        "Icon": "Icon"
+        "Icon": "Icon",
+        "Pink": "Pink",
+        "Blue": "Blue",
+        "Green": "Green",
+        "Violet": "Violet",
+        "Yellow": "Yellow",
+        "Wallet": "Wallet",
+        "Tshirt": "Tshirt",
+        "Phone": "Phone",
+        "Donate": "Donate",
+        "Film": "Film",
+        "Hamburger": "Hamburger",
+        "Heart": "Heart",
+        "Dog": "Dog",
+        "Utensils": "Utensils",
+        "Money": "Money",
+        "Futbol": "Futbol",
+        "Plane": "Plane",
+        "Briefcase": "Briefcase"
     }
 }

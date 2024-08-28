@@ -1,6 +1,4 @@
-import { Colors } from '../styles';
-
-export const categories = [
+export const icons = [
     {
         id: '1',
         name: 'Beauty',

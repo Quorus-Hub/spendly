@@ -3,27 +3,27 @@ import { Colors } from '../styles';
 export const colors = [
     {
         id: '1',
-        name: 'PINK',
+        name: 'Pink',
         color: Colors.PINK
     },
     {
         id: '2',
-        name: 'BLUE',
+        name: 'Blue',
         color: Colors.BLUE
     },
     {
         id: '3',
-        name: 'GREEN',
+        name: 'Green',
         color: Colors.GREEN
     },
     {
         id: '4',
-        name: 'VIOLET',
+        name: 'Violet',
         color: Colors.VIOLET
     },
     {
         id: '5',
-        name: 'YELLOW',
+        name: 'Yellow',
         color: Colors.YELLOW
     }
 ]

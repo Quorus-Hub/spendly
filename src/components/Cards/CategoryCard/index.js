@@ -13,7 +13,6 @@ const CategoryCard = (props) => {
     const theme = props.theme;
     const t = props.t;
 
-    console.log('category', category)
     return (
         <View style={styles(theme).container}>
             <View style={[styles(theme).iconContainer, {backgroundColor: category.color || Colors.BLUE}]}>
