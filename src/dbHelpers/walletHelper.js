@@ -21,25 +21,6 @@ export const createWalletTable = () => {
     });
 }
 
-// Get Amount Wallet
-export const getAmountWallet = () => {
-    db.transaction((tx) => {
-        tx.executeSql(
-            'SELECT * FROM ' + tableName,
-            [],
-            (tx, results) => {
-                var len = results.rows.length;
-               return len;
-            },
-            error => {
-                console.log(error);
-                return 0;
-            }
-        );
-    });
-}
-
-
 // Get Wallet
 export const getWallet = (setWallet) => {
     db.transaction((tx) => {
@@ -74,7 +55,7 @@ export const getWallet = (setWallet) => {
 
 // Insert Wallet
 export const insertWallet = (item) => {
-    if (item.name.length == 0 || item.balance <= 0) {
+    if (item.name.length == 0 || item.balance < 0) {
         return true
     } else {
         db.transaction((tx) => {
@@ -82,7 +63,7 @@ export const insertWallet = (item) => {
                 'INSERT INTO ' + tableName + '(name, balance) VALUES(?,?);',
                 [item.name, item.balance],
                 () => {
-                    console.log('inserted');
+                    console.log('inserted wallet');
                 },
                 error => {
                     console.log(error);

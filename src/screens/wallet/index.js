@@ -122,7 +122,6 @@ const Wallet = ({ navigation, route }) => {
                             openRowKey={1}
                             shouldBounceOnMount={true}
                             keyExtractor={(item, index) => index.toString()}
-                            // renderQuickActions={({ index, item }) => console.log('teste', index, item)}
                             renderQuickActions={({ index, item }) => item.id == 1 ? QuickActionsMain(item, __update, theme) : QuickActions(item, __update, __delete, theme)}
                             renderItem={({ item, index }) => {
                                 return <WalletCard key={index} item={item} wallet={item} theme={theme} t={t} />

@@ -245,6 +245,13 @@ const Settings = ({ navigation, route }) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("App Settings")}</Text>
                         <View style={styles(theme).blockContainer}>
+                        <Pressable
+                                style={styles(theme).rowContainer}
+                                onPress={() => __toggleWalletModal()}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Main Wallet")}</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{currency.name} ({currency.symbol})</Text>
+                            </Pressable>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable
                                 style={styles(theme).rowContainer}
                                 onPress={() => __toggleCurrencyModal()}>

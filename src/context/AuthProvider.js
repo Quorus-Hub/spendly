@@ -8,8 +8,8 @@ import { wallets } from '../utils/wallets';
 import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
-import { createCategoryTable, deleteCategoryTable, insertCategory, getAmountCategory } from '../dbHelpers/categoryHelper';
-import { createWalletTable, deleteWalletTable, insertWallet, getAmountWallet } from '../dbHelpers/walletHelper';
+import { createCategoryTable, deleteCategoryTable, insertCategory } from '../dbHelpers/categoryHelper';
+import { createWalletTable, deleteWalletTable, insertWallet } from '../dbHelpers/walletHelper';
 import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
@@ -74,22 +74,26 @@ function AuthProvider({ children }) {
         name: 'Dollar',
         symbol: '$'
       });
+      // Delete Database
+      deleteWalletTable();
+      deleteMoneyBoxTable();
+      deleteCategoryTable();
+      deleteTransactionsTable();
       // Create MoneyBox & Transactions & Category & Wallet Tables
       createWalletTable();
       createMoneyBoxTable();
       createCategoryTable();
       createTransactionsTable();
-      console.log('teste',getAmountCategory(), getAmountWallet())
-      if (getAmountCategory() == 0) {
-        categories.map((item) => {
-          insertCategory(item);
-        })
-      }
-      if (getAmountWallet == 0) {
-        wallets.map((item) => {
-          insertWallet(item);
-        })
-      }
+
+      categories.map((item) => {
+        insertCategory(item);
+      })
+
+      wallets.map((item) => {
+        console.log('item', item)
+        insertWallet(item);
+      })
+
       dispatch({ type: 'SIGN_IN', user: jsonUser });
     },
     // Sign Out

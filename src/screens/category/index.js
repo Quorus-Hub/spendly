@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import SwipeableFlatList from 'react-native-swipeable-list';
 import LinearGradient from 'react-native-linear-gradient';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
+import { categories } from '../../utils/categories';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
@@ -32,8 +33,8 @@ const Category = ({ navigation, route }) => {
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
-        getTheme(setTheme);
-        getCategory(setCategory);
+       getTheme(setTheme);
+       getCategory(setCategory);
     }, [focused]);
 
     // Delete Item

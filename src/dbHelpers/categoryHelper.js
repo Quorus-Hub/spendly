@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import { Colors } from 'react-native-paper';
 import db from './openDB';
 
 // Table Name
@@ -10,7 +11,7 @@ export const createCategoryTable = () => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS ' + tableName +
             ' (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50) NOT NULL, icon VARCHAR(50) NOT NULL, color VARCHAR(50) NOT NULL);',
-            [],
+             [],
             () => {
                 console.log('createdCategory');
             },
@@ -20,26 +21,6 @@ export const createCategoryTable = () => {
         );
     });
 }
-
-// Get Amount Category
-export const getAmountCategory = () => {
-    return db.transaction((tx) => {
-      return  tx.executeSql(
-            'SELECT * FROM ' + tableName,
-            [],
-            (tx, results) => {
-                var len = results.rows.length;
-                return len;
-
-            },
-            error => {
-                console.log(error);
-                return 0;
-            }
-        );
-    });
-}
-
 
 // Get Category
 export const getCategory = (setCategory) => {
