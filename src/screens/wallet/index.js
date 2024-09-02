@@ -14,37 +14,39 @@ import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 
 import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
-import { getCategory, deleteCategory } from '../../dbHelpers/categoryHelper';
+import { getWallet, deleteWallet } from '../../dbHelpers/walletHelper';
+import { wallets } from '../../utils/wallets';
 
 import QuickActions from '../../utils/quickActions';
-import CategoryCard from '../../components/Cards/CategoryCard';
+import QuickActionsMain from '../../utils/quickActionsMain';
+import WalletCard from '../../components/Cards/WalletCard';
 import { getTheme } from '../../utils/theme';
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
-const Category = ({ navigation, route }) => {
+const Wallet = ({ navigation, route }) => {
 
     const { t } = route.params;
 
     const focused = useIsFocused();
 
-    const [category, setCategory] = useState(null);
+    const [wallet, setWallet] = useState(null);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
         getTheme(setTheme);
-        getCategory(setCategory);
+        getWallet(setWallet);
     }, [focused]);
 
     // Delete Item
     const __delete = (id) => {
-        deleteCategory(id);
-        getCategory(setCategory);
+        deleteWallet(id);
+        getWallet(setWallet);
     }
 
     // Update Item
     const __update = (item) => {
-        navigation.navigate(routes.AddCategory, { item: item })
+        navigation.navigate(routes.AddWallet, { item: item })
     }
 
     const arrayColor = theme.darkmode ? [Colors.DARK_BLACK, Colors.BLACK, Colors.DARK_BLACK] : [Colors.GRAY_LIGHT, Colors.GRAY_THIN, Colors.GRAY_LIGHT];
@@ -60,19 +62,19 @@ const Category = ({ navigation, route }) => {
                     onPress={() => navigation.goBack()}>
                     <Icon name="chevron-left" color={theme.darkmode ? Colors.WHITE : Colors.BLACK} size={20} />
                 </TouchableOpacity>
-                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("Categories")}</Text>
+                <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("Wallets")}</Text>
 
                 <TouchableOpacity
                     activeOpacity={0.7}
                     style={styles(theme).iconContainer}
-                    onPress={() => navigation.navigate(routes.AddCategory)}>
+                    onPress={() => navigation.navigate(routes.AddWallet)}>
                     <Icon name="plus" color={Colors.WHITE} size={15} />
                 </TouchableOpacity>
             </View>
 
             {/* Body */}
             <View style={styles(theme).bodyContainer}>
-                {!category ?
+                {!wallet ?
                     <View style={styles(theme).gpLoading}>
                         <ShimmerPlaceHolder
                             key={1}
@@ -108,20 +110,22 @@ const Category = ({ navigation, route }) => {
                         </ShimmerPlaceHolder>
                     </View>
                     :
-                    category.length == 0 ?
+                    wallet.length == 0 ?
                         <View style={styles(theme).emptyContainer}>
                             <Lottie style={{ width: 250 }} source={require('../../assets/JSON/search.json')} autoPlay />
-                            <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any category!")}</Text>
+                            <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t("You don't have any wallet!")}</Text>
                         </View>
                         :
                         <SwipeableFlatList
-                            data={category}
+                            data={wallet}
                             maxSwipeDistance={140}
+                            openRowKey={1}
                             shouldBounceOnMount={true}
                             keyExtractor={(item, index) => index.toString()}
-                            renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
+                            // renderQuickActions={({ index, item }) => console.log('teste', index, item)}
+                            renderQuickActions={({ index, item }) => item.id == 1 ? QuickActionsMain(item, __update, theme) : QuickActions(item, __update, __delete, theme)}
                             renderItem={({ item, index }) => {
-                                return <CategoryCard key={index} item={item} category={item} theme={theme} t={t} />
+                                return <WalletCard key={index} item={item} wallet={item} theme={theme} t={t} />
                             }}
                         />
                 }
@@ -177,4 +181,4 @@ export const styles = (theme) => StyleSheet.create({
     }
 });
 
-export default Category;
+export default Wallet;

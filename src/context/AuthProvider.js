@@ -4,12 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from './AuthContext';
 import { storeCurrency } from '../utils/currency';
 import { categories } from '../utils/categories';
+import { wallets } from '../utils/wallets';
 import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
-import { createCategoryTable, deleteCategoryTable, insertCategory } from '../dbHelpers/categoryHelper';
+import { createCategoryTable, deleteCategoryTable, insertCategory, getAmountCategory } from '../dbHelpers/categoryHelper';
+import { createWalletTable, deleteWalletTable, insertWallet, getAmountWallet } from '../dbHelpers/walletHelper';
 import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 function AuthProvider({ children }) {
   const [state, dispatch] = React.useReducer(
@@ -71,13 +74,22 @@ function AuthProvider({ children }) {
         name: 'Dollar',
         symbol: '$'
       });
-      // Create MoneyBox & Transactions & Category Tables
+      // Create MoneyBox & Transactions & Category & Wallet Tables
+      createWalletTable();
       createMoneyBoxTable();
       createCategoryTable();
       createTransactionsTable();
-      categories.map((item) => {
-        insertCategory(item);
-      })
+      console.log('teste',getAmountCategory(), getAmountWallet())
+      if (getAmountCategory() == 0) {
+        categories.map((item) => {
+          insertCategory(item);
+        })
+      }
+      if (getAmountWallet == 0) {
+        wallets.map((item) => {
+          insertWallet(item);
+        })
+      }
       dispatch({ type: 'SIGN_IN', user: jsonUser });
     },
     // Sign Out
@@ -91,6 +103,7 @@ function AuthProvider({ children }) {
       await AsyncStorage.removeItem('user');
       await AsyncStorage.removeItem('theme');
       // Delete Database
+      deleteWalletTable();
       deleteMoneyBoxTable();
       deleteCategoryTable();
       deleteTransactionsTable();
@@ -112,8 +125,8 @@ function AuthProvider({ children }) {
         .then(querySnapshot => {
           if (querySnapshot._docs[0]._ref._documentPath._parts[1]) {
             return querySnapshot._docs[0]._ref._documentPath._parts[1]
-          }else{
-             return undefined
+          } else {
+            return undefined
           }
         });
 
@@ -136,6 +149,7 @@ function AuthProvider({ children }) {
       await AsyncStorage.removeItem('user');
       await AsyncStorage.removeItem('theme');
       //Delete Database
+      deleteWalletTable();
       deleteMoneyBoxTable();
       deleteCategoryTable();
       deleteTransactionsTable();

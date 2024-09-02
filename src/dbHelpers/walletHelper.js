@@ -2,17 +2,17 @@ import { Alert } from 'react-native';
 import db from './openDB';
 
 // Table Name
-const tableName = 'category';
+const tableName = 'wallet';
 
 // Create Table
-export const createCategoryTable = () => {
+export const createWalletTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS ' + tableName +
-            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50) NOT NULL, icon VARCHAR(50) NOT NULL, color VARCHAR(50) NOT NULL);',
+            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50) NOT NULL, balance FLOAT NOT NULL);',
             [],
             () => {
-                console.log('createdCategory');
+                console.log('createdWallet');
             },
             error => {
                 console.log(error);
@@ -21,16 +21,15 @@ export const createCategoryTable = () => {
     });
 }
 
-// Get Amount Category
-export const getAmountCategory = () => {
-    return db.transaction((tx) => {
-      return  tx.executeSql(
+// Get Amount Wallet
+export const getAmountWallet = () => {
+    db.transaction((tx) => {
+        tx.executeSql(
             'SELECT * FROM ' + tableName,
             [],
             (tx, results) => {
                 var len = results.rows.length;
-                return len;
-
+               return len;
             },
             error => {
                 console.log(error);
@@ -41,8 +40,8 @@ export const getAmountCategory = () => {
 }
 
 
-// Get Category
-export const getCategory = (setCategory) => {
+// Get Wallet
+export const getWallet = (setWallet) => {
     db.transaction((tx) => {
         tx.executeSql(
             'SELECT * FROM ' + tableName,
@@ -57,15 +56,14 @@ export const getCategory = (setCategory) => {
                         result.push({
                             id: row.id,
                             name: row.name,
-                            icon: row.icon,
-                            color: row.color
+                            balance: row.balance
                         })
                     }
                 }
                 else {
                     console.log('empty');
                 }
-                setCategory(result.sort((a, b) => (a.name > b.name ? 1 : -1)));
+                setWallet(result.sort((a, b) => (a.name > b.name ? 1 : -1)));
             },
             error => {
                 console.log(error);
@@ -74,15 +72,15 @@ export const getCategory = (setCategory) => {
     });
 }
 
-// Insert Category
-export const insertCategory = (item) => {
-    if (item.name.length == 0 || item.icon == 0 || item.color == 0) {
+// Insert Wallet
+export const insertWallet = (item) => {
+    if (item.name.length == 0 || item.balance <= 0) {
         return true
     } else {
         db.transaction((tx) => {
             tx.executeSql(
-                'INSERT INTO ' + tableName + '(name, icon, color) VALUES(?,?,?);',
-                [item.name, item.icon, item.color],
+                'INSERT INTO ' + tableName + '(name, balance) VALUES(?,?);',
+                [item.name, item.balance],
                 () => {
                     console.log('inserted');
                 },
@@ -95,16 +93,16 @@ export const insertCategory = (item) => {
     }
 }
 
-// Update Category
-export const updateCategory = (item) => {
-    if (item.name.length == 0 || item.icon == 0 || item.color == 0) {
+// Update Wallet
+export const updateWallet = (item) => {
+    if (item.name.length == 0 || item.balance <= 0) {
         return true
     }
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'UPDATE ' + tableName + ' SET name = ?, icon = ?, color = ? WHERE id = ?',
-                [item.name, item.icon, item.color, item.id],
+                'UPDATE ' + tableName + ' SET name = ?, balance = ? WHERE id = ?',
+                [item.name, item.balance, item.id],
                 () => {
                     console.log('updated');
                 },
@@ -117,8 +115,8 @@ export const updateCategory = (item) => {
     }
 }
 
-// Delete Category
-export const deleteCategory = (id) => {
+// Delete Wallet
+export const deleteWallet = (id) => {
     db.transaction((tx) => {
         tx.executeSql(
             'DELETE FROM ' + tableName + ' WHERE id = ?',
@@ -134,7 +132,7 @@ export const deleteCategory = (id) => {
 }
 
 // Drop Table
-export const deleteCategoryTable = () => {
+export const deleteWalletTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             `drop table ${tableName}`,

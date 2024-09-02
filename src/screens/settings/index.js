@@ -76,6 +76,10 @@ const Settings = ({ navigation, route }) => {
         navigation.navigate('Category', { navigation, route })
     }
 
+    const __redirectWallets = () => {
+        navigation.navigate('Wallet', { navigation, route })
+    }
+
 
     // Change Currency
     const __changeCurrency = (currency) => {
@@ -254,6 +258,13 @@ const Settings = ({ navigation, route }) => {
                                 style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Language")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(language.name)}</Text>
+                            </TouchableOpacity>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
+                            <TouchableOpacity
+                                onPress={() => __redirectWallets()}
+                                activeOpacity={0.8}
+                                style={styles(theme).rowContainer}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Wallets")}</Text>
                             </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <TouchableOpacity

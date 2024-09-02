@@ -14,11 +14,13 @@ import Home from '../screens/home';
 import Transactions from '../screens/transactions';
 import MoneyBox from '../screens/moneybox';
 import Category from '../screens/category';
+import Wallet from '../screens/wallet';
 import Settings from '../screens/settings';
 import Notifications from '../screens/home/notifications';
 import AddMoneyBox from '../screens/moneybox/add-money-box';
 import AddCategory from '../screens/category/add-category';
 import AddTransaction from '../screens/transactions/add-transaction';
+import AddWallet from '../screens/wallet/add-wallet';
 import Splash from '../screens/splash';
 import GetStarted from '../screens/auth';
 import Login from '../screens/auth/login';
@@ -112,6 +114,8 @@ const RootNavigator = (props) => {
               <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.AddCategory} component={AddCategory} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.Category} component={Category} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.Wallet} component={Wallet} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.AddWallet} component={AddWallet} initialParams={{ t: t, i18n: i18n }} />
             </>
         }
       </Stack.Navigator>

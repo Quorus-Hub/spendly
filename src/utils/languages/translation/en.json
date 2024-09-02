@@ -130,6 +130,9 @@
         "Money": "Money",
         "Futbol": "Futbol",
         "Plane": "Plane",
-        "Briefcase": "Briefcase"
+        "Briefcase": "Briefcase",
+        "Wallets": "Wallets",
+        "Main Wallet": "Main Wallet",
+        "Balance": "Balance"
     }
 }

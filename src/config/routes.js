@@ -21,6 +21,9 @@ const routes = {
   // Category
   Category: 'Category',
   AddCategory: 'AddCategory',
+  // Wallet
+  Wallet: 'Wallet',
+  AddWallet: 'AddWallet',
 };
 
 export default routes;
