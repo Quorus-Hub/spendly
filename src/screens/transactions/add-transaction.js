@@ -238,7 +238,7 @@ const AddTransaction = ({ navigation, route }) => {
                                         alignItems: 'center',
                                         justifyContent: 'center'
                                     }}>
-                                        <Icon name={'money-bill'} size={15} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} />
+                                        <Icon name={'wallet'} size={15} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} />
                                     </View>
                                     <View style={{
                                         paddingLeft: 10,

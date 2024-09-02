@@ -42,16 +42,21 @@ const AddWallet = ({ navigation, route }) => {
     const __insert = () => {
         return insertWallet({
             name: name,
-            balance: balance
+            balance: parseFloat(balance)
         });
     }
 
     // Update Wallet
     const __update = () => {
+        console.log({
+            id: route.params.item.id,
+            name: name,
+            balance: parseFloat(balance)
+        })
         return updateWallet({
             id: route.params.item.id,
             name: name,
-            balance: balance
+            balance: parseFloat(balance)
         });
     }
 

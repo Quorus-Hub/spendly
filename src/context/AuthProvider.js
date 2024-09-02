@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from './AuthContext';
 import { storeCurrency } from '../utils/currency';
 import { categories } from '../utils/categories';
-import { wallets } from '../utils/wallets';
+import { wallets, storeWallet } from '../utils/wallets';
 import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
@@ -12,7 +12,6 @@ import { createCategoryTable, deleteCategoryTable, insertCategory } from '../dbH
 import { createWalletTable, deleteWalletTable, insertWallet } from '../dbHelpers/walletHelper';
 import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 function AuthProvider({ children }) {
   const [state, dispatch] = React.useReducer(
@@ -68,17 +67,27 @@ function AuthProvider({ children }) {
       storeTheme({
         darkmode: false,
       })
+      
+      // Store default wallet 
+      storeWallet({
+        id: '1',
+        name: 'Wallet',
+        balance: 0
+      });
+
       // Store default currency (Dollar $)
       storeCurrency({
         id: '1',
         name: 'Dollar',
         symbol: '$'
       });
+
       // Delete Database
       deleteWalletTable();
       deleteMoneyBoxTable();
       deleteCategoryTable();
       deleteTransactionsTable();
+
       // Create MoneyBox & Transactions & Category & Wallet Tables
       createWalletTable();
       createMoneyBoxTable();

@@ -17,12 +17,14 @@ import { Colors, Typography } from '../../styles';
 import AuthContext from '../../context/AuthContext';
 
 import Bar from '../../components/Bar';
+import { getWallet, storeWallet } from '../../utils/wallets';
 import { currencies, getCurrency, storeCurrency } from '../../utils/currency';
 import { languages, getLanguage, storeLanguage } from '../../utils/language';
 import { getTheme, storeTheme } from '../../utils/theme';
+import { getWallet as getWallets } from "../../dbHelpers/walletHelper";
 import DeviceInfo from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import Lottie from 'lottie-react-native';
+import IconFont from 'react-native-vector-icons/FontAwesome5';
 
 const Settings = ({ navigation, route }) => {
     const { state, authContext } = React.useContext(AuthContext);
@@ -34,9 +36,12 @@ const Settings = ({ navigation, route }) => {
     const date = new Date(user.joined);
 
     const [currency, setCurrency] = useState({});
+    const [wallet, setWallet] = useState({});
+    const [wallets, setWallets] = useState([]);
     const [language, setLanguage] = useState({});
     const [currencyModal, setCurrencyModal] = useState(false);
     const [languageModal, setLanguageModal] = useState(false);
+    const [showWallet, setShowWallet] = useState(false);
     const [theme, setTheme] = useState({});
     const [msg, setMsg] = useState('');
     const [msgDelete, setMsgDelete] = useState('');
@@ -49,10 +54,12 @@ const Settings = ({ navigation, route }) => {
     const versionApp = DeviceInfo.getVersion();
 
     useEffect(() => {
+        getWallet(setWallet);
+        getWallets(setWallets);
         getCurrency(setCurrency);
         getLanguage(setLanguage);
         getTheme(setTheme);
-    }, []);
+    }, [wallets]);
 
     // Toggle Currency Modal
     const __toggleCurrencyModal = () => {
@@ -145,6 +152,18 @@ const Settings = ({ navigation, route }) => {
         setIsVisibleUp(false);
     }
 
+    // Toggle Modal
+    const __toggleWalletModal = () => {
+        setShowWallet(!showWallet);
+    };
+
+    // Change Wallet
+    const __changeWallet = (wallet) => {
+        console.log('wallet', wallets);
+        setWallet(wallet);
+        storeWallet(wallet);
+        __toggleWalletModal();
+    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -156,6 +175,44 @@ const Settings = ({ navigation, route }) => {
             <Question isVisible={isVisible} msg={msg} onClick={__deleteData} onClose={__close} theme={theme} t={t} />
             {/* Update */}
             <Pricing isVisible={isVisibleUp} onClose={__closeUp} theme={theme} t={t} />
+            {/* Wallets */}
+            <Modal
+                useNativeDriverForBackdrop
+                swipeDirection={['down']}
+                isVisible={showWallet}
+                onBackButtonPress={() => { __toggleWalletModal(); }}
+                onBackdropPress={() => { __toggleWalletModal(); }}
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
+            >
+                <View>
+                    <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
+                        {wallets.map((item, index) => (
+                            <View key={index} >
+                                <Pressable style={styles(theme).rowWallet} onPress={() => __changeWallet(item)} >
+                                    <View style={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 20,
+                                        backgroundColor: Colors.BLUE,
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <IconFont name={'wallet'} size={15} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} />
+                                    </View>
+                                    <View style={{
+                                        paddingLeft: 10,
+                                    }}>
+                                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t(item.name)}</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </Modal>
             {/* Currency Modal */}
             <Modal
                 useNativeDriverForBackdrop
@@ -234,10 +291,10 @@ const Settings = ({ navigation, route }) => {
                             </View> */}
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             {/* Update */}
-                            {/* <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                            <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                                 <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>{t("Update now!")}</Text>
                                 <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
-                            </Pressable> */}
+                            </Pressable>
                         </View>
                     </View>
 
@@ -245,11 +302,11 @@ const Settings = ({ navigation, route }) => {
                     <View style={{ marginTop: 20 }}>
                         <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK, marginBottom: 10 }]}>{t("App Settings")}</Text>
                         <View style={styles(theme).blockContainer}>
-                        <Pressable
+                            <Pressable
                                 style={styles(theme).rowContainer}
                                 onPress={() => __toggleWalletModal()}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Main Wallet")}</Text>
-                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{currency.name} ({currency.symbol})</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{wallet.name}</Text>
                             </Pressable>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable
@@ -267,6 +324,19 @@ const Settings = ({ navigation, route }) => {
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(language.name)}</Text>
                             </TouchableOpacity>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
+                            <Pressable style={styles(theme).rowContainer}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Darkmode")}</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>
+                                    <Switch
+                                        trackColor={{ false: Colors.WHITE, true: Colors.PRIMARY }}
+                                        thumbColor={theme.darkmode ? Colors.PRIMARY : Colors.PRIMARY}
+                                        ios_backgroundColor="#3e3e3e"
+                                        onValueChange={__toggleDarkmodeSwitch}
+                                        value={theme.darkmode ? theme.darkmode : false}
+                                    />
+                                </Text>
+                            </Pressable>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <TouchableOpacity
                                 onPress={() => __redirectWallets()}
                                 activeOpacity={0.8}
@@ -280,19 +350,6 @@ const Settings = ({ navigation, route }) => {
                                 style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Categories")}</Text>
                             </TouchableOpacity>
-                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
-                            <Pressable style={styles(theme).rowContainer}>
-                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Darkmode")}</Text>
-                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>
-                                    <Switch
-                                        trackColor={{ false: Colors.WHITE, true: Colors.PRIMARY }}
-                                        thumbColor={theme.darkmode ? Colors.PRIMARY : Colors.PRIMARY}
-                                        ios_backgroundColor="#3e3e3e"
-                                        onValueChange={__toggleDarkmodeSwitch}
-                                        value={theme.darkmode ? theme.darkmode : false}
-                                    />
-                                </Text>
-                            </Pressable>
                         </View>
                     </View>
 
@@ -386,6 +443,12 @@ export const styles = (theme) => StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center'
+    },
+    rowWallet: {
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     btnContainer: {
         padding: 12,

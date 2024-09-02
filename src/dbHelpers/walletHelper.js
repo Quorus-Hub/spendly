@@ -44,7 +44,7 @@ export const getWallet = (setWallet) => {
                 else {
                     console.log('empty');
                 }
-                setWallet(result.sort((a, b) => (a.name > b.name ? 1 : -1)));
+                setWallet(result.sort((a, b) => (a.name < b.name ? 1 : -1)));
             },
             error => {
                 console.log(error);

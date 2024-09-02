@@ -16,7 +16,7 @@ const WalletCard = (props) => {
     return (
         <View style={styles(theme).container}>
             <View style={[styles(theme).iconContainer, {backgroundColor: Colors.BLUE}]}>
-                <Icon name={'money-bill'} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} size={15} />
+                <Icon name={'wallet'} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} size={15} />
             </View>
 
             <View style={styles(theme).detailsContainer}>
