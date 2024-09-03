@@ -68,7 +68,7 @@ const Home = ({ navigation, route }) => {
             <View style={styles(theme).bodyContainer}>
                 {transactions ?
                     <SwipeableFlatList
-                        data={transactions.slice(0, 5)}
+                        data={transactions.slice(0, 3)}
                         maxSwipeDistance={140}
                         shouldBounceOnMount={true}
                         showsVerticalScrollIndicator={false}

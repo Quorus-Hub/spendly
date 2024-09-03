@@ -30,7 +30,7 @@ export const storeWallet = async (wallet) => {
 export const wallets = [
     {
         id: '1',
-        name: 'Wallet',
+        name: 'Initial Wallet',
         balance: 0,
     }
 ]
