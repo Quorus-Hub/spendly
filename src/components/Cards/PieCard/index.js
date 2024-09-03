@@ -20,16 +20,16 @@ const PieCard = (props) => {
     return (
         <View style={styles(theme).container}>
             <View style={styles.pieContainer}>
-                <CircularProgress percent={payoutPercent} />
+                <CircularProgress percent={payoutPercent} theme={theme} />
             </View>
             <View style={styles(theme).numbersContainer}>
                 <View style={styles(theme).rowContainer}>
-                    <Icon name="circle" size={15} color={Colors.ALERT} />
-                    <Text style={[Typography.BODY, { marginLeft: 5, color: Colors.ALERT }]}>Expenses({payoutPercent}%)</Text>
+                    <Icon name="circle" size={15} color={ theme.darkmode ? Colors.GRAY_LIGHT : Colors.GRAY_DARK} />
+                    <Text style={[Typography.BODY, { marginLeft: 5, color: theme.darkmode ? Colors.GRAY_LIGHT : Colors.GRAY_DARK }]}>Expenses({payoutPercent}%)</Text>
                 </View>
                 <View style={styles(theme).rowContainer}>
-                    <Icon name="circle" size={15} color={Colors.SUCCESS} />
-                    <Text style={[Typography.BODY, { marginLeft: 5, color: Colors.SUCCESS }]}>Balance ({savedPercent}%)</Text>
+                    <Icon name="circle" size={15} color={theme.darkmode ? Colors.GRAY_BLUE : Colors.BLUE} />
+                    <Text style={[Typography.BODY, { marginLeft: 5, color: theme.darkmode ? Colors.GRAY_BLUE : Colors.BLUE }]}>Balance ({savedPercent}%)</Text>
                 </View>
             </View>
         </View>

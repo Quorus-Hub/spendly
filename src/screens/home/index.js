@@ -102,15 +102,15 @@ const Home = ({ navigation, route }) => {
                         renderItem={({ item, index }) => {
                             return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} />
                         }}
-                    // ListFooterComponent={() => {
-                    //     return (
-                    //         // Statistics
-                    //         <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                    //             <BlockHeader title='Statistics' theme={theme} />
-                    //             <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
-                    //         </View>
-                    //     )
-                    // }}
+                    ListFooterComponent={() => {
+                        return (
+                            // Statistics
+                            <View style={{ paddingLeft: 20, marginBottom: 20 }}>
+                                <BlockHeader title={t('Statistics')} theme={theme} />
+                                <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
+                            </View>
+                        )
+                    }}
                     />
                     :
                     <View style={styles(theme).gpLoading}>
