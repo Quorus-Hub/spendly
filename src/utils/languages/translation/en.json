@@ -135,6 +135,9 @@
         "Main Wallet": "Main Wallet",
         "Initial Wallet": "Initial Wallet",
         "Balance": "Balance",
-        "Statistics": "Statistics"
+        "Statistics": "Statistics",
+        "Expenses": "Expenses",
+        "Income ": "Income ",
+        "Expenses ": "Expenses "
     }
 }

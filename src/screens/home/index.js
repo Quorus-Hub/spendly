@@ -27,7 +27,7 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 const Home = ({ navigation, route }) => {
 
-    const { t } = route.params;
+    const { t, i18n } = route.params;
 
     const focused = useIsFocused();
 
@@ -100,14 +100,14 @@ const Home = ({ navigation, route }) => {
                             )
                         }}
                         renderItem={({ item, index }) => {
-                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} />
+                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} i18n={i18n} />
                         }}
                     ListFooterComponent={() => {
                         return (
                             // Statistics
                             <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                                <BlockHeader title={t('Statistics')} theme={theme} />
-                                <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} />
+                                <BlockHeader t={t} title={t('Statistics')} theme={theme} onPress={() => navigation.navigate(routes.Statistics)}  />
+                                <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t} />
                             </View>
                         )
                     }}

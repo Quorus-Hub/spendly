@@ -22,7 +22,7 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 const Expense = ({ navigation, route }) => {
     const focused = useIsFocused();
-    const { t } = route.params;
+    const { t, i18n } = route.params;
 
     const [currency, setCurrency] = useState({});
     const [expenses, setExpenses] = useState(null);
@@ -98,7 +98,7 @@ const Expense = ({ navigation, route }) => {
                         keyExtractor={(item, index) => index.toString()}
                         renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                         renderItem={({ item, index }) => {
-                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t}/>
+                            return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} i18n={i18n}/>
                         }}
                     />
             }

@@ -22,6 +22,8 @@ import { getWallet } from '../../dbHelpers/walletHelper';
 import BackHeader from '../../components/Headers/BackHeader';
 import Alert from '../../components/Modal/Alert';
 import Button from '../../components/Button';
+import moment from 'moment';
+import 'moment/min/locales';
 
 const AddTransaction = ({ navigation, route }) => {
     const { t, i18n } = route.params;
@@ -39,6 +41,8 @@ const AddTransaction = ({ navigation, route }) => {
     const [date, setDate] = useState();
     const [amount, setAmount] = useState();
     const [theme, setTheme] = useState({});
+
+    moment.locale(i18n.language);
 
     useEffect(async () => {
         await getTheme(setTheme);
@@ -296,7 +300,7 @@ const AddTransaction = ({ navigation, route }) => {
                     <TouchableOpacity
                         onPress={() => __toggleDateModal()}
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
-                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{date ? date.toDateString() : ''}</Text>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{date ? moment(date).format('LL') : ''}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -305,7 +309,7 @@ const AddTransaction = ({ navigation, route }) => {
                         testID="dateTimePicker"
                         value={date}
                         mode='date'
-                        locale={i18n.symbol}
+                        locale={i18n.language}
                         display='calendar'
                         onChange={onChangeDate}
                     />

@@ -87,6 +87,10 @@ const Settings = ({ navigation, route }) => {
         navigation.navigate('Wallet', { navigation, route })
     }
 
+    const __redirectMoneyBox = () => {
+        navigation.navigate('MoneyBox', { navigation, route })
+    }
+
 
     // Change Currency
     const __changeCurrency = (currency) => {
@@ -349,6 +353,13 @@ const Settings = ({ navigation, route }) => {
                                 activeOpacity={0.8}
                                 style={styles(theme).rowContainer}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Categories")}</Text>
+                            </TouchableOpacity>
+                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
+                            <TouchableOpacity
+                                onPress={() => __redirectMoneyBox()}
+                                activeOpacity={0.8}
+                                style={styles(theme).rowContainer}>
+                                <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("MoneyBox")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

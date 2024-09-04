@@ -13,6 +13,7 @@ import AuthContext from '../context/AuthContext';
 import Home from '../screens/home';
 import Transactions from '../screens/transactions';
 import MoneyBox from '../screens/moneybox';
+import Statistics from '../screens/statistics';
 import Category from '../screens/category';
 import Wallet from '../screens/wallet';
 import Settings from '../screens/settings';
@@ -63,13 +64,13 @@ function MyTabs({ navigation, route }) {
           ),
         }} />
       <Tab.Screen
-        name={routes.MoneyBox}
-        component={MoneyBox}
+        name={routes.Statistics}
+        component={Statistics}
         initialParams={{ t: t, i18n: i18n }} 
         options={{
-          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.MoneyBox)}</Text>,
+          tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Statistics)}</Text>,
           tabBarIcon: ({ color }) => (
-            <Icon name="gift" color={color} size={23} />
+            <Icon name="grid" color={color} size={23} />
           ),
         }} />
       <Tab.Screen
@@ -114,6 +115,7 @@ const RootNavigator = (props) => {
               <Stack.Screen name={routes.AddMoneyBox} component={AddMoneyBox} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.AddCategory} component={AddCategory} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.Category} component={Category} initialParams={{ t: t, i18n: i18n }} />
+              <Stack.Screen name={routes.MoneyBox} component={MoneyBox} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.Wallet} component={Wallet} initialParams={{ t: t, i18n: i18n }} />
               <Stack.Screen name={routes.AddWallet} component={AddWallet} initialParams={{ t: t, i18n: i18n }} />
             </>

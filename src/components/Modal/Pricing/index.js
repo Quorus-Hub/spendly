@@ -86,13 +86,13 @@ const Pricing = (props) => {
                         </Pressable>
                         <View style={styles(theme).container}>
                             <View style={styles(theme).gpPricing}>
-                                <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 1,99" + "/" + t("month")}</Text>
+                                <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 0,99" + "/" + t("month")}</Text>
                                 <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>{t("With 7 days free trial")}</Text>
                             </View>
                             <View style={styles(theme).gpPricing}>
                                 <View style={{ flexDirection: 'row' }}>
                                     <View style={{ flexDirection: 'column' }}>
-                                        <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 14,90" + "/" + t("year")}</Text>
+                                        <Text style={[Typography.BODY, { color: Colors.BLACK }]}>{"U$ 6,90" + "/" + t("year")}</Text>
                                         <Text style={[Typography.TAGLINE, { color: Colors.BLACK }]}>{t("With 7 days free trial")}</Text>
                                     </View>
                                     <View style={{

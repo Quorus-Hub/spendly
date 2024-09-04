@@ -24,6 +24,8 @@ const routes = {
   // Wallet
   Wallet: 'Wallet',
   AddWallet: 'AddWallet',
+  // Statistics
+  Statistics: 'Statistics',
 };
 
 export default routes;

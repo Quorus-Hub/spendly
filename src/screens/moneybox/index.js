@@ -57,6 +57,13 @@ const MoneyBox = ({ navigation, route }) => {
         <View style={styles(theme).container}>
             {/* Header */}
             <View style={styles(theme).headerContainer}>
+
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={{ padding: 5, alignItems: 'flex-start' }}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="chevron-left" color={theme.darkmode ? Colors.WHITE : Colors.BLACK} size={20} />
+                </TouchableOpacity>
                 <Text style={[Typography.H1, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, marginBottom: 10 }]}>{t("MoneyBox")}</Text>
 
                 <TouchableOpacity
@@ -102,7 +109,7 @@ const MoneyBox = ({ navigation, route }) => {
                             keyExtractor={(item, index) => index.toString()}
                             renderQuickActions={({ index, item }) => QuickActions(item, __update, __delete, theme)}
                             renderItem={({ item, index }) => {
-                                return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme} t={t}/>
+                                return <MoneyBoxCard key={index} item={item} currency={currency.symbol} theme={theme} t={t} />
                             }}
                         />
                 }

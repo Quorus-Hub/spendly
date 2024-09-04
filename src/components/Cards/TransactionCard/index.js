@@ -7,13 +7,21 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors, Typography } from '../../../styles';
+import moment from 'moment';
+import 'moment/min/locales';
+
 
 const TransactionCard = (props) => {
     const transaction = props.transaction;
     const currency = props.currency;
     const theme = props.theme;
     const t = props.t;
+    const i18n = props.i18n;
 
+    console.log('i18n', i18n.language)
+
+    moment.locale(i18n.language);
+    
     return (
         <View style={styles(theme).container}>
             <View style={[styles(theme).iconContainer, {backgroundColor: transaction.color || Colors.BLUE}]}>
@@ -22,7 +30,7 @@ const TransactionCard = (props) => {
 
             <View style={styles(theme).detailsContainer}>
                 <Text style={[Typography.BODY, {color: theme.darkmode ? Colors.WHITE : Colors.BLACK}]}>{t(transaction.category)}</Text>
-                <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK}]}>{transaction.transaction_date}</Text>
+                <Text style={[Typography.TAGLINE, {color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK}]}>{moment(transaction.transaction_date).format("LL")}</Text>
             </View>
 
             <Text style={[Typography.H4, transaction.type == 'income' ? {color: Colors.SUCCESS} : {color: Colors.ALERT}]}>

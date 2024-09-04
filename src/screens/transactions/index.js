@@ -24,6 +24,8 @@ function TopTabs(props) {
 
     const theme = props.theme;
     const t = props.t;
+    const i18n = props.i18n;
+
 
     return (
         <Tab.Navigator
@@ -40,8 +42,8 @@ function TopTabs(props) {
                 swipeEnabled: false,
                 animationEnabled: true,
             }}>
-            <Tab.Screen name={routes.Income} options={{ tabBarLabel: t('Income') }} component={Income} initialParams={{ t: t }}/>
-            <Tab.Screen name={routes.Expense} options={{ tabBarLabel: t('Expence') }} component={Expense} initialParams={{ t: t }} />
+            <Tab.Screen name={routes.Income} options={{ tabBarLabel: t('Income') }} component={Income} initialParams={{ t: t, i18n: i18n }}/>
+            <Tab.Screen name={routes.Expense} options={{ tabBarLabel: t('Expence') }} component={Expense} initialParams={{ t: t, i18n: i18n }} />
         </Tab.Navigator>
     );
 }
@@ -50,7 +52,7 @@ const Transactions = ({ navigation, route }) => {
 
     const [theme, setTheme] = useState({});
 
-    const { t } = route.params;
+    const { t, i18n } = route.params;
 
     useEffect(() => {
         getTheme(setTheme)
@@ -72,7 +74,7 @@ const Transactions = ({ navigation, route }) => {
 
             {/* Body */}
             <View style={{ flex: 1 }}>
-                <TopTabs theme={theme} t={t} />
+                <TopTabs theme={theme} t={t} i18n={i18n}/>
             </View>
         </View>
     );
