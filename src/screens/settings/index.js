@@ -293,7 +293,7 @@ const Settings = ({ navigation, route }) => {
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>Joined</Text>
                                 <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{date.toDateString()}</Text>
                             </View> */}
-                            <Bar padding={0.3} color={Colors.GRAY_THIN} />
+                            {/* <Bar padding={0.3} color={Colors.GRAY_THIN} /> */}
                             {/* Update */}
                             <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                                 <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>{t("Update now!")}</Text>
