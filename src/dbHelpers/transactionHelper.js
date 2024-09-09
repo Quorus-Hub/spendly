@@ -156,10 +156,10 @@ export const getExpenses = (setExpenses) => {
 }
 
 // GetTotal Incomes
-export const getTotalIncomes = (setTotalIncomes) => {
+export const getTotalIncomes = (setTotalIncomes, walletId) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName + ' WHERE type = ?',
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = '+walletId,
             ['income'],
             (tx, results) => {
                 var len = results.rows.length;
@@ -184,10 +184,10 @@ export const getTotalIncomes = (setTotalIncomes) => {
 }
 
 // GetTotal Expenses
-export const getTotalExpenses = (setTotalExpenses) => {
+export const getTotalExpenses = (setTotalExpenses, walletId) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName + ' WHERE type = ?',
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = '+walletId,
             ['expense'],
             (tx, results) => {
                 var len = results.rows.length;

@@ -71,7 +71,7 @@ function AuthProvider({ children }) {
       // Store default wallet 
       storeWallet({
         id: '1',
-        name: 'Wallet',
+        name: 'Initial Wallet',
         balance: 0
       });
 

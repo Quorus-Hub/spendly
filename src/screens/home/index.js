@@ -14,6 +14,7 @@ import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
 import { getCurrency } from '../../utils/currency';
 import { getTransactions, getTotalIncomes, getTotalExpenses, deleteTransaction } from '../../dbHelpers/transactionHelper';
+import { getWallet as getWallets } from "../../dbHelpers/walletHelper";
 
 import QuickActions from '../../utils/quickActions';
 import BalanceCard from '../../components/Cards/BalanceCard';
@@ -31,6 +32,7 @@ const Home = ({ navigation, route }) => {
 
     const focused = useIsFocused();
 
+    const [wallets, setWallets] = useState([]);
     const [currency, setCurrency] = useState({});
     const [totalIncomes, setTotalIncomes] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
@@ -38,19 +40,24 @@ const Home = ({ navigation, route }) => {
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
+        getWallets(setWallets);
         getTheme(setTheme);
         getTransactions(setTransactions);
         getCurrency(setCurrency);
-        getTotalIncomes(setTotalIncomes);
-        getTotalExpenses(setTotalExpenses);
-    }, [focused]);
+        if (wallets.length > 0) {
+            getTotalIncomes(setTotalIncomes, wallets[0].id);
+            getTotalExpenses(setTotalExpenses, wallets[0].id);
+        }
+    }, [focused, wallets]);
 
     // Delete Item
     const __delete = (id) => {
         deleteTransaction(id);
         getTransactions(setTransactions);
-        getTotalIncomes(setTotalIncomes);
-        getTotalExpenses(setTotalExpenses);
+        if (wallets.length > 0) {
+            getTotalIncomes(setTotalIncomes, wallets[0].id);
+            getTotalExpenses(setTotalExpenses, wallets[0].id);
+        }
     }
 
     // Update Item
@@ -79,7 +86,7 @@ const Home = ({ navigation, route }) => {
                                 <View>
                                     {/* // Balance */}
                                     <View style={{ paddingLeft: 20, paddingTop: 10 }}>
-                                        <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t}/>
+                                        <BalanceCard currency={currency.symbol} incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t} />
                                     </View>
                                     <View style={{ paddingLeft: 20 }}>
                                         <BlockHeader
@@ -102,15 +109,19 @@ const Home = ({ navigation, route }) => {
                         renderItem={({ item, index }) => {
                             return <TransactionCard currency={currency.symbol} key={index} transaction={item} theme={theme} t={t} i18n={i18n} />
                         }}
-                    ListFooterComponent={() => {
-                        return (
-                            // Statistics
-                            <View style={{ paddingLeft: 20, marginBottom: 20 }}>
-                                <BlockHeader t={t} title={t('Statistics')} theme={theme} onPress={() => navigation.navigate(routes.Statistics)}  />
-                                <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t} />
-                            </View>
-                        )
-                    }}
+
+                        ListFooterComponent={() => {
+                            return (
+                                (totalIncomes == 0 && totalExpenses == 0) ?
+                                    <></>
+                                    :
+                                    // Statistics
+                                    <View style={{ paddingLeft: 20, marginBottom: 20 }}>
+                                        <BlockHeader t={t} title={t('Statistics')} theme={theme} onPress={() => navigation.navigate(routes.Statistics)} />
+                                        <PieCard incomes={totalIncomes} expenses={totalExpenses} theme={theme} t={t} />
+                                    </View>
+                            )
+                        }}
                     />
                     :
                     <View style={styles(theme).gpLoading}>

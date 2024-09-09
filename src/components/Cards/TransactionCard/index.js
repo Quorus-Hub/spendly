@@ -18,8 +18,6 @@ const TransactionCard = (props) => {
     const t = props.t;
     const i18n = props.i18n;
 
-    console.log('i18n', i18n.language)
-
     moment.locale(i18n.language);
     
     return (
