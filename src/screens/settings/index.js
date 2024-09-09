@@ -310,7 +310,7 @@ const Settings = ({ navigation, route }) => {
                                 style={styles(theme).rowContainer}
                                 onPress={() => __toggleWalletModal()}>
                                 <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t("Main Wallet")}</Text>
-                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{wallet.name}</Text>
+                                <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_MEDIUM : Colors.BLACK }]}>{t(wallet.name)}</Text>
                             </Pressable>
                             <Bar padding={0.3} color={Colors.GRAY_THIN} />
                             <Pressable

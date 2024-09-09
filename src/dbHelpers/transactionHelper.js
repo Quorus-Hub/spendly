@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import moment from 'moment';
 import db from './openDB';
 
 // Table Name
@@ -76,6 +77,47 @@ export const getTransactions = (setTransactions) => {
     });
 }
 
+// Get Transactions Month
+export const getTransactionsMonth = (setTransactions, date) => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT * FROM ' + tableName,
+            [],
+            (tx, results) => {
+                var len = results.rows.length;
+                let result = [];
+
+                if (len > 0) {
+                    for (let i = 0; i < len; i++) {
+                        let row = results.rows.item(i);
+                        if (moment(row.transaction_date).format('MM') == moment(date).format('MM')) {
+                            result.push({
+                                id: row.id,
+                                walletId: row.walletId,
+                                wallet: row.wallet,
+                                categoryId: row.categoryId,
+                                category: row.category,
+                                icon: row.icon,
+                                transaction_date: row.transaction_date,
+                                amount: row.amount,
+                                type: row.type,
+                                color: row.color
+                            })
+                        }
+                    }
+                }
+                else {
+                    console.log('empty');
+                }
+                setTransactions(result);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
 // Get Incomes
 export const getIncomes = (setIncomes) => {
     db.transaction((tx) => {
@@ -89,7 +131,6 @@ export const getIncomes = (setIncomes) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
-                        console.log('row', row)
                         result.push({
                             id: row.id,
                             walletId: row.walletId,
@@ -120,7 +161,7 @@ export const getIncomes = (setIncomes) => {
 export const getExpenses = (setExpenses) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName + ' WHERE type = ?',
+            'SELECT * FROM ' + tableName + ' WHERE type = ? ',
             ['expense'],
             (tx, results) => {
                 var len = results.rows.length;
@@ -156,11 +197,40 @@ export const getExpenses = (setExpenses) => {
 }
 
 // GetTotal Incomes
-export const getTotalIncomes = (setTotalIncomes, walletId) => {
+export const getTotalIncomes = (setTotalIncomes, walletId, date) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = '+walletId,
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = ' + walletId,
             ['income'],
+            (tx, results) => {
+                var len = results.rows.length;
+                let total = 0;
+
+                if (len > 0) {
+                    for (let i = 0; i < len; i++) {
+                        let row = results.rows.item(i);
+                        if (moment(row.transaction_date).format('MM') == moment(date).format('MM')) {
+                            total += row.amount;
+                        }
+                    }
+                } else {
+                    console.log('empty');
+                }
+                setTotalIncomes(total)
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
+// GetTotal Expenses Balance
+export const getTotalExpensesBalance = (setTotalExpenses, walletId) => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = ' + walletId,
+            ['expense'],
             (tx, results) => {
                 var len = results.rows.length;
                 let total = 0;
@@ -174,6 +244,33 @@ export const getTotalIncomes = (setTotalIncomes, walletId) => {
                 else {
                     console.log('empty');
                 }
+                setTotalExpenses(total)
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
+// GetTotal Incomes Balance
+export const getTotalIncomesBalance = (setTotalIncomes, walletId) => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = ' + walletId,
+            ['income'],
+            (tx, results) => {
+                var len = results.rows.length;
+                let total = 0;
+
+                if (len > 0) {
+                    for (let i = 0; i < len; i++) {
+                        let row = results.rows.item(i);
+                        total += row.amount;
+                    }
+                } else {
+                    console.log('empty');
+                }
                 setTotalIncomes(total)
             },
             error => {
@@ -184,10 +281,10 @@ export const getTotalIncomes = (setTotalIncomes, walletId) => {
 }
 
 // GetTotal Expenses
-export const getTotalExpenses = (setTotalExpenses, walletId) => {
+export const getTotalExpenses = (setTotalExpenses, walletId, date) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = '+walletId,
+            'SELECT * FROM ' + tableName + ' WHERE type = ? and walletId = ' + walletId,
             ['expense'],
             (tx, results) => {
                 var len = results.rows.length;
@@ -196,7 +293,8 @@ export const getTotalExpenses = (setTotalExpenses, walletId) => {
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
-                        total += row.amount;
+                        if (moment(row.transaction_date).format('MM') == moment(date).format('MM'))
+                            total += row.amount;
                     }
                 }
                 else {
@@ -242,7 +340,7 @@ export const updateTransaction = (item) => {
         db.transaction((tx) => {
             tx.executeSql(
                 'UPDATE ' + tableName + ' SET walletId = ?, wallet = ?, categoryId = ?, category = ?, icon = ?, transaction_date = ?, amount = ?, type = ?, color = ? WHERE id = ?',
-                [item.walletId, item.wallet, item.categoryId, item.category, item.icon, item.date, item.amount, item.type,  item.color, item.id],
+                [item.walletId, item.wallet, item.categoryId, item.category, item.icon, item.date, item.amount, item.type, item.color, item.id],
                 () => {
                     console.log('updated');
                 },

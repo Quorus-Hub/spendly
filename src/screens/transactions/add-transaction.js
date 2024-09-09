@@ -76,14 +76,13 @@ const AddTransaction = ({ navigation, route }) => {
     // Insert Transaction
     const __insert = () => {
         if (wallet && date && category && amount.length > 0) {
-            const stringDate = date.toLocaleDateString();
             return insertTransaction({
                 walletId: wallet.id,
                 wallet: wallet.name,
                 categoryId: category.id,
                 category: category.name,
                 icon: category.icon,
-                date: stringDate,
+                date: moment(date).format('YYYY-MM-DD'),
                 amount: parseFloat(amount),
                 type: income ? 'expense' : 'income',
                 color: category.color,
@@ -97,7 +96,6 @@ const AddTransaction = ({ navigation, route }) => {
     // Update Transaction
     const __update = () => {
         if (wallet && date && category && amount.length > 0) {
-            const stringDate = date.toLocaleDateString();
             console.log('category', category)
             return updateTransaction({
                 id: route.params.item.id,
@@ -106,7 +104,7 @@ const AddTransaction = ({ navigation, route }) => {
                 categoryId: category.id,
                 category: category.name,
                 icon: category.icon,
-                date: stringDate,
+                date: moment(date).format('YYYY-MM-DD'),
                 amount: parseFloat(amount),
                 type: income ? 'expense' : 'income',
                 color: category.color,
