@@ -280,7 +280,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-gcm:+"
 
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:0.68.1"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
