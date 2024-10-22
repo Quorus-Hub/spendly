@@ -17,7 +17,7 @@ import { Colors, Typography } from '../../styles';
 import { insertTransaction, updateTransaction } from '../../dbHelpers/transactionHelper';
 import { getTheme } from '../../utils/theme';
 import { getCategory } from '../../dbHelpers/categoryHelper';
-import { getWallet } from '../../dbHelpers/walletHelper';
+import { getWallet } from '../../utils/wallets';
 
 import BackHeader from '../../components/Headers/BackHeader';
 import Alert from '../../components/Modal/Alert';
@@ -29,8 +29,7 @@ const AddTransaction = ({ navigation, route }) => {
     const { t, i18n } = route.params;
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState([]);
-    const [wallet, setWallet] = useState();
-    const [wallets, setWallets] = useState([]);
+    const [wallet, setWallet] = useState([]);
     const [walletSelected, setWalletSelected] = useState();
     const [categorySelected, setCategorySelected] = useState();
     const [showCategory, setShowCategory] = useState(false);
@@ -40,6 +39,7 @@ const AddTransaction = ({ navigation, route }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [date, setDate] = useState();
     const [amount, setAmount] = useState();
+    const [description, setDescription] = useState();
     const [theme, setTheme] = useState({});
 
     moment.locale(i18n.language);
@@ -47,13 +47,13 @@ const AddTransaction = ({ navigation, route }) => {
     useEffect(async () => {
         await getTheme(setTheme);
         await getCategory(setCategories);
-        await getWallet(setWallets);
+        await getWallet(setWallet);
         if (route.params?.item) {
             console.log('item', route.params?.item)
-            await setWallet({ name: route.params.item.wallet, id: route.params.item.walletId });
             await setWalletSelected(route.params.item.wallet);
+            await setDescription(route.params.item.description);
             await setCategorySelected(route.params.item.category);
-            await setCategory({id: route.params.item.categoryId, name: route.params.item.category, icon: route.params.item.icon, color: route.params.item.color });
+            await setCategory({ id: route.params.item.categoryId, name: route.params.item.category, icon: route.params.item.icon, color: route.params.item.color });
             await setDate(new Date(route.params.item.transaction_date));
             await setAmount((route.params.item.amount).toString());
             await setIncome(route.params.item.type == 'income' ? false : true);
@@ -75,12 +75,13 @@ const AddTransaction = ({ navigation, route }) => {
 
     // Insert Transaction
     const __insert = () => {
-        if (wallet && date && category && amount.length > 0) {
+        if (wallet && date && category && description && amount.length > 0) {
             return insertTransaction({
                 walletId: wallet.id,
                 wallet: wallet.name,
                 categoryId: category.id,
                 category: category.name,
+                description: description,
                 icon: category.icon,
                 date: moment(date).format('YYYY-MM-DD'),
                 amount: parseFloat(amount),
@@ -95,7 +96,7 @@ const AddTransaction = ({ navigation, route }) => {
 
     // Update Transaction
     const __update = () => {
-        if (wallet && date && category && amount.length > 0) {
+        if (wallet && date && category && description && amount.length > 0) {
             console.log('category', category)
             return updateTransaction({
                 id: route.params.item.id,
@@ -103,6 +104,7 @@ const AddTransaction = ({ navigation, route }) => {
                 wallet: wallet.name,
                 categoryId: category.id,
                 category: category.name,
+                description: description,
                 icon: category.icon,
                 date: moment(date).format('YYYY-MM-DD'),
                 amount: parseFloat(amount),
@@ -176,7 +178,7 @@ const AddTransaction = ({ navigation, route }) => {
             {/* Header */}
             <BackHeader theme={theme} title={route.params?.item ? t('Edit Transaction') : t('New Transaction')} />
             {/* Modal */}
-            <Alert isVisible={isVisible} msg={'Please, write correct data.'} error={true} onClick={__close} theme={theme} t={t} />
+            <Alert isVisible={isVisible} msg={t('Please, write correct data.')} error={true} onClick={__close} theme={theme} t={t} />
             {/* Categories */}
             <Modal
                 useNativeDriverForBackdrop
@@ -215,44 +217,6 @@ const AddTransaction = ({ navigation, route }) => {
                     </ScrollView>
                 </View>
             </Modal>
-            {/* Wallets */}
-            <Modal
-                useNativeDriverForBackdrop
-                swipeDirection={['down']}
-                isVisible={showWallet}
-                onBackButtonPress={() => { __toggleWalletModal(); }}
-                onBackdropPress={() => { __toggleWalletModal(); }}
-                style={{
-                    justifyContent: 'flex-end',
-                    margin: 0,
-                }}
-            >
-                <View>
-                    <ScrollView style={styles(theme).modalContainer} showsVerticalScrollIndicator={false} >
-                        {wallets.map((item, index) => (
-                            <View key={index} >
-                                <Pressable style={styles(theme).rowWallet} onPress={() => __changeWallet(item)} >
-                                    <View style={{
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 20,
-                                        backgroundColor: Colors.BLUE,
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}>
-                                        <Icon name={'wallet'} size={15} color={theme.darkmode ? Colors.BLACK : Colors.WHITE} />
-                                    </View>
-                                    <View style={{
-                                        paddingLeft: 10,
-                                    }}>
-                                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK, textAlign: 'center' }]}>{t(item.name)}</Text>
-                                    </View>
-                                </Pressable>
-                            </View>
-                        ))}
-                    </ScrollView>
-                </View>
-            </Modal>
             {/* Body */}
             <ScrollView style={styles(theme).bodyContainer} showsVerticalScrollIndicator={false}>
 
@@ -260,9 +224,8 @@ const AddTransaction = ({ navigation, route }) => {
                 <View style={styles(theme).inputContainer}>
                     <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Wallet")}</Text>
                     <TouchableOpacity
-                        onPress={() => setShowWallet(true)}
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
-                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(walletSelected)}</Text>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(wallet.name)}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -274,6 +237,17 @@ const AddTransaction = ({ navigation, route }) => {
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
                         <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(categorySelected)}</Text>
                     </TouchableOpacity>
+                </View>
+
+                {/* Description */}
+                <View style={styles(theme).inputContainer}>
+                    <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Description")}</Text>
+                    <TextInput
+                        value={description}
+                        placeholder=''
+                        onChangeText={(text) => setDescription(text)}
+                        placeholderTextColor={theme.darkmode ? Colors.GRAY_MEDIUM : Colors.LIGHT_BLACK}
+                        style={[styles(theme).input, Typography.BODY]} />
                 </View>
 
                 {/* Transaction type */}

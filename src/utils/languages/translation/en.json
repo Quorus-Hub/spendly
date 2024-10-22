@@ -138,6 +138,7 @@
         "Statistics": "Statistics",
         "Expenses": "Expenses",
         "Income ": "Income ",
-        "Expenses ": "Expenses "
+        "Expenses ": "Expenses ",
+        "Description": "Description"
     }
 }

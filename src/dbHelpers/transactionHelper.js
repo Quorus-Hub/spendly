@@ -26,7 +26,7 @@ export const createTransactionsTable = () => {
     db.transaction((tx) => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS ' + tableName +
-            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, walletId INTEGER NOT NULL, wallet VARCHAR(50) NOT NULL, categoryId INTEGER NOT NULL, category VARCHAR(50) NOT NULL, icon VARCHAR(30) NOT NULL, transaction_date TEXT NOT NULL, amount FLOAT NOT NULL, type VARCHAR(20) NOT NULL, color VARCHAR(50));',
+            ' (id INTEGER PRIMARY KEY AUTOINCREMENT, walletId INTEGER NOT NULL, wallet VARCHAR(50) NOT NULL, categoryId INTEGER NOT NULL, category VARCHAR(50) NOT NULL, description VARCHAR(200) NOT NULL, icon VARCHAR(30) NOT NULL, transaction_date TEXT NOT NULL, amount FLOAT NOT NULL, type VARCHAR(20) NOT NULL, color VARCHAR(50));',
             [],
             () => {
                 console.log('createdTransaction');
@@ -57,6 +57,7 @@ export const getTransactions = (setTransactions) => {
                             wallet: row.wallet,
                             categoryId: row.categoryId,
                             category: row.category,
+                            description: row.description,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
@@ -97,6 +98,7 @@ export const getTransactionsMonth = (setTransactions, date) => {
                                 wallet: row.wallet,
                                 categoryId: row.categoryId,
                                 category: row.category,
+                                description: row.description,
                                 icon: row.icon,
                                 transaction_date: row.transaction_date,
                                 amount: row.amount,
@@ -137,6 +139,7 @@ export const getIncomes = (setIncomes) => {
                             wallet: row.wallet,
                             categoryId: row.categoryId,
                             category: row.category,
+                            description: row.description,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
@@ -176,6 +179,7 @@ export const getExpenses = (setExpenses) => {
                             wallet: row.wallet,
                             categoryId: row.categoryId,
                             category: row.category,
+                            description: row.description,
                             icon: row.icon,
                             transaction_date: row.transaction_date,
                             amount: row.amount,
@@ -317,8 +321,8 @@ export const insertTransaction = (item) => {
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'INSERT INTO ' + tableName + '(walletId, wallet, categoryId, category, icon, transaction_date, amount, type, color) VALUES(?,?,?,?,?,?,?,?,?);',
-                [item.walletId, item.wallet, item.categoryId, item.category, item.icon, item.date, item.amount, item.type, item.color],
+                'INSERT INTO ' + tableName + '(walletId, wallet, categoryId, category, description, icon, transaction_date, amount, type, color) VALUES(?,?,?,?,?,?,?,?,?,?);',
+                [item.walletId, item.wallet, item.categoryId, item.category, item.description, item.icon, item.date, item.amount, item.type, item.color],
                 () => {
                     console.log('inserted');
                 },
@@ -339,8 +343,8 @@ export const updateTransaction = (item) => {
     else {
         db.transaction((tx) => {
             tx.executeSql(
-                'UPDATE ' + tableName + ' SET walletId = ?, wallet = ?, categoryId = ?, category = ?, icon = ?, transaction_date = ?, amount = ?, type = ?, color = ? WHERE id = ?',
-                [item.walletId, item.wallet, item.categoryId, item.category, item.icon, item.date, item.amount, item.type, item.color, item.id],
+                'UPDATE ' + tableName + ' SET walletId = ?, wallet = ?, categoryId = ?, category = ?, description = ?, icon = ?, transaction_date = ?, amount = ?, type = ?, color = ? WHERE id = ?',
+                [item.walletId, item.wallet, item.categoryId, item.category, item.description, item.icon, item.date, item.amount, item.type, item.color, item.id],
                 () => {
                     console.log('updated');
                 },
