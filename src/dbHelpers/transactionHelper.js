@@ -200,6 +200,43 @@ export const getExpenses = (setExpenses) => {
     });
 }
 
+// Get Expenses
+export const getExpensesByCategory = (setExpensesByCategory) => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT SUM(amount) as amount, color, type, icon, category, categoryId, wallet, walletId FROM ' + tableName + ' WHERE type = ? group by categoryId, walletId',
+            ['expense'],
+            (tx, results) => {
+                var len = results.rows.length;
+                let result = [];
+
+                if (len > 0) {
+                    for (let i = 0; i < len; i++) {
+                        let row = results.rows.item(i);
+                        result.push({
+                            walletId: row.walletId,
+                            wallet: row.wallet,
+                            categoryId: row.categoryId,
+                            category: row.category,
+                            icon: row.icon,
+                            amount: row.amount,
+                            type: row.type,
+                            color: row.color
+                        })
+                    }
+                }
+                else {
+                    console.log('empty');
+                }
+                setExpensesByCategory(result);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
 // GetTotal Incomes
 export const getTotalIncomes = (setTotalIncomes, walletId, date) => {
     db.transaction((tx) => {
