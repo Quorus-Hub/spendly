@@ -295,10 +295,10 @@ const Settings = ({ navigation, route }) => {
                             </View> */}
                             {/* <Bar padding={0.3} color={Colors.GRAY_THIN} /> */}
                             {/* Update */}
-                            <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
+                            {/* <Pressable style={styles(theme).rowContainer} onPress={() => setIsVisibleUp(true)} >
                                 <Text style={[Typography.BODY, { color: Colors.PRIMARY }]}>{t("Update now!")}</Text>
                                 <Icon name="arrow-up-circle" color={Colors.PRIMARY} size={15} />
-                            </Pressable>
+                            </Pressable> */}
                         </View>
                     </View>
 

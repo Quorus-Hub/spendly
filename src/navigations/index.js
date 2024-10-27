@@ -63,7 +63,7 @@ function MyTabs({ navigation, route }) {
             <Icon name="repeat" color={color} size={23} />
           ),
         }} />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={routes.Statistics}
         component={Statistics}
         initialParams={{ t: t, i18n: i18n }} 
@@ -72,7 +72,7 @@ function MyTabs({ navigation, route }) {
           tabBarIcon: ({ color }) => (
             <Icon name="grid" color={color} size={23} />
           ),
-        }} />
+        }} /> */}
       <Tab.Screen
         name={routes.Settings}
         component={Settings}
