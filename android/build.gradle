@@ -43,6 +43,7 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+            force "com.facebook.soloader:soloader:0.10.4"
         }
     }
     repositories {

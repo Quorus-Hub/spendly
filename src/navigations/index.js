@@ -46,7 +46,7 @@ function MyTabs({ navigation, route }) {
       <Tab.Screen
         name={routes.Home}
         component={Home}
-        initialParams={{ t: t, i18n: i18n }} 
+        initialParams={{ t: t, i18n: i18n }}
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Home)}</Text>,
           tabBarIcon: ({ color }) => (
@@ -56,7 +56,7 @@ function MyTabs({ navigation, route }) {
       <Tab.Screen
         name={routes.Transactions}
         component={Transactions}
-        initialParams={{ t: t, i18n: i18n }} 
+        initialParams={{ t: t, i18n: i18n }}
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Transactions)}</Text>,
           tabBarIcon: ({ color }) => (
@@ -66,7 +66,7 @@ function MyTabs({ navigation, route }) {
       {/* <Tab.Screen
         name={routes.Statistics}
         component={Statistics}
-        initialParams={{ t: t, i18n: i18n }} 
+        initialParams={{ t: t, i18n: i18n }}
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Statistics)}</Text>,
           tabBarIcon: ({ color }) => (
@@ -76,7 +76,7 @@ function MyTabs({ navigation, route }) {
       <Tab.Screen
         name={routes.Settings}
         component={Settings}
-        initialParams={{ t: t, i18n: i18n }} 
+        initialParams={{ t: t, i18n: i18n }}
         options={{
           tabBarLabel: <Text style={[Typography.TAGLINE, { color: Colors.WHITE }]}>{t(routes.Settings)}</Text>,
           tabBarIcon: ({ color }) => (
