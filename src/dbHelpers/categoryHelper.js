@@ -56,6 +56,23 @@ export const getCategory = (setCategory) => {
     });
 }
 
+// Get Total Category
+export const getTotalCategory = () => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT id, name, icon, color FROM ' + tableName,
+            [],
+            (tx, results) => {
+                var len = results.rows.length;
+                return len;
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
 // Insert Category
 export const insertCategory = (item) => {
     if (item.name.length == 0 || item.icon == 0 || item.color == 0) {

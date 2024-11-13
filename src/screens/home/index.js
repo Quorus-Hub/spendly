@@ -18,7 +18,7 @@ import routes from '../../config/routes';
 import { Colors, Typography } from '../../styles';
 import { getCurrency } from '../../utils/currency';
 import { getTransactionsMonth, getTotalIncomes, getTotalExpenses, deleteTransaction, getTotalIncomesBalance, getTotalExpensesBalance } from '../../dbHelpers/transactionHelper';
-import { getWallet as getWallets } from "../../dbHelpers/walletHelper";
+import { getWallet as getWallets, getTotalWallets } from "../../dbHelpers/walletHelper";
 import QuickActions from '../../utils/quickActions';
 
 import Bar from '../../components/Bar';
@@ -57,14 +57,16 @@ const Home = ({ navigation, route }) => {
     const [totalExpensesBalance, setTotalExpensesBalance] = useState(0);
     const [transactions, setTransactions] = useState([]);
     const [theme, setTheme] = useState({});
+    const totalWallets = getTotalWallets();
 
     useEffect(() => {
         const startDate = moment("01/01/2023").format('YYYY-MM-DD');
         const today = moment().format('YYYY-MM-DD');
-        setListDate(dateRange(startDate, today, i18n));
         getWallets(setWallets);
+        setListDate(dateRange(startDate, today, i18n));
         getTheme(setTheme);
-        if (wallets.length > 0) {
+        __getDate(wallets, currentDate);
+        if (totalWallets > 0) {
             __getDate(wallets, currentDate);
         }
     }, [focused]);
@@ -72,7 +74,7 @@ const Home = ({ navigation, route }) => {
     const __getDate = (wallets, currentDate) => {
         getTransactionsMonth(setTransactions, currentDate.date);
         getCurrency(setCurrency);
-        if (wallets.length > 0) {
+        if (totalWallets > 0) {
             getTotalIncomes(setTotalIncomes, wallets[0].id, currentDate.date);
             getTotalExpenses(setTotalExpenses, wallets[0].id, currentDate.date);
             getTotalIncomesBalance(setTotalIncomesBalance, wallets[0].id);
@@ -84,7 +86,7 @@ const Home = ({ navigation, route }) => {
     const __delete = (id) => {
         deleteTransaction(id);
         getTransactionsMonth(setTransactions, currentDate.date);
-        if (wallets.length > 0) {
+        if (totalWallets > 0) {
             getTotalIncomes(setTotalIncomes, wallets[0].id, currentDate.date);
             getTotalExpenses(setTotalExpenses, wallets[0].id, currentDate.date);
             getTotalIncomesBalance(setTotalIncomesBalance, wallets[0].id);

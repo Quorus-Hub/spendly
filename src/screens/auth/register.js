@@ -133,7 +133,7 @@ const Login = ({ navigation, route }) => {
             .add(user)
             .then(() => {
                 console.log('User added!');
-                authContext.signIn(user);
+                authContext.create(user);
             }).catch(async error => {
                 console.log('Error added!');
                 await setError(true);

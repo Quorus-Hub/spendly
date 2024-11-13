@@ -31,8 +31,6 @@ export const getWallet = (setWallet) => {
                 var len = results.rows.length;
                 let result = [];
 
-                console.log
-
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
@@ -48,6 +46,23 @@ export const getWallet = (setWallet) => {
                 }
                 setWallet(result.sort((a, b) => (a.name < b.name ? 1 : -1)));
             },
+            error => {
+                console.log(error);
+            }
+        );
+    });
+}
+
+// Get Total Wallets
+export const getTotalWallets = () => {
+    db.transaction((tx) => {
+        tx.executeSql(
+            'SELECT * FROM ' + tableName,
+            [],
+            (tx, results) => {
+                var len = results.rows.length;
+                return len;
+           },
             error => {
                 console.log(error);
             }

@@ -8,8 +8,8 @@ import { wallets, storeWallet } from '../utils/wallets';
 import firestore from '@react-native-firebase/firestore';
 import { storeTheme } from '../utils/theme';
 import { createMoneyBoxTable, deleteMoneyBoxTable } from '../dbHelpers/moneyboxHelper';
-import { createCategoryTable, deleteCategoryTable, insertCategory } from '../dbHelpers/categoryHelper';
-import { createWalletTable, deleteWalletTable, insertWallet } from '../dbHelpers/walletHelper';
+import { createCategoryTable, deleteCategoryTable, insertCategory, getTotalCategory } from '../dbHelpers/categoryHelper';
+import { createWalletTable, deleteWalletTable, insertWallet, getTotalWallets } from '../dbHelpers/walletHelper';
 import auth from "@react-native-firebase/auth";
 import { createTransactionsTable, deleteTransactionsTable } from '../dbHelpers/transactionHelper';
 
@@ -58,7 +58,6 @@ function AuthProvider({ children }) {
   }, []);
 
   const authContext = React.useMemo(() => ({
-    // Sign In
     signIn: async (user) => {
       // Store User
       const jsonUser = JSON.stringify(user);
@@ -67,7 +66,53 @@ function AuthProvider({ children }) {
       storeTheme({
         darkmode: false,
       })
-      
+
+      // Store default wallet 
+      storeWallet({
+        id: '1',
+        name: 'Initial Wallet',
+        balance: 0
+      });
+
+      // Store default currency (Dollar $)
+      storeCurrency({
+        id: '1',
+        name: 'Dollar',
+        symbol: '$'
+      });
+
+      // Create MoneyBox & Transactions & Category & Wallet Tables
+      createWalletTable();
+      createMoneyBoxTable();
+      createCategoryTable();
+      createTransactionsTable();
+
+      const totalCategories = getTotalCategory();
+      if (totalCategories == 0) {
+        categories.map((item) => {
+          insertCategory(item);
+        })
+      }
+
+      const totalWallets = getTotalWallets();
+      if (totalWallets == 0) {
+        wallets.map((item) => {
+          console.log('item', item)
+          insertWallet(item);
+        })
+      }
+
+      dispatch({ type: 'SIGN_IN', user: jsonUser });
+    },
+    create: async (user) => {
+      // Store User
+      const jsonUser = JSON.stringify(user);
+      await AsyncStorage.setItem('user', jsonUser);
+      //Darkmode false default
+      storeTheme({
+        darkmode: false,
+      })
+
       // Store default wallet 
       storeWallet({
         id: '1',
