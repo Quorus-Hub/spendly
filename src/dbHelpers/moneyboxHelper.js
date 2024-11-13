@@ -43,7 +43,7 @@ export const getMoneyBox = (setMoneyBox) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getMoneyBox');
                 }
                 setMoneyBox(result);
             },

@@ -26,11 +26,13 @@ export const createCategoryTable = () => {
 export const getCategory = (setCategory) => {
     db.transaction((tx) => {
         tx.executeSql(
-            'SELECT * FROM ' + tableName,
+            'SELECT id, name, icon, color FROM ' + tableName,
             [],
             (tx, results) => {
                 var len = results.rows.length;
                 let result = [];
+
+              
 
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
@@ -42,9 +44,8 @@ export const getCategory = (setCategory) => {
                             color: row.color
                         })
                     }
-                }
-                else {
-                    console.log('empty');
+                }else {
+                    console.log('empty getCategory');
                 }
                 setCategory(result.sort((a, b) => (a.name > b.name ? 1 : -1)));
             },

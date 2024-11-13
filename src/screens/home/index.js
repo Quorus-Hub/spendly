@@ -55,7 +55,7 @@ const Home = ({ navigation, route }) => {
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [totalIncomesBalance, setTotalIncomesBalance] = useState(0);
     const [totalExpensesBalance, setTotalExpensesBalance] = useState(0);
-    const [transactions, setTransactions] = useState(null);
+    const [transactions, setTransactions] = useState([]);
     const [theme, setTheme] = useState({});
 
     useEffect(() => {
@@ -67,7 +67,7 @@ const Home = ({ navigation, route }) => {
         if (wallets.length > 0) {
             __getDate(wallets, currentDate);
         }
-    }, [focused, wallets, transactions]);
+    }, [focused]);
 
     const __getDate = (wallets, currentDate) => {
         getTransactionsMonth(setTransactions, currentDate.date);

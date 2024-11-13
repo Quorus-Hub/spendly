@@ -67,7 +67,7 @@ export const getTransactions = (setTransactions) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getTransactions');
                 }
                 setTransactions(result);
             },
@@ -109,7 +109,7 @@ export const getTransactionsMonth = (setTransactions, date) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getTransactionsMonth');
                 }
                 setTransactions(result);
             },
@@ -149,7 +149,7 @@ export const getIncomes = (setIncomes) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getIncomes');
                 }
                 setIncomes(result);
             },
@@ -189,7 +189,7 @@ export const getExpenses = (setExpenses) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getExpenses');
                 }
                 setExpenses(result);
             },
@@ -226,7 +226,7 @@ export const getExpensesByCategory = (setExpensesByCategory) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getExpensesByCategory');
                 }
                 setExpensesByCategory(result);
             },
@@ -255,7 +255,7 @@ export const getTotalIncomes = (setTotalIncomes, walletId, date) => {
                         }
                     }
                 } else {
-                    console.log('empty');
+                    console.log('empty getTotalIncomes');
                 }
                 setTotalIncomes(total)
             },
@@ -283,7 +283,7 @@ export const getTotalExpensesBalance = (setTotalExpenses, walletId) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getTotalExpensesBalance');
                 }
                 setTotalExpenses(total)
             },
@@ -310,7 +310,7 @@ export const getTotalIncomesBalance = (setTotalIncomes, walletId) => {
                         total += row.amount;
                     }
                 } else {
-                    console.log('empty');
+                    console.log('empty getTotalIncomesBalance');
                 }
                 setTotalIncomes(total)
             },
@@ -339,7 +339,7 @@ export const getTotalExpenses = (setTotalExpenses, walletId, date) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getTotalExpenses');
                 }
                 setTotalExpenses(total)
             },

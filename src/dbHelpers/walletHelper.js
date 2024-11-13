@@ -31,6 +31,8 @@ export const getWallet = (setWallet) => {
                 var len = results.rows.length;
                 let result = [];
 
+                console.log
+
                 if (len > 0) {
                     for (let i = 0; i < len; i++) {
                         let row = results.rows.item(i);
@@ -42,7 +44,7 @@ export const getWallet = (setWallet) => {
                     }
                 }
                 else {
-                    console.log('empty');
+                    console.log('empty getWallet');
                 }
                 setWallet(result.sort((a, b) => (a.name < b.name ? 1 : -1)));
             },

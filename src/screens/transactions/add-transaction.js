@@ -44,22 +44,22 @@ const AddTransaction = ({ navigation, route }) => {
 
     moment.locale(i18n.language);
 
-    useEffect(async () => {
-        await getTheme(setTheme);
-        await getCategory(setCategories);
-        await getWallet(setWallet);
+    useEffect(() => {
+        getCategory(setCategories);
+        getTheme(setTheme);
+        getWallet(setWallet);
         if (route.params?.item) {
             console.log('item', route.params?.item)
-            await setWalletSelected(route.params.item.wallet);
-            await setDescription(route.params.item.description);
-            await setCategorySelected(route.params.item.category);
-            await setCategory({ id: route.params.item.categoryId, name: route.params.item.category, icon: route.params.item.icon, color: route.params.item.color });
-            await setDate(new Date(route.params.item.transaction_date));
-            await setAmount((route.params.item.amount).toString());
-            await setIncome(route.params.item.type == 'income' ? false : true);
+            setWalletSelected(route.params.item.wallet);
+            setDescription(route.params.item.description);
+            setCategorySelected(route.params.item.category);
+            setCategory({ id: route.params.item.categoryId, name: route.params.item.category, icon: route.params.item.icon, color: route.params.item.color });
+            setDate(new Date(route.params.item.transaction_date));
+            setAmount((route.params.item.amount).toString());
+            setIncome(route.params.item.type == 'income' ? false : true);
         }
         else {
-            await setCategory(categories[0]); // Set the first category as a default category
+            setCategory(categories[0]); // Set the first category as a default category
         }
     }, []);
 
@@ -225,7 +225,7 @@ const AddTransaction = ({ navigation, route }) => {
                     <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Wallet")}</Text>
                     <TouchableOpacity
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
-                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(wallet.name)}</Text>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.GRAY_DARK }]}>{t(wallet.name)}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -233,9 +233,9 @@ const AddTransaction = ({ navigation, route }) => {
                 <View style={styles(theme).inputContainer}>
                     <Text style={[Typography.TAGLINE, { color: theme.darkmode ? Colors.GRAY_DARK : Colors.BLACK }]}>{t("Category")}</Text>
                     <TouchableOpacity
-                        onPress={() => setShowCategory(true)}
+                        onPress={() => { getCategory(setCategories); setShowCategory(true);} }
                         style={[styles(theme).input, { paddingTop: 15, paddingBottom: 15 }]}>
-                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.LIGHT_BLACK }]}>{t(categorySelected)}</Text>
+                        <Text style={[Typography.BODY, { color: theme.darkmode ? Colors.WHITE : Colors.BLACK }]}>{t(categorySelected)}</Text>
                     </TouchableOpacity>
                 </View>
 
